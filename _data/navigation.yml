@@ -9,9 +9,14 @@ main:
 
 # sidebar navigation
 sidebar-nav:
-  - title: "最新文章"
+  - title: "个人资料"
+    url: /
+    image: "https://avatars.githubusercontent.com/u/your_github_id?v=4" # 替换为你的头像链接
+  - title: "最近文章"
+    url: /
     children:
-      {% for post in site.posts limit:5 %}
-        - title: "{{ post.title }}"
-          url: "{{ post.url }}"
-      {% endfor %}
+      - title: "野草的故乡"
+        url: /ye-cao-de-gu-xiang/
+      - title: "小狗憨豆"
+        url: /xiao-gou-han-dou/
+      # 你需要手动添加更多文章...
