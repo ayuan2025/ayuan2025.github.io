@@ -176,4 +176,4 @@ defaults:
   - scope:
       path: ""
     values:
-      layout: home
+      layout: single
