@@ -1,12 +1,17 @@
-# main links
+# main navigation
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/
+  - title: "所有文章"
+    url: /posts/
+  - title: "分类"
+    url: /categories/
+  - title: "标签"
+    url: /tags/
+
+# sidebar navigation
+sidebar-nav:
+  - title: "最新文章"
+    children:
+      {% for post in site.posts limit:5 %}
+        - title: "{{ post.title }}"
+          url: "{{ post.url }}"
+      {% endfor %}
