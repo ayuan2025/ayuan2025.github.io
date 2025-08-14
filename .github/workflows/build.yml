@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: '3.9'
       - name: Install Python dependencies
-        run: pip install requests markdown-it-py
+        run: pip install requests markdown-it-py pypinyin # 👈 在这里添加 pypinyin
       - name: Sync from Notion
         run: python _scripts/notion_sync.py
         env:
