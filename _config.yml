@@ -3,13 +3,13 @@
 #
 
 # Name of your site (displayed in the header)
-name: Your Name
+name: 阿元的自留地
 
 # Short bio or description (displayed in the header)
-description: Web Developer from Somewhere
+description: 这个人很懒，什么都没介绍
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png
+avatar: https://avatars.githubusercontent.com/u/your_github_id?v=4 # 替换为你自己的头像链接
 
 #
 # Flags below are optional
@@ -21,12 +21,12 @@ footer-links:
   email:
   facebook:
   flickr:
-  github: barryclark/jekyll-now
+  github: ayuan2025 # 替换为你的 GitHub 用户名
   instagram:
   linkedin:
   pinterest:
   rss: # just type anything here for a working RSS icon
-  twitter: jekyllrb
+  twitter:
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
@@ -41,13 +41,13 @@ google_analytics:
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
-url:
+url: https://ayuan.github.io # 👈 替换为你的网站 URL
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
 # and NOT your User repository (http://yourusername.github.io)
 # then add in the baseurl here, like this: "/repository-name"
-baseurl: ""
+baseurl: "" # 👈 保持为空，因为这是用户页面
 
 #
 # !! You don't need to change any of the configuration flags below !!
@@ -76,6 +76,8 @@ sass:
 gems:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
+  - jekyll-paginate # 支持分页
+  - jekyll-seo-tag # 推荐，支持SEO优化
 
 # Exclude these files from your production _site
 exclude:
@@ -84,3 +86,7 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+
+# 分页配置（可选）
+paginate: 5
+paginate_path: "/page:num/"
