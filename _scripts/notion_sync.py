@@ -14,6 +14,7 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
+# notion_sync.py
 def query_database():
     """Queries the Notion database for published pages."""
     url = f"https://api.notion.com/v1/databases/{DATABASE_ID}/query"
@@ -43,7 +44,11 @@ def query_database():
         return data.get("results", [])
     except requests.exceptions.RequestException as e:
         print(f"ERROR: 查询 Notion 数据库失败 - {e}")
+        print(f"DEBUG: 响应内容: {res.text if 'res' in locals() else '无法获取响应内容'}")
         return []
+
+# ... (其余代码不变) ...
+
 
 def get_page(page_id):
     """Fetches a single Notion page."""
