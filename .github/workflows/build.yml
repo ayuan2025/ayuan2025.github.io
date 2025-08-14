@@ -21,7 +21,7 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v2
         with:
           ruby-version: '3.0'
           bundler-version: '2.5.23' # 👈 指定正确的 Bundler 版本
