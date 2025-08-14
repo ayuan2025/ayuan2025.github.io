@@ -14,9 +14,7 @@ jobs:
         with:
           python-version: '3.9'
       - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests markdown-it-py
+        run: pip install requests markdown-it-py
       - name: Sync from Notion
         run: python _scripts/notion_sync.py
         env:
@@ -26,7 +24,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
-          bundler-cache: true # 使用此选项可以自动安装和缓存依赖，更高效
+          bundler-version: '2.5.23' # 👈 指定正确的 Bundler 版本
+          bundler-cache: true # 👈 启用缓存，自动安装依赖
       - name: Build Jekyll site
         run: jekyll build --trace
       - name: Deploy
