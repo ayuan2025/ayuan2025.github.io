@@ -15,12 +15,12 @@ title: "阿元的自留地"
 title_separator: "-"
 name: "阿元"
 description: "这个人很懒，什么都没介绍"
-url: "https://ayuan.github.io"
+url: "https://ayuan2025.github.io" # 将 URL 修改为正确的地址
 baseurl: "" # 必须为空，解决 404 问题
 repository: "ayuan2025/ayuan.github.io" # 你的 GitHub 仓库名
 teaser: # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo: # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title: # overrides the website title displayed in the masthead, use " " for no title
+masthead_title: "阿元的自留地" # 网站标题
 breadcrumbs: true # 开启面包屑导航
 words_per_minute: 200
 enable_copy_code_button: true
@@ -64,6 +64,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/ayuan2025"
+  # 侧边栏配置
+  sidebar:
+    nav: "sidebar-nav" # 修正！指向一个我们即将创建的侧边栏导航
 
 # Site Footer
 footer:
@@ -148,6 +151,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-include-cache
+  - jekyll-seo-tag # 添加 seo-tag 插件
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -155,7 +159,7 @@ whitelist:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-include-cache
-  - jekyll-seo-tag # 添加 seo-tag 插件
+  - jekyll-seo-tag
 
 # Archives
 category_archive:
@@ -175,5 +179,11 @@ compress_html:
 defaults:
   - scope:
       path: ""
+      type: posts
     values:
       layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
