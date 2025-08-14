@@ -7,16 +7,7 @@ main:
   - title: "标签"
     url: /tags/
 
-# sidebar navigation
-sidebar-nav:
-  - title: "个人资料"
-    url: /
-    image: "https://avatars.githubusercontent.com/u/your_github_id?v=4" # 替换为你的头像链接
-  - title: "最近文章"
-    url: /
-    children:
-      - title: "野草的故乡"
-        url: /ye-cao-de-gu-xiang/
-      - title: "小狗憨豆"
-        url: /xiao-gou-han-dou/
-      # 你需要手动添加更多文章...
+# sidebar navigation (这部分可以安全地删除了)
+# sidebar-nav:
+#   - title: "个人资料"
+#     ...
