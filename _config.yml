@@ -1,57 +1,4 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your entire site, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# `jekyll serve`. If you change this file, please restart the server process.
-
-# Theme Settings
-theme: "minimal-mistakes-jekyll"
-minimal_mistakes_skin: "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
-
-# Site Settings
-locale: "zh-CN" # 将语言设置为中文
-title: "阿元的自留地"
-title_separator: "-"
-name: "阿元"
-description: "这个人很懒，什么都没介绍"
-url: "https://ayuan2025.github.io" # 网站 URL，需要正确设置
-baseurl: "" # 必须为空，解决 404 问题
-repository: "ayuan2025/ayuan.github.io" # 你的 GitHub 仓库名
-teaser: # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo: # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title: "阿元的自留地" # 网站标题
-breadcrumbs: true # 开启面包屑导航
-words_per_minute: 200
-enable_copy_code_button: true
-copyright: "阿元的自留地"
-
-# SEO Related
-google_site_verification:
-bing_site_verification:
-naver_site_verification:
-yandex_site_verification:
-baidu_site_verification:
-# Social Sharing
-twitter:
-  username:
-facebook:
-  username:
-  app_id:
-  publisher:
-og_image: # Open Graph/Twitter default site image
-# For specifying social profiles
-# - https://developers.google.com/structured-data/customize/social-profiles
-social:
-  links: # An array of links to social media profiles
-    - "https://github.com/ayuan2025" # 你的 GitHub 链接
-
-# Analytics
-analytics:
-  provider: # false (default), "google", "google-universal", "google-gtag", "custom"
-  google:
-    tracking_id:
-    anonymize_ip: # true, false (default)
+# ... (文件开头部分保持不变) ...
 
 # Site Author
 author:
@@ -66,7 +13,7 @@ author:
       url: "https://github.com/ayuan2025"
   # 侧边栏配置
   sidebar:
-    nav: "main-sidebar" # 修正！指向我们即将创建的侧边栏导航
+    include: "custom-sidebar.html" # <-- 确保这一行是正确的，它指向你的自定义侧边栏
 
 # Site Footer
 footer:
