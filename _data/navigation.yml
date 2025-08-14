@@ -2,12 +2,8 @@
 main:
   - title: "所有文章"
     url: /posts/
+
+# custom sidebar navigation
+main-sidebar:
   - title: "分类"
     url: /categories/
-  - title: "标签"
-    url: /tags/
-
-# sidebar navigation (这部分可以安全地删除了)
-# sidebar-nav:
-#   - title: "个人资料"
-#     ...
