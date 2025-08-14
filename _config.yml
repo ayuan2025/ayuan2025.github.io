@@ -53,7 +53,8 @@ baseurl: "" # 👈 保持为空，因为这是用户页面
 # !! You don't need to change any of the configuration flags below !!
 #
 
-permalink: /:title/
+# _config.yml
+permalink: /:slug/
 
 # The release of Jekyll Now that you're using
 version: v1.2.0
