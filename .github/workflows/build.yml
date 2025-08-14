@@ -1,38 +1,47 @@
-name: Sync and Deploy
+name: build
+
 on:
   push:
-  workflow_dispatch: # 手动触发
-  schedule:
-    - cron: '0 */12 * * *' # 每 12 小时运行一次，可调整
+    branches:
+      - master
+  workflow_dispatch: {}
+  repository_dispatch: {}
+
 jobs:
-  sync-and-deploy:
+  build:
+    if: github.repository == 'mmistakes/minimal-mistakes'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - name: Install Python dependencies
-        run: pip install requests markdown-it-py pypinyin # 👈 在这里添加 pypinyin
-      - name: Sync from Notion
-        run: python _scripts/notion_sync.py
-        env:
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-      - name: Install Ruby dependencies
-        run: |
-          gem install bundler:2.5.23
-          bundle install
-      - name: Build Jekyll site
-        run: jekyll build --trace
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
-          publish_branch: gh-pages
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+    - name: Setup cache for Bundler
+      id: cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          docs/Gemfile.lock
+          docs/vendor/bundle
+        key: ${{ runner.os }}-bundler-${{ hashFiles('docs/Gemfile') }}
+        restore-keys: |
+          ${{ runner.os }}-bundler-
+
+    - name: Install - Bundler
+      env:
+        MAKE: make -j2
+      working-directory: docs/
+      run: |
+        bundle config set path vendor/bundle
+        bundle install --jobs=4 --retry=3
+        bundle clean
+
+    - name: Update Algolia index
+      working-directory: docs/
+      run: bundle exec jekyll algolia push
+      env:
+        ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+      continue-on-error: true

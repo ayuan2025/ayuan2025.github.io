@@ -1,10 +1,4 @@
 ---
-layout: single
-title: "最新文章"
-author_profile: true # <-- 新增这一行
+layout: home
+author_profile: true
 ---
-
-{% assign posts=site.posts | limit:1 %}
-{% for post in posts %}
-  {{ post.content }}
-{% endfor %}
