@@ -24,8 +24,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
-          bundler-version: '2.5.23' # 👈 指定正确的 Bundler 版本
-          bundler-cache: true # 👈 启用缓存，自动安装依赖
+      - name: Install Ruby dependencies
+        run: |
+          gem install bundler:2.5.23
+          bundle install
       - name: Build Jekyll site
         run: jekyll build --trace
       - name: Deploy
