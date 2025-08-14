@@ -15,7 +15,7 @@ title: "阿元的自留地"
 title_separator: "-"
 name: "阿元"
 description: "这个人很懒，什么都没介绍"
-url: "https://ayuan2025.github.io" # 将 URL 修改为正确的地址
+url: "https://ayuan2025.github.io" # 网站 URL，需要正确设置
 baseurl: "" # 必须为空，解决 404 问题
 repository: "ayuan2025/ayuan.github.io" # 你的 GitHub 仓库名
 teaser: # path of fallback teaser image, e.g. "/assets/images/500x300.png"
@@ -66,7 +66,7 @@ author:
       url: "https://github.com/ayuan2025"
   # 侧边栏配置
   sidebar:
-    nav: "main-sidebar" # 指向我们在下一步中创建的自定义侧边栏导航
+    nav: "main-sidebar" # 修正！指向我们即将创建的侧边栏导航
 
 # Site Footer
 footer:
