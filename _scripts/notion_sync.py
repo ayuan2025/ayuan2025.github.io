@@ -59,7 +59,7 @@ def get_title_and_tags_and_date(page):
     """Extracts title, tags, and date from page properties."""
     title = "Untitled"
     tags = []
-    date_str = datetime.now().strftime("%Y-%m-%d") # Default to current date
+    date_str = datetime.now().strftime("%Y-%m-%d")
     
     for prop_name, prop_value in page["properties"].items():
         if prop_value.get("type") == "title":
@@ -71,7 +71,7 @@ def get_title_and_tags_and_date(page):
             for option in select_options:
                 tags.append(option.get("name"))
         # 📌 修正2: 从 Notion 属性中获取日期，而不是使用当前时间
-        elif prop_value.get("type") == "date" and prop_name == "Date":
+        elif prop_value.get("type") == "date":
             date_info = prop_value.get("date")
             if date_info and date_info.get("start"):
                 date_str = date_info.get("start")
@@ -86,8 +86,8 @@ def block_to_md(block):
     if btype == "paragraph":
         # 📌 修正3: 处理富文本格式，而不是只取纯文本
         texts = block[btype].get("rich_text", [])
-        md_text = "".join(md_instance.render(t.get("plain_text", "")) for t in texts)
-        return md_text + "\n"
+        content = "".join([t.get("plain_text", "") for t in texts])
+        return md_instance.render(content) + "\n"
     elif btype == "heading_1":
         texts = block[btype].get("rich_text", [])
         content = "".join([t.get("plain_text", "") for t in texts])
@@ -116,31 +116,4 @@ def block_to_md(block):
         texts = block[btype].get("rich_text", [])
         code_text = "".join([t.get("plain_text", "") for t in texts])
         language = block[btype].get("language", "")
-        return f"```{language}\n{code_text}\n```\n\n"
-    return ""
-
-def sanitize_filename(s):
-    """Sanitizes a string to be a valid filename."""
-    s = s.strip()
-    s = s.replace(" ", "-")
-    return "".join(c for c in s if c.isalnum() or c in "-_.")
-
-def save_page_as_markdown(page):
-    """Saves a Notion page to a Markdown file."""
-    title, tags, date_str = get_title_and_tags_and_date(page)
-    page_id = page["id"]
-    
-    blocks = get_blocks(page_id)
-    md_instance = MarkdownIt()
-    
-    # 写入 Markdown 文件的 Front Matter
-    front_matter = [
-        "---",
-        f"title: \"{title}\"",
-        f"date: {date_str} 12:00:00 +0800", # Jekyll requires a full timestamp
-        f"notion_id: {page_id}",
-    ]
-    if tags:
-        front_matter.append("tags:")
-        for tag in tags:
-            front_matter.
+        return f
