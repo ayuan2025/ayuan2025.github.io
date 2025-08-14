@@ -1,3 +1,9 @@
 ---
-layout: home
+layout: single
+title: "最新文章"
 ---
+
+{% assign posts=site.posts | limit:1 %}
+{% for post in posts %}
+  {{ post.content }}
+{% endfor %}
