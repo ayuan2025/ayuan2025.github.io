@@ -1,0 +1,41 @@
+<div class="sidebar-nav">
+  {% if author.avatar %}
+    <div class="author__avatar">
+      <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}">
+    </div>
+  {% endif %}
+  <div class="author__content">
+    <h3 class="author__name">{{ author.name }}</h3>
+    {% if author.bio %}
+      <p class="author__bio">{{ author.bio }}</p>
+    {% endif %}
+  </div>
+
+  <div class="sidebar-nav-item">
+    <h4 class="sidebar-nav-title">最近文章</h4>
+    <ul class="sidebar-nav-list">
+      {% for post in site.posts limit:5 %}
+        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <h4 class="sidebar-nav-title">分类</h4>
+    <ul class="sidebar-nav-list">
+      {% for category in site.categories %}
+        <li><a href="{{ '/categories/#' | append: category[0] | relative_url }}">{{ category[0] }} ({{ category[1].size }})</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="sidebar-nav-item">
+    <h4 class="sidebar-nav-title">标签</h4>
+    {% assign tags = site.tags | sort %}
+    <ul class="sidebar-nav-list">
+      {% for tag in tags %}
+        <li><a href="{{ '/tags/#' | append: tag[0] | relative_url }}">{{ tag[0] }} ({{ tag[1].size }})</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
