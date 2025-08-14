@@ -3,6 +3,7 @@ import requests
 from datetime import datetime
 from markdown_it import MarkdownIt
 import shutil
+from pypinyin import lazy_pinyin
 
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
@@ -14,12 +15,9 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-# notion_sync.py
 def query_database():
     """Queries the Notion database for published pages."""
     url = f"https://api.notion.com/v1/databases/{DATABASE_ID}/query"
-    print(f"DEBUG: 正在向 Notion API 查询数据库: {DATABASE_ID}")
-    
     payload = {
         "page_size": 100,
         "filter": {
@@ -40,32 +38,14 @@ def query_database():
         res = requests.post(url, headers=HEADERS, json=payload)
         res.raise_for_status()
         data = res.json()
-        print(f"DEBUG: 查询成功。API返回 {len(data.get('results', []))} 个页面。")
         return data.get("results", [])
     except requests.exceptions.RequestException as e:
         print(f"ERROR: 查询 Notion 数据库失败 - {e}")
-        print(f"DEBUG: 响应内容: {res.text if 'res' in locals() else '无法获取响应内容'}")
         return []
-
-# ... (其余代码不变) ...
-
-
-def get_page(page_id):
-    """Fetches a single Notion page."""
-    url = f"https://api.notion.com/v1/pages/{page_id}"
-    print(f"DEBUG: 正在获取页面信息: {page_id}")
-    try:
-        res = requests.get(url, headers=HEADERS)
-        res.raise_for_status()
-        return res.json()
-    except requests.exceptions.RequestException as e:
-        print(f"ERROR: 获取页面失败 - {e}")
-        return {}
 
 def get_blocks(block_id):
     """Fetches all blocks (content) for a given page or block."""
     url = f"https://api.notion.com/v1/blocks/{block_id}/children?page_size=100"
-    print(f"DEBUG: 正在获取块内容: {block_id}")
     try:
         res = requests.get(url, headers=HEADERS)
         res.raise_for_status()
@@ -98,9 +78,9 @@ def get_title_and_tags_and_date(page):
 
 def block_to_md(block):
     """Converts a single Notion block to Markdown format."""
+    # ... (此函数代码与之前版本相同，省略) ...
     md_instance = MarkdownIt()
     btype = block.get("type")
-    
     if btype == "paragraph":
         texts = block[btype].get("rich_text", [])
         content = "".join([t.get("plain_text", "") for t in texts])
@@ -146,19 +126,21 @@ def save_page_as_markdown(page):
     """Saves a Notion page to a Markdown file."""
     title, tags, date_str = get_title_and_tags_and_date(page)
     page_id = page["id"]
-    
-    print(f"DEBUG: 正在处理页面 '{title}' (ID: {page_id})")
-    
+
     blocks = get_blocks(page_id)
     if not blocks:
-        print(f"WARNING: 页面 '{title}' 没有找到任何块内容，跳过。")
         return
         
     md_instance = MarkdownIt()
     
+    # 📌 新增：生成一个英文 slug
+    slug = "-".join(lazy_pinyin(title))
+    
     front_matter = [
         "---",
+        "layout: post", # 确保使用 post 布局
         f"title: \"{title}\"",
+        f"slug: {slug}", # 📌 新增：slug 属性
         f"date: {date_str} 12:00:00 +0800",
         f"notion_id: {page_id}",
     ]
@@ -178,38 +160,31 @@ def save_page_as_markdown(page):
     content_str = "".join(md_lines)
 
     if not os.path.exists(OUTPUT_DIR):
-        print(f"DEBUG: 创建输出目录: {OUTPUT_DIR}")
         os.makedirs(OUTPUT_DIR)
         
-    safe_title = sanitize_filename(title)
-    file_path = os.path.join(OUTPUT_DIR, f"{date_str}-{safe_title}.md")
+    # 📌 修改：文件名使用 slug，而不是中文标题
+    file_path = os.path.join(OUTPUT_DIR, f"{date_str}-{slug}.md")
     
     try:
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(front_matter_str + content_str)
-        print(f"✅ 成功导出页面: {title} -> {file_path}")
     except Exception as e:
         print(f"ERROR: 导出文件失败 - {e}")
 
 def main():
-    """Main function to run the sync process."""
-    print("----- 开始 Notion 同步任务 -----")
+    # ... (此函数代码与之前版本相同，省略) ...
     # 清空目录
     if os.path.exists(OUTPUT_DIR):
         shutil.rmtree(OUTPUT_DIR)
-        print(f"DEBUG: 已清空目录: {OUTPUT_DIR}")
     os.makedirs(OUTPUT_DIR)
     
     pages = query_database()
     
-    print(f"DEBUG: 脚本找到 {len(pages)} 个要处理的页面。")
     if not pages:
-        print("WARNING: 未找到任何要处理的页面。请检查 Notion 数据库的筛选条件。")
+        print("WARNING: 未找到任何要处理的页面。")
     
     for page in pages:
         save_page_as_markdown(page)
-
-    print("----- Notion 同步任务完成 -----")
 
 if __name__ == "__main__":
     main()
