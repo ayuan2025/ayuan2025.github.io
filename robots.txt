@@ -1,1 +1,1 @@
-Sitemap: /sitemap.xml
+Sitemap: https://ayuan.github.io/sitemap.xml
