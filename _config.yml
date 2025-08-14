@@ -66,8 +66,7 @@ author:
       url: "https://github.com/ayuan2025"
   # 侧边栏配置
   sidebar:
-    # nav: "sidebar-nav" # <-- 注释或删除这一行
-    include: "custom-sidebar.html" # <-- 新增这一行
+    nav: "main-sidebar" # 指向我们在下一步中创建的自定义侧边栏导航
 
 # Site Footer
 footer:
