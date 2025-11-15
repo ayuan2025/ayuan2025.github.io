@@ -16,7 +16,7 @@ name: Sync and Deploy
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests markdown-it-py pypinyin
+          pip install requests markdown-it-py pypinyin PyYAML
       - name: Sync from Notion
         run: python _scripts/notion_sync.py
         env:

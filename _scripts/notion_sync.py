@@ -1,189 +1,195 @@
 import os
 import requests
 from datetime import datetime
-from markdown_it import MarkdownIt
 import shutil
 from pypinyin import lazy_pinyin
+import yaml
+import re
 
+# --- Configuration ---
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 OUTPUT_DIR = os.getenv("OUTPUT_DIR", "_posts")
-
 HEADERS = {
     "Authorization": f"Bearer {NOTION_TOKEN}",
     "Notion-Version": "2022-06-28",
     "Content-Type": "application/json"
 }
 
+# --- Notion API Functions ---
 def query_database():
     """Queries the Notion database for published pages."""
     url = f"https://api.notion.com/v1/databases/{DATABASE_ID}/query"
     payload = {
         "page_size": 100,
-        "filter": {
-            "property": "Status",
-            "status": {
-                "equals": "Published"
-            }
-        },
-        "sorts": [
-            {
-                "property": "Created time",
-                "direction": "descending"
-            }
-        ]
+        "filter": {"property": "Status", "status": {"equals": "Published"}},
+        "sorts": [{"property": "Created time", "direction": "descending"}]
     }
-    
     try:
         res = requests.post(url, headers=HEADERS, json=payload)
         res.raise_for_status()
-        data = res.json()
-        return data.get("results", [])
+        return res.json().get("results", [])
     except requests.exceptions.RequestException as e:
-        print(f"ERROR: 查询 Notion 数据库失败 - {e}")
+        print(f"ERROR: Failed to query Notion database - {e}")
         return []
 
 def get_blocks(block_id):
-    """Fetches all blocks (content) for a given page or block."""
+    """Fetches all blocks (content) for a given page."""
     url = f"https://api.notion.com/v1/blocks/{block_id}/children?page_size=100"
     try:
         res = requests.get(url, headers=HEADERS)
         res.raise_for_status()
         return res.json().get("results", [])
     except requests.exceptions.RequestException as e:
-        print(f"ERROR: 获取块内容失败 - {e}")
+        print(f"ERROR: Failed to get block content - {e}")
         return []
 
-def get_title_and_tags_and_date(page):
-    """Extracts title, tags, and date from page properties."""
+# --- Markdown Conversion ---
+def get_page_properties(page):
+    """Extracts title, tags, date, and last edited time from page properties."""
+    props = page.get("properties", {})
     title = "Untitled"
     tags = []
     date_str = datetime.now().strftime("%Y-%m-%d")
     
-    for prop_name, prop_value in page.get("properties", {}).items():
+    for prop_name, prop_value in props.items():
         if prop_value.get("type") == "title":
-            title_list = prop_value.get("title", [])
-            if title_list:
-                title = title_list[0].get("plain_text", "Untitled")
+            if prop_value["title"]:
+                title = prop_value["title"][0].get("plain_text", "Untitled")
         elif prop_value.get("type") == "multi_select":
-            select_options = prop_value.get("multi_select", [])
-            for option in select_options:
-                tags.append(option.get("name"))
+            tags = [opt["name"] for opt in prop_value["multi_select"]]
         elif prop_value.get("type") == "date":
-            date_info = prop_value.get("date")
-            if date_info and date_info.get("start"):
-                date_str = date_info.get("start")
+            if prop_value["date"] and prop_value["date"]["start"]:
+                date_str = prop_value["date"]["start"]
                 
-    return title, tags, date_str
+    return title, tags, date_str, page["last_edited_time"]
 
 def block_to_md(block):
     """Converts a single Notion block to Markdown format."""
-    # ... (此函数代码与之前版本相同，省略) ...
-    md_instance = MarkdownIt()
     btype = block.get("type")
-    if btype == "paragraph":
-        texts = block[btype].get("rich_text", [])
-        content = "".join([t.get("plain_text", "") for t in texts])
-        return md_instance.render(content) + "\n"
-    elif btype == "heading_1":
-        texts = block[btype].get("rich_text", [])
-        content = "".join([t.get("plain_text", "") for t in texts])
-        return "# " + content + "\n\n"
-    elif btype == "heading_2":
-        texts = block[btype].get("rich_text", [])
-        content = "".join([t.get("plain_text", "") for t in texts])
-        return "## " + content + "\n\n"
-    elif btype == "heading_3":
-        texts = block[btype].get("rich_text", [])
-        content = "".join([t.get("plain_text", "") for t in texts])
-        return "### " + content + "\n\n"
-    elif btype == "bulleted_list_item":
-        texts = block[btype].get("rich_text", [])
-        content = "".join([t.get("plain_text", "") for t in texts])
-        return "- " + content + "\n"
-    elif btype == "numbered_list_item":
-        texts = block[btype].get("rich_text", [])
-        content = "".join([t.get("plain_text", "") for t in texts])
-        return "1. " + content + "\n"
-    elif btype == "quote":
-        texts = block[btype].get("rich_text", [])
-        content = "".join([t.get("plain_text", "") for t in texts])
-        return "> " + content + "\n\n"
-    elif btype == "code":
-        texts = block[btype].get("rich_text", [])
-        code_text = "".join([t.get("plain_text", "") for t in texts])
-        language = block[btype].get("language", "")
-        return f"```{language}\n{code_text}\n```\n\n"
-    return ""
+    content_obj = block.get(btype, {})
+    rich_text = content_obj.get("rich_text", [])
+    text = "".join([t.get("plain_text", "") for t in rich_text])
 
-def sanitize_filename(s):
-    """Sanitizes a string to be a valid filename."""
-    s = s.strip()
-    s = s.replace(" ", "-")
-    return "".join(c for c in s if c.isalnum() or c in "-_.")
+    if btype == "paragraph":
+        return text + "\n\n"
+    if btype.startswith("heading_"):
+        level = btype.split("_")[-1]
+        return f"{'#' * int(level)} {text}\n\n"
+    if btype == "bulleted_list_item":
+        return f"- {text}\n"
+    if btype == "numbered_list_item":
+        return f"1. {text}\n"
+    if btype == "quote":
+        return f"> {text}\n\n"
+    if btype == "code":
+        language = content_obj.get("language", "")
+        return f"```{language}\n{text}\n```\n\n"
+    return ""
 
 def save_page_as_markdown(page):
     """Saves a Notion page to a Markdown file."""
-    title, tags, date_str = get_title_and_tags_and_date(page)
+    title, tags, date_str, last_edited_time = get_page_properties(page)
     page_id = page["id"]
+    slug = "-".join(lazy_pinyin(title)) if title else "untitled"
 
     blocks = get_blocks(page_id)
     if not blocks:
+        print(f"WARNING: Skipping page '{title}' as it has no content blocks.")
         return
-        
-    md_instance = MarkdownIt()
-    
-    # 📌 新增：生成一个英文 slug
-    slug = "-".join(lazy_pinyin(title))
-    
-    front_matter = [
-        "---",
-        "layout: post", # 确保使用 post 布局
-        f"title: \"{title}\"",
-        f"slug: {slug}", # 📌 新增：slug 属性
-        f"date: {date_str} 12:00:00 +0800",
-        f"notion_id: {page_id}",
-    ]
-    if tags:
-        front_matter.append("tags:")
-        for tag in tags:
-            front_matter.append(f"  - \"{tag}\"")
-            
-    front_matter.append("---")
-    
-    front_matter_str = "\n".join(front_matter) + "\n\n"
-    
-    md_lines = []
-    for block in blocks:
-        md_lines.append(block_to_md(block))
-    
-    content_str = "".join(md_lines)
 
+    front_matter = {
+        "layout": "post",
+        "title": title,
+        "slug": slug,
+        "date": f"{date_str} 12:00:00 +0800",
+        "notion_id": page_id,
+        "last_synced_time": last_edited_time
+    }
+    if tags:
+        front_matter["tags"] = tags
+    
+    front_matter_str = f"---\n{yaml.dump(front_matter, allow_unicode=True)}---\n\n"
+    
+    content_str = "".join([block_to_md(block) for block in blocks])
+    
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
         
-    # 📌 修改：文件名使用 slug，而不是中文标题
     file_path = os.path.join(OUTPUT_DIR, f"{date_str}-{slug}.md")
     
     try:
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(front_matter_str + content_str)
     except Exception as e:
-        print(f"ERROR: 导出文件失败 - {e}")
+        print(f"ERROR: Failed to write file {file_path} - {e}")
+
+# --- Sync Logic ---
+def get_local_posts():
+    """Scans the output directory and returns a map of local posts."""
+    local_posts = {}
+    if not os.path.exists(OUTPUT_DIR):
+        return local_posts
+
+    for filename in os.listdir(OUTPUT_DIR):
+        if not filename.endswith(".md"):
+            continue
+        
+        file_path = os.path.join(OUTPUT_DIR, filename)
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                content = f.read()
+                # Use regex to extract YAML front matter
+                match = re.match(r"---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
+                if not match:
+                    continue
+                
+                front_matter = yaml.safe_load(match.group(1))
+                if "notion_id" in front_matter:
+                    local_posts[front_matter["notion_id"]] = {
+                        "path": file_path,
+                        "last_synced": front_matter.get("last_synced_time", "")
+                    }
+        except (IOError, yaml.YAMLError) as e:
+            print(f"WARNING: Could not read or parse {file_path} - {e}")
+            
+    return local_posts
 
 def main():
-    # 清空目录
-    # if os.path.exists(OUTPUT_DIR):
-    #     shutil.rmtree(OUTPUT_DIR)
-    # os.makedirs(OUTPUT_DIR)
+    """Main function to run the sync process."""
+    print("Starting Notion sync...")
+    local_posts = get_local_posts()
+    remote_pages = query_database()
+    remote_pages_map = {page['id']: page for page in remote_pages}
+
+    # --- Step 1: Delete posts that are no longer on Notion ---
+    local_ids = set(local_posts.keys())
+    remote_ids = set(remote_pages_map.keys())
+    to_delete_ids = local_ids - remote_ids
     
-    pages = query_database()
+    for notion_id in to_delete_ids:
+        file_path = local_posts[notion_id]["path"]
+        try:
+            os.remove(file_path)
+            print(f"DELETE: '{os.path.basename(file_path)}' (Reason: No longer published on Notion)")
+        except OSError as e:
+            print(f"ERROR: Failed to delete {file_path} - {e}")
+
+    # --- Step 2: Create or Update posts ---
+    for notion_id, page in remote_pages_map.items():
+        title, _, _, _ = get_page_properties(page)
+        remote_last_edited = page['last_edited_time']
+
+        if notion_id not in local_posts:
+            print(f"CREATE: '{title}'")
+            save_page_as_markdown(page)
+        else:
+            local_last_synced = local_posts[notion_id]['last_synced']
+            if remote_last_edited > local_last_synced:
+                print(f"UPDATE: '{title}' (Reason: Updated on Notion)")
+                save_page_as_markdown(page)
     
-    if not pages:
-        print("WARNING: 未找到任何要处理的页面。")
-    
-    for page in pages:
-        save_page_as_markdown(page)
+    print("Notion sync finished.")
 
 if __name__ == "__main__":
     main()
