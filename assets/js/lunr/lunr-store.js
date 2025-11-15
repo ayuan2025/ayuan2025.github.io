@@ -1,4 +1,16 @@
 var store = [{
+        "title": "You're up and running!",
+        "excerpt":"Next you can update your site name, avatar and other options using the _config.yml file in the root of your repository (shown below). The easiest way to make your first post is to edit this one. Go into /_posts/ and update the Hello World markdown file. For more instructions head...","categories": [],
+        "tags": [],
+        "url": "/Hello-World/",
+        "teaser": null
+      },{
+        "title": "测试文章",
+        "excerpt":"layout: post title：”我的第一篇博客文章”date: 2024-11-15 10:00:00 +0800tags: －随笔 －学习 #欢迎来到我的博客！ 这是我使用 VS Code 和 JekyLl 发布的第一篇文章。你可以在这里写下你的想法、分享你的知识。  如何写作？  ###这是三级标题  ","categories": [],
+        "tags": [],
+        "url": "/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/",
+        "teaser": null
+      },{
         "title": "窗帘 ",
         "excerpt":"风掀动我那厚实的窗帘   无意中揭开了体内的一层纱布   我感觉到了那种轻轻撕裂的疼痛   那是纱布和已经成形的血痂分离的过程   气温很高   窗帘的背后阴冷潮湿不宜久居   摊开的那页书   是我整个冰山的一个小尖   每日的奔波劳作都挤在那个小小的尖角   它们和我挤在一起   那是阳光和我的眼睛   可以监视的地方   在窗帘后面   那儿四壁都是我的兄弟   我们有着相同的血缘   和相似的苍白面孔   每一寸开始驳落的裂纹   都是我身上长久以来的伤口   它平时习惯于沉默   这一点和我一样   但在风雨来临的前夕   就会疼痛不已   任何药物对它来说都会失去作用   这种疼痛代表着一种生存的方式   而不是一种结果   ","categories": [],
         "tags": ["诗歌"],

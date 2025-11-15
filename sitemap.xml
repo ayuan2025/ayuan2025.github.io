@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>/Hello-World/</loc>
+<lastmod>2014-03-03T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</loc>
+<lastmod>2024-11-15T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>/chuang-lian/</loc>
 <lastmod>2025-11-15T04:00:00+00:00</lastmod>
 </url>
@@ -45,8 +53,5 @@
 </url>
 <url>
 <loc>/</loc>
-</url>
-<url>
-<loc>/page2/</loc>
 </url>
 </urlset>
