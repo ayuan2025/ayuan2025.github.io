@@ -172,11 +172,10 @@ def save_page_as_markdown(page):
         print(f"ERROR: 导出文件失败 - {e}")
 
 def main():
-    # ... (此函数代码与之前版本相同，省略) ...
     # 清空目录
-    if os.path.exists(OUTPUT_DIR):
-        shutil.rmtree(OUTPUT_DIR)
-    os.makedirs(OUTPUT_DIR)
+    # if os.path.exists(OUTPUT_DIR):
+    #     shutil.rmtree(OUTPUT_DIR)
+    # os.makedirs(OUTPUT_DIR)
     
     pages = query_database()
     
