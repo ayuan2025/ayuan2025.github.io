@@ -4,17 +4,28 @@ layout: archive
 
 {{ content }}
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+{% assign latest_post = site.posts.first %}
 
-{% if paginator %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
-{% endif %}
+<article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+  <meta itemprop="headline" content="{{ latest_post.title | markdownify | strip_html | strip_newlines | escape_once }}">
+  {% if latest_post.excerpt %}
+    <meta itemprop="description" content="{{ latest_post.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">
+  {% endif %}
+  {% if latest_post.date %}
+    <meta itemprop="datePublished" content="{{ latest_post.date | date_to_xmlschema }}">
+  {% endif %}
+  {% if latest_post.last_modified_at %}
+    <meta itemprop="dateModified" content="{{ latest_post.last_modified_at | date_to_xmlschema }}">
+  {% endif %}
 
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% include documents-collection.html entries=posts type=entries_layout %}
-</div>
+  <div class="page__inner-wrap">
+    <header>
+      <h1 class="page__title" itemprop="headline">{{ latest_post.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
+      {% include page__meta.html page=latest_post %}
+    </header>
+    <section class="page__content" itemprop="text">
+      {{ latest_post.content }}
+    </section>
+  </div>
+</article>
 
-{% include paginator.html %}

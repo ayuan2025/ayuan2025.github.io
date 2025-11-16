@@ -1,6 +1,25 @@
 {% if page.author_profile or layout.author_profile or page.sidebar %}
   <div class="sidebar sticky">
   {% if page.author_profile or layout.author_profile %}{% include author-profile.html %}{% endif %}
+
+  <div class="sidebar-section">
+    <h3>Recent Posts</h3>
+    <ul>
+      {% for post in site.posts limit:5 %}
+        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="sidebar-section">
+    <h3>Tags</h3>
+    <p>
+      {% for tag in site.tags %}
+        <a href="{{ tag_archive_path | relative_url }}{{ tag[0] | slugify }}">{{ tag[0] }}</a> ({{ tag[1].size }})
+      {% endfor %}
+    </p>
+  </div>
+
   {% if page.sidebar %}
     {% for s in page.sidebar %}
       {% if s.image %}
