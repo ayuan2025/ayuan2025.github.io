@@ -52,31 +52,13 @@ layout: default
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
 
         <!-- Pagination for paginated content -->
-        {% if paginated_content.total_pages > 1 %}
-          <nav class="paginator">
-            <ul class="pagination">
-              {% if paginated_content.previous_page_link %}
-                <li><a href="{{ paginated_content.previous_page_link }}" class="paginator-item">上一页</a></li>
-              {% else %}
-                <li><span class="paginator-item disabled">上一页</span></li>
-              {% endif %}
-
-              {% for page_number in (1..paginated_content.total_pages) %}
-                {% if page_number == paginated_content.page %}
-                  <li><span class="paginator-item active">{{ page_number }}</span></li>
-                {% else %}
-                  <li><a href="{{ paginated_content.pages[page_number].url }}" class="paginator-item">{{ page_number }}</a></li>
-                {% endif %}
-              {% endfor %}
-
-              {% if paginated_content.next_page_link %}
-                <li><a href="{{ paginated_content.next_page_link }}" class="paginator-item">下一页</a></li>
-              {% else %}
-                <li><span class="paginator-item disabled">下一页</span></li>
-              {% endif %}
-            </ul>
-          </nav>
-        {% endif %}
+        <div style="border: 2px solid red; padding: 10px; margin-top: 20px;">
+          <h3>调试信息：</h3>
+          <p>总页数 (total_pages): {{ paginated_content.total_pages }}</p>
+          <p>当前页码 (page): {{ paginated_content.page }}</p>
+          <p>是否有上一页 (has_previous_page): {{ paginated_content.has_previous_page }}</p>
+          <p>是否有下一页 (has_next_page): {{ paginated_content.has_next_page }}</p>
+        </div>
       </section>
 
       <footer class="page__meta">
