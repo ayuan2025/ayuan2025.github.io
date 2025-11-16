@@ -1,44 +1,13 @@
 ---
-layout: default
+layout: archive
 ---
 
-<div id="main" role="main">
-  <div class="archive">
-    {{ content }}
+{{ content }}
 
-    {% assign latest_post = site.posts.first %}
+<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
-    <article class="page--home" itemscope itemtype="https://schema.org/CreativeWork">
-      <meta itemprop="headline" content="{{ latest_post.title | markdownify | strip_html | strip_newlines | escape_once }}">
-      {% if latest_post.excerpt %}
-        <meta itemprop="description" content="{{ latest_post.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">
-      {% endif %}
-      {% if latest_post.date %}
-        <meta itemprop="datePublished" content="{{ latest_post.date | date_to_xmlschema }}">
-      {% endif %}
-      {% if latest_post.last_modified_at %}
-        <meta itemprop="dateModified" content="{{ latest_post.last_modified_at | date_to_xmlschema }}">
-      {% endif %}
+{% for post in paginator.posts %}
+  {% include archive-single.html %}
+{% endfor %}
 
-      <div class="page__inner-wrap">
-        <header>
-          <h1 class="page__title" itemprop="headline">{{ latest_post.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
-          {% include page__meta.html page=latest_post %}
-        </header>
-        <section class="page__content" itemprop="text">
-          {{ latest_post.content }}
-        </section>
-      </div>
-    </article>
-
-    <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "所有文章" }}</h3>
-
-    {% for post in paginator.posts %}
-      {% if post.url != latest_post.url %}
-        {% include archive-single.html type='list' %}
-      {% endif %}
-    {% endfor %}
-
-    {% include paginator.html %}
-  </div>
-</div>
+{% include paginator.html %}
