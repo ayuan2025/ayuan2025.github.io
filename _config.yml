@@ -264,6 +264,7 @@ plugins:
   - jekyll-feed
   - jekyll-include-cache
   - jekyll-archives
+  - jekyll-paginate-content
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -274,6 +275,11 @@ whitelist:
   - jekyll-include-cache
   - jekyll-archives
 
+# Paginate content settings
+paginate_content:
+  enabled: true
+  separator: '<!--nextpage-->'
+  permalink: '/:num/'
 
 # https://github.com/jekyll/jekyll-archives
 jekyll-archives:
