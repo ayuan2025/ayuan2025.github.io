@@ -3,8 +3,8 @@
   {% if page.author_profile or layout.author_profile %}{% include author-profile.html %}{% endif %}
 
   <div class="sidebar-section">
-    <h3>Recent Posts</h3>
-    <ul>
+    <h3>{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+    <ul class="nav__list">
       {% for post in site.posts limit:5 %}
         <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
       {% endfor %}
@@ -12,12 +12,14 @@
   </div>
 
   <div class="sidebar-section">
-    <h3>Categories</h3>
-    <p>
+    <h3>{{ site.data.ui-text[site.locale].categories | default: "Categories" }}</h3>
+    <ul class="nav__list">
       {% for category in site.categories %}
-        <a href="{{ category_archive_path | relative_url }}{{ category[0] | slugify }}">{{ category[0] }}</a> ({{ category[1].size }})
+        <li>
+          <a href="{{ category_archive_path | relative_url }}{{ category[0] | slugify }}">{{ category[0] }}</a> <span class="nav__sub-title">{{ category[1].size }}</span>
+        </li>
       {% endfor %}
-    </p>
+    </ul>
   </div>
 
   {% if page.sidebar %}

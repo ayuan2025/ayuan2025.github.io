@@ -1,45 +1,44 @@
 ---
-layout: archive
+layout: default
 ---
 
-{{ content }}
+<div id="main" role="main">
+  <div class="archive">
+    {{ content }}
 
-{% assign latest_post = site.posts.first %}
+    {% assign latest_post = site.posts.first %}
 
-<article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-  <meta itemprop="headline" content="{{ latest_post.title | markdownify | strip_html | strip_newlines | escape_once }}">
-  {% if latest_post.excerpt %}
-    <meta itemprop="description" content="{{ latest_post.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">
-  {% endif %}
-  {% if latest_post.date %}
-    <meta itemprop="datePublished" content="{{ latest_post.date | date_to_xmlschema }}">
-  {% endif %}
-  {% if latest_post.last_modified_at %}
-    <meta itemprop="dateModified" content="{{ latest_post.last_modified_at | date_to_xmlschema }}">
-  {% endif %}
+    <article class="page--home" itemscope itemtype="https://schema.org/CreativeWork">
+      <meta itemprop="headline" content="{{ latest_post.title | markdownify | strip_html | strip_newlines | escape_once }}">
+      {% if latest_post.excerpt %}
+        <meta itemprop="description" content="{{ latest_post.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">
+      {% endif %}
+      {% if latest_post.date %}
+        <meta itemprop="datePublished" content="{{ latest_post.date | date_to_xmlschema }}">
+      {% endif %}
+      {% if latest_post.last_modified_at %}
+        <meta itemprop="dateModified" content="{{ latest_post.last_modified_at | date_to_xmlschema }}">
+      {% endif %}
 
-  <div class="page__inner-wrap">
-    <header>
-      <h1 class="page__title" itemprop="headline">{{ latest_post.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
-      {% include page__meta.html page=latest_post %}
-    </header>
-    <section class="page__content" itemprop="text">
-      {{ latest_post.content }}
-    </section>
+      <div class="page__inner-wrap">
+        <header>
+          <h1 class="page__title" itemprop="headline">{{ latest_post.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
+          {% include page__meta.html page=latest_post %}
+        </header>
+        <section class="page__content" itemprop="text">
+          {{ latest_post.content }}
+        </section>
+      </div>
+    </article>
+
+    <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "所有文章" }}</h3>
+
+    {% for post in paginator.posts %}
+      {% if post.url != latest_post.url %}
+        {% include archive-single.html type='list' %}
+      {% endif %}
+    {% endfor %}
+
+    {% include paginator.html %}
   </div>
-</article>
-
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "所有文章" }}</h3>
-
-{% if paginator %}
-  {% assign posts = paginator.posts | shift %} {# Skip the first post (latest_post) #}
-{% else %}
-  {% assign posts = site.posts | shift %} {# Skip the first post (latest_post) #}
-{% endif %}
-
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% include documents-collection.html entries=posts type=entries_layout %}
 </div>
-
-{% include paginator.html %}
