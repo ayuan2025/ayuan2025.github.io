@@ -9,17 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - name: Install Python dependencies
-        run: pip install requests markdown-it-py pypinyin # 👈 在这里添加 pypinyin
-      - name: Sync from Notion
-        run: python _scripts/notion_sync.py
-        env:
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
