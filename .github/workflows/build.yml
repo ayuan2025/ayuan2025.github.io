@@ -17,6 +17,8 @@ jobs:
         run: |
           gem install bundler:2.5.23
           bundle install
+      - name: Clean Jekyll site
+        run: bundle exec jekyll clean
       - name: Build Jekyll site
         run: jekyll build --trace
       - name: Deploy

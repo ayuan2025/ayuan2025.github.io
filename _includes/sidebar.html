@@ -16,7 +16,7 @@
     <ul class="nav__list">
       {% for category in site.categories %}
         <li>
-          <a href="{{ category_archive_path | relative_url }}{{ category[0] | slugify }}">{{ category[0] }}</a>
+          <a href="{{ site.baseurl }}/categories/{{ category[0] | slugify }}/">{{ category[0] }}</a>
         </li>
       {% endfor %}
     </ul>
