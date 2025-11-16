@@ -401,8 +401,8 @@ var store = [{
         "url": "/%E8%AF%97%E6%AD%8C/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e4-b8-80-e4-b8-aa-e6-97-a9-e6-99-a8-e4-bb-8e-e5-9f-8e-e5-b8-82-e8-b7-af-e8-bf-87/",
         "teaser": null
       },{
-        "title": "【生产力】Total Commander + PowerShell：一键智能批量重命名美剧字幕 (完美支持NAS网络路径)",
-        "excerpt":"背景痛点 作为美剧爱好者和 Total Commander (TC) 的重度用户，我经常遇到这样的情况： 下载了一整季的美剧（比如《猎魔人》），视频文件名是规范的 S04E01 格式，但下载的字幕文件通常名字乱七八糟，或者带有各种后缀。 如果直接按列表顺序批量重命名，一旦视频和字幕的排序不一致（比如一个按时间排，一个按名字排），就会导致字幕张冠李戴 。 我需要的是一个智能方案 ： 正则匹配 ：自动识别视频和字幕中的 SxxExx（季数+集数）编号进行匹配，而不是傻傻地按顺序改名。 一键操作 ：在 TC 里点击一个按钮瞬间完成。 支持 NAS ：必须能直接在网络共享路径（SMB/UNC路径）下工作，不需要映射盘符。 经过反复调试（踩了不少坑），终于用 PowerShell 完美解决了这个问题。 解决方案：SmartRename.ps1 脚本 这个脚本会自动扫描当前目录下的视频和字幕，提取 SxxExx 进行配对，并将字幕重命名为与视频同名（保留字幕后缀）。 1. 创建脚本 在你的电脑任意位置（例如 D:\\Tools\\Scripts\\）新建一个文本文件，重命名为 SmartRename.ps1，复制以下代码： PowerShell param([string]$TargetDir) — 1. 修复路径问题 — if ($TargetDir) { $TargetDir = $TargetDir.Trim().TrimEnd(‘') } —...","categories": ["IT"],
+        "title": "一键智能批量重命名美剧字幕 ",
+        "excerpt":"背景痛点 作为美剧爱好者和 Total Commander (TC) 的重度用户，我经常遇到这样的情况： 下载了一整季的美剧（比如《猎魔人》），视频文件名是规范的 S04E01 格式，但下载的字幕文件通常名字乱七八糟，或者带有各种后缀。 如果直接按列表顺序批量重命名，一旦视频和字幕的排序不一致（比如一个按时间排，一个按名字排），就会导致字幕张冠李戴 。 我需要的是一个智能方案 ： 正则匹配 ：自动识别视频和字幕中的 SxxExx（季数+集数）编号进行匹配，而不是傻傻地按顺序改名。 一键操作 ：在 TC 里点击一个按钮瞬间完成。 支持 NAS ：必须能直接在网络共享路径（SMB/UNC路径）下工作，不需要映射盘符。 经过反复调试（踩了不少坑），终于用 PowerShell 完美解决了这个问题。 解决方案：SmartRename.ps1 脚本 这个脚本会自动扫描当前目录下的视频和字幕，提取 SxxExx 进行配对，并将字幕重命名为与视频同名（保留字幕后缀）。 1. 创建脚本 在你的电脑任意位置（例如 D:\\Tools\\Scripts\\）新建一个文本文件，重命名为 SmartRename.ps1，复制以下代码： param([string]$TargetDir) # --- 1. 修复路径问题 --- if ($TargetDir) { $TargetDir = $TargetDir.Trim().TrimEnd('\\') } #...","categories": ["IT"],
         "tags": [],
         "url": "/it/e3-80-90-e7-94-9f-e4-ba-a7-e5-8a-9b-e3-80-91total-commander-powershell-ef-bc-9a-e4-b8-80-e9-94-ae-e6-99-ba-e8-83-bd-e6-89-b9-e9-87-8f-e9-87-8d-e5-91-bd-e5-90-8d-e7-be-8e-e5-89-a7-e5-ad-97-e5-b9-95/",
         "teaser": null

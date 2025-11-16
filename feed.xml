@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://ayuan2025.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ayuan2025.github.io/" rel="alternate" type="text/html" /><updated>2025-11-16T14:26:42+00:00</updated><id>https://ayuan2025.github.io/feed.xml</id><title type="html">阿元的自留地</title><subtitle>这个人很懒，什么都没有介绍</subtitle><author><name>阿元</name></author><entry><title type="html">【生产力】Total Commander + PowerShell：一键智能批量重命名美剧字幕 (完美支持NAS网络路径)</title><link href="https://ayuan2025.github.io/it/e3-80-90-e7-94-9f-e4-ba-a7-e5-8a-9b-e3-80-91total-commander-powershell-ef-bc-9a-e4-b8-80-e9-94-ae-e6-99-ba-e8-83-bd-e6-89-b9-e9-87-8f-e9-87-8d-e5-91-bd-e5-90-8d-e7-be-8e-e5-89-a7-e5-ad-97-e5-b9-95/" rel="alternate" type="text/html" title="【生产力】Total Commander + PowerShell：一键智能批量重命名美剧字幕 (完美支持NAS网络路径)" /><published>2025-11-13T23:07:52+00:00</published><updated>2025-11-13T23:07:52+00:00</updated><id>https://ayuan2025.github.io/it/%E3%80%90%E7%94%9F%E4%BA%A7%E5%8A%9B%E3%80%91total-commander-powershell%EF%BC%9A%E4%B8%80%E9%94%AE%E6%99%BA%E8%83%BD%E6%89%B9%E9%87%8F%E9%87%8D%E5%91%BD%E5%90%8D%E7%BE%8E%E5%89%A7%E5%AD%97%E5%B9%95</id><content type="html" xml:base="https://ayuan2025.github.io/it/e3-80-90-e7-94-9f-e4-ba-a7-e5-8a-9b-e3-80-91total-commander-powershell-ef-bc-9a-e4-b8-80-e9-94-ae-e6-99-ba-e8-83-bd-e6-89-b9-e9-87-8f-e9-87-8d-e5-91-bd-e5-90-8d-e7-be-8e-e5-89-a7-e5-ad-97-e5-b9-95/"><![CDATA[<h2 id="背景痛点">背景痛点</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://ayuan2025.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ayuan2025.github.io/" rel="alternate" type="text/html" /><updated>2025-11-16T14:34:56+00:00</updated><id>https://ayuan2025.github.io/feed.xml</id><title type="html">阿元的自留地</title><subtitle>这个人很懒，什么都没有介绍</subtitle><author><name>阿元</name></author><entry><title type="html">一键智能批量重命名美剧字幕</title><link href="https://ayuan2025.github.io/it/e3-80-90-e7-94-9f-e4-ba-a7-e5-8a-9b-e3-80-91total-commander-powershell-ef-bc-9a-e4-b8-80-e9-94-ae-e6-99-ba-e8-83-bd-e6-89-b9-e9-87-8f-e9-87-8d-e5-91-bd-e5-90-8d-e7-be-8e-e5-89-a7-e5-ad-97-e5-b9-95/" rel="alternate" type="text/html" title="一键智能批量重命名美剧字幕" /><published>2025-11-13T23:07:52+00:00</published><updated>2025-11-13T23:07:52+00:00</updated><id>https://ayuan2025.github.io/it/%E3%80%90%E7%94%9F%E4%BA%A7%E5%8A%9B%E3%80%91total-commander-powershell%EF%BC%9A%E4%B8%80%E9%94%AE%E6%99%BA%E8%83%BD%E6%89%B9%E9%87%8F%E9%87%8D%E5%91%BD%E5%90%8D%E7%BE%8E%E5%89%A7%E5%AD%97%E5%B9%95</id><content type="html" xml:base="https://ayuan2025.github.io/it/e3-80-90-e7-94-9f-e4-ba-a7-e5-8a-9b-e3-80-91total-commander-powershell-ef-bc-9a-e4-b8-80-e9-94-ae-e6-99-ba-e8-83-bd-e6-89-b9-e9-87-8f-e9-87-8d-e5-91-bd-e5-90-8d-e7-be-8e-e5-89-a7-e5-ad-97-e5-b9-95/"><![CDATA[<h2 id="背景痛点">背景痛点</h2>
 
 <p>作为美剧爱好者和 Total Commander (TC) 的重度用户，我经常遇到这样的情况： 下载了一整季的美剧（比如《猎魔人》），视频文件名是规范的 <code class="language-plaintext highlighter-rouge">S04E01</code> 格式，但下载的字幕文件通常名字乱七八糟，或者带有各种后缀。</p>
 
@@ -22,77 +22,77 @@
 
 <p>在你的电脑任意位置（例如 <code class="language-plaintext highlighter-rouge">D:\Tools\Scripts\</code>）新建一个文本文件，重命名为 <code class="language-plaintext highlighter-rouge">SmartRename.ps1</code>，复制以下代码：</p>
 
-<p>PowerShell</p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">param</span><span class="p">([</span><span class="n">string</span><span class="p">]</span><span class="nv">$TargetDir</span><span class="p">)</span><span class="w">
 
-<p>param([string]$TargetDir)</p>
+</span><span class="c"># --- 1. 修复路径问题 ---</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$TargetDir</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="nv">$TargetDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$TargetDir</span><span class="o">.</span><span class="nf">Trim</span><span class="p">()</span><span class="o">.</span><span class="nf">TrimEnd</span><span class="p">(</span><span class="s1">'\'</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<h1 id="-1-修复路径问题-">— 1. 修复路径问题 —</h1>
-<p>if ($TargetDir) { 
-    $TargetDir = $TargetDir.Trim().TrimEnd(‘')
-}</p>
+</span><span class="c"># --- 2. 设置编码和跳转 ---</span><span class="w">
+</span><span class="p">[</span><span class="n">Console</span><span class="p">]::</span><span class="n">OutputEncoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">System.Text.Encoding</span><span class="p">]::</span><span class="n">UTF8</span><span class="w">
 
-<h1 id="-2-设置编码和跳转-">— 2. 设置编码和跳转 —</h1>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$TargetDir</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Path: [</span><span class="nv">$TargetDir</span><span class="s2">]"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">DarkGray</span><span class="w">
+    </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">Push-Location</span><span class="w"> </span><span class="nt">-LiteralPath</span><span class="w"> </span><span class="nv">$TargetDir</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Error: Can't access directory."</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w">
+        </span><span class="kr">exit</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<p>if ($TargetDir) {
-    Write-Host “Path: [$TargetDir]” -ForegroundColor DarkGray
-    try {
-        Push-Location -LiteralPath $TargetDir -ErrorAction Stop
-    }
-    catch {
-        Write-Host “Error: Can’t access directory.” -ForegroundColor Red
-        exit
-    }
-}</p>
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Work Dir: </span><span class="bp">$PWD</span><span class="s2">"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Magenta</span><span class="w">
 
-<p>Write-Host “Work Dir: $PWD” -ForegroundColor Magenta</p>
+</span><span class="c"># --- 3. 扫描文件 ---</span><span class="w">
+</span><span class="nv">$videos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-ChildItem</span><span class="w"> </span><span class="nt">-File</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Extension</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"\.(mkv|mp4|avi)"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="nv">$subs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-ChildItem</span><span class="w"> </span><span class="nt">-File</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Extension</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"\.(ass|srt|ssa|vtt)"</span><span class="w"> </span><span class="p">}</span><span class="w">
 
-<h1 id="-3-扫描文件-">— 3. 扫描文件 —</h1>
-<p>$videos = Get-ChildItem -File | Where-Object { $<em>.Extension -match “.(mkv|mp4|avi)” }
-$subs = Get-ChildItem -File | Where-Object { $</em>.Extension -match “.(ass|srt|ssa|vtt)” }</p>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$subs</span><span class="o">.</span><span class="nf">Count</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"No subtitles found."</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+    </span><span class="n">Read-Host</span><span class="w"> </span><span class="s2">"Press Enter..."</span><span class="w">
+    </span><span class="kr">exit</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<p>if ($subs.Count -eq 0) {
-    Write-Host “No subtitles found.” -ForegroundColor Yellow
-    Read-Host “Press Enter…”
-    exit
-}</p>
+</span><span class="c"># --- 4. 自动判断模式 ---</span><span class="w">
+</span><span class="nv">$isTvShow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$false</span><span class="w">
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$v</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$videos</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$v</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"(?i)(S\d+E\d+)"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">$isTvShow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="p">;</span><span class="w"> </span><span class="kr">break</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="o">-not</span><span class="w"> </span><span class="nv">$isTvShow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$s</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$subs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$s</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"(?i)(S\d+E\d+)"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">$isTvShow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="p">;</span><span class="w"> </span><span class="kr">break</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
 
-<h1 id="-4-自动判断模式-">— 4. 自动判断模式 —</h1>
-<p>$isTvShow = $false
-foreach ($v in $videos) { if ($v.Name -match “(?i)(S\d+E\d+)”) { $isTvShow = $true; break } }
-if (-not $isTvShow) { foreach ($s in $subs) { if ($s.Name -match “(?i)(S\d+E\d+)”) { $isTvShow = $true; break } } }</p>
+</span><span class="c"># --- 5. 执行重命名 ---</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$isTvShow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c"># [美剧模式]</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Mode: TV Show (SxxExx)"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Cyan</span><span class="w">
+    </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$video</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$videos</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$video</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"(?i)(S\d+E\d+)"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$matches</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">
+            </span><span class="nv">$targetSub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$subs</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"(?i)</span><span class="nv">$code</span><span class="s2">"</span><span class="w"> </span><span class="p">}</span><span class="w">
+            </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$targetSub</span><span class="w"> </span><span class="o">-and</span><span class="w"> </span><span class="p">(</span><span class="nv">$targetSub</span><span class="o">.</span><span class="nf">BaseName</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="nv">$video</span><span class="o">.</span><span class="nf">BaseName</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nv">$newName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$video</span><span class="o">.</span><span class="nf">BaseName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$targetSub</span><span class="o">.</span><span class="nf">Extension</span><span class="w">
+                </span><span class="n">Rename-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$targetSub</span><span class="o">.</span><span class="nf">FullName</span><span class="w"> </span><span class="nt">-NewName</span><span class="w"> </span><span class="nv">$newName</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w">
+                </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"OK: </span><span class="nv">$code</span><span class="s2"> -&gt; </span><span class="nv">$newName</span><span class="s2">"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">elseif</span><span class="w"> </span><span class="p">(</span><span class="nv">$videos</span><span class="o">.</span><span class="nf">Count</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c"># [电影模式]</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Mode: Movie (Single Video)"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Cyan</span><span class="w">
+    </span><span class="nv">$baseName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$videos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nf">BaseName</span><span class="w">
+    </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$sub</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$subs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$sub</span><span class="o">.</span><span class="nf">BaseName</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="nv">$baseName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$newName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$baseName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$sub</span><span class="o">.</span><span class="nf">Extension</span><span class="w">
+            </span><span class="n">Rename-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$sub</span><span class="o">.</span><span class="nf">FullName</span><span class="w"> </span><span class="nt">-NewName</span><span class="w"> </span><span class="nv">$newName</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w">
+            </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"OK: Movie -&gt; </span><span class="nv">$newName</span><span class="s2">"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Unknown Mode: No SxxExx found and not a single video file."</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<h1 id="-5-执行重命名-">— 5. 执行重命名 —</h1>
-<p>if ($isTvShow) {
-    # [美剧模式]
-    Write-Host “Mode: TV Show (SxxExx)” -ForegroundColor Cyan
-    foreach ($video in $videos) {
-        if ($video.Name -match “(?i)(S\d+E\d+)”) {
-            $code = $matches[1]
-            $targetSub = $subs | Where-Object { $_.Name -match “(?i)$code” }
-            if ($targetSub -and ($targetSub.BaseName -ne $video.BaseName)) {
-                $newName = $video.BaseName + $targetSub.Extension
-                Rename-Item -Path $targetSub.FullName -NewName $newName -ErrorAction Stop
-                Write-Host “OK: $code -&gt; $newName” -ForegroundColor Green
-            }
-        }
-    }
-} elseif ($videos.Count -eq 1) {
-    # [电影模式]
-    Write-Host “Mode: Movie (Single Video)” -ForegroundColor Cyan
-    $baseName = $videos[0].BaseName
-    foreach ($sub in $subs) {
-        if ($sub.BaseName -ne $baseName) {
-            $newName = $baseName + $sub.Extension
-            Rename-Item -Path $sub.FullName -NewName $newName -ErrorAction Stop
-            Write-Host “OK: Movie -&gt; $newName” -ForegroundColor Green
-        }
-    }
-} else {
-    Write-Host “Unknown Mode: No SxxExx found and not a single video file.” -ForegroundColor Red
-}</p>
-
-<p>Write-Host “✨ 全部处理完成！窗口将在 5 秒后自动关闭…” -ForegroundColor Yellow
-Start-Sleep -Seconds 5</p>
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"✨ 全部处理完成！窗口将在 5 秒后自动关闭..."</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nt">-Seconds</span><span class="w"> </span><span class="nx">5</span><span class="w">
+</span></code></pre></div></div>
 
 <h2 id="使用效果">使用效果</h2>
 
