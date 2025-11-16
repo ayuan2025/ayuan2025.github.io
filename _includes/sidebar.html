@@ -14,10 +14,44 @@
   <div class="sidebar-section">
     <h3>{{ site.data.ui-text[site.locale].categories | default: "Categories" }}</h3>
     <ul class="nav__list">
+      {% assign parent_categories = "诗歌|IT|散文" | split: "|" %}
+      
+      {% for parent_category in parent_categories %}
+        {% assign posts_in_parent = site.categories[parent_category] %}
+        {% if posts_in_parent %}
+          <li>
+            <a href="{{ site.baseurl }}/categories/{{ parent_category | slugify }}/">{{ parent_category }}</a>
+            
+            {% assign sub_categories = "" | split: "," %}
+            {% for post in posts_in_parent %}
+              {% if post.categories.size > 1 %}
+                {% assign child_category = post.categories | last %}
+                {% unless sub_categories contains child_category %}
+                  {% assign sub_categories = sub_categories | push: child_category %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+
+            {% if sub_categories.size > 0 %}
+              <ul class="nav__list nav__list--sub">
+                {% for child_category in sub_categories %}
+                  <li>
+                    <a href="{{ site.baseurl }}/categories/{{ child_category | slugify }}/">{{ child_category }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% comment %} Render other top-level categories that are not parents {% endcomment %}
       {% for category in site.categories %}
-        <li>
-          <a href="{{ site.baseurl }}/categories/{{ category[0] | slugify }}/">{{ category[0] }}</a>
-        </li>
+        {% unless parent_categories contains category[0] or category[0] == "星夜逃亡" or category[0] == "雕花铁栏杆的阴影" or category[0] == "静物" or category[0] == "存在" or category[0] == "短句" %}
+           <li>
+             <a href="{{ site.baseurl }}/categories/{{ category[0] | slugify }}/">{{ category[0] }}</a>
+           </li>
+        {% endunless %}
       {% endfor %}
     </ul>
   </div>
