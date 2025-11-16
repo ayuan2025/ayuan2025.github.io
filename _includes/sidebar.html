@@ -12,10 +12,10 @@
   </div>
 
   <div class="sidebar-section">
-    <h3>Tags</h3>
+    <h3>Categories</h3>
     <p>
-      {% for tag in site.tags %}
-        <a href="{{ tag_archive_path | relative_url }}{{ tag[0] | slugify }}">{{ tag[0] }}</a> ({{ tag[1].size }})
+      {% for category in site.categories %}
+        <a href="{{ category_archive_path | relative_url }}{{ category[0] | slugify }}">{{ category[0] }}</a> ({{ category[1].size }})
       {% endfor %}
     </p>
   </div>
