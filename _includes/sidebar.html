@@ -1,5 +1,5 @@
 {% if page.author_profile or layout.author_profile or page.sidebar %}
-  <div class="sidebar sticky">
+  <div class="sidebar">
   {% if page.author_profile or layout.author_profile %}{% include author-profile.html %}{% endif %}
 
   <div class="sidebar-section">
@@ -16,7 +16,7 @@
     <ul class="nav__list">
       {% for category in site.categories %}
         <li>
-          <a href="{{ category_archive_path | relative_url }}{{ category[0] | slugify }}">{{ category[0] }}</a> <span class="nav__sub-title">{{ category[1].size }}</span>
+          <a href="{{ category_archive_path | relative_url }}{{ category[0] | slugify }}">{{ category[0] }}</a>
         </li>
       {% endfor %}
     </ul>
