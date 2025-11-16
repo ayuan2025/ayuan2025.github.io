@@ -1,80 +1,309 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ayuan2025.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ayuan2025.github.io/" rel="alternate" type="text/html" /><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/feed.xml</id><title type="html">阿元的自留地</title><subtitle>这个人很懒，什么都没有介绍</subtitle><author><name>阿元</name></author><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-23-e5-b0-8f-e7-8b-97-e6-86-a8-e8-b1-86/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-23-%E5%B0%8F%E7%8B%97%E6%86%A8%E8%B1%86</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-23-e5-b0-8f-e7-8b-97-e6-86-a8-e8-b1-86/"><![CDATA[<p>憨豆是一只在我们家呆了两年多的土狗，所谓土狗，其实学名应该叫中华田园犬，我家以前也养过两只据说是很正宗的中华田园犬，父母都是纯种的中华田园犬，从小是吃牛奶和狗粮长大，满月后是朋友从外地专门驱车送来的，他们个头比一般的土狗高大，短毛，腿长头高，非常漂亮，不少朋友看了都不相信是土狗。而憨豆的出身就没有那样显赫，因为它是一只很正宗的土狗，出生在距离我们家不远的一处农家，虽然它的母亲身材高大，但父亲是谁也不知道。憨豆是那一窝的老大，但好像发育得弟弟们慢，当我们看到时，他个头比弟弟们大不少，但嘴吻都没有长出来，加上一身都是长长的胎毛，看上去不像一只狗，倒像是一只熊。</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ayuan2025.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ayuan2025.github.io/" rel="alternate" type="text/html" /><updated>2025-11-16T13:10:50+00:00</updated><id>https://ayuan2025.github.io/feed.xml</id><title type="html">阿元的自留地</title><subtitle>这个人很懒，什么都没有介绍</subtitle><author><name>阿元</name></author><entry><title type="html">【生产力】Total Commander + PowerShell：一键智能批量重命名美剧字幕 (完美支持NAS网络路径)</title><link href="https://ayuan2025.github.io/it/e3-80-90-e7-94-9f-e4-ba-a7-e5-8a-9b-e3-80-91total-commander-powershell-ef-bc-9a-e4-b8-80-e9-94-ae-e6-99-ba-e8-83-bd-e6-89-b9-e9-87-8f-e9-87-8d-e5-91-bd-e5-90-8d-e7-be-8e-e5-89-a7-e5-ad-97-e5-b9-95/" rel="alternate" type="text/html" title="【生产力】Total Commander + PowerShell：一键智能批量重命名美剧字幕 (完美支持NAS网络路径)" /><published>2025-11-13T23:07:52+00:00</published><updated>2025-11-13T23:07:52+00:00</updated><id>https://ayuan2025.github.io/it/%E3%80%90%E7%94%9F%E4%BA%A7%E5%8A%9B%E3%80%91total-commander-powershell%EF%BC%9A%E4%B8%80%E9%94%AE%E6%99%BA%E8%83%BD%E6%89%B9%E9%87%8F%E9%87%8D%E5%91%BD%E5%90%8D%E7%BE%8E%E5%89%A7%E5%AD%97%E5%B9%95</id><content type="html" xml:base="https://ayuan2025.github.io/it/e3-80-90-e7-94-9f-e4-ba-a7-e5-8a-9b-e3-80-91total-commander-powershell-ef-bc-9a-e4-b8-80-e9-94-ae-e6-99-ba-e8-83-bd-e6-89-b9-e9-87-8f-e9-87-8d-e5-91-bd-e5-90-8d-e7-be-8e-e5-89-a7-e5-ad-97-e5-b9-95/"><![CDATA[<h2 id="背景痛点">背景痛点</h2>
 
-<p>憨豆来到我们家，从小就开始了看家护院的工作，当时家里另有两只哈士奇，因为哈士奇经常乱跑，我们一般就关在狗舍里，而憨豆则从小享有自由的权利，不仅前院后院的跑，还经常趁我们不在，偷偷溜出去玩。</p>
+<p>作为美剧爱好者和 Total Commander (TC) 的重度用户，我经常遇到这样的情况： 下载了一整季的美剧（比如《猎魔人》），视频文件名是规范的 <code class="language-plaintext highlighter-rouge">S04E01</code> 格式，但下载的字幕文件通常名字乱七八糟，或者带有各种后缀。</p>
 
-<p>最令家里人觉得好笑的是，因为憨豆自己觉得自己很自由，而其他的狗都是关起的，恍惚中觉得自己是一只牧羊犬，那两只狗则成为了它放牧的对象，每当我们去后院放狗出来玩的时候，憨豆就跟着我们一路，走到狗舍前，它就对那两只狗吠叫一阵，那意思似乎是在警告它们，你们一会出来要老老实实的，不要犯错。而当那两只狗出来后，它也经常跟前跟后地守着，生怕那两只狗跑丢一样。每当这个时候，儿子土豆就经常笑着说，看，憨豆又以为自己是牧狗犬了。这种情况发展到后来就更夸张，因为我们一回家，一般都要放狗儿出来玩，所以到了后来，只要当我们一回家，憨豆就会忘了和我们打招呼，而是直接跑到后院去对着那两只狗狂叫了。</p>
+<p>如果直接按列表顺序批量重命名，一旦视频和字幕的排序不一致（比如一个按时间排，一个按名字排），就会导致<strong>字幕张冠李戴</strong> 。</p>
 
-<p>憨豆有很多可爱的地方，这些优秀的地方一方面是土狗的优良传统，另一方面就是因为从小就有自由养成的好习惯，憨豆从小时就到后院铁门外去拉屎，从来不会给我们带来清洁上的麻烦，当它长大后，无法从铁门栏杆的缝隙中钻出去，它就走到马路对面的荒地去解决问题，这让我们很担心，马路上车来车往的，万一被车撞了怎么办？憨豆另一个好习惯是从来不调皮，它不会咬门前的拖鞋，不会去踩晾在地上的辣椒，它也很知道自己的分寸，比如我们不让它进屋，它就在门口的垫子睡着，直到我们关门它才起身守在门外。</p>
+<p>我需要的是一个<strong>智能方案</strong> ：</p>
 
-<p>憨豆也有些让人头痛的缺点，最大的缺点是太胆小，每当它听到鞭炮声便会吓得跑到屋里来，最怕的时候会直接一头钻进床下面，如果说怕鞭炮还情有可原的话，另一种情况就是过于懦弱，失去了看家狗的功用了，每当有生人来的时候，它便会一声声叫，然后一步步地后退，往后院跑，从小到大都是如此，这也让我们很失望，最后只好另外买了一只猛犬罗威那来看家。憨豆的另一个缺点是不爱洗澡，也许是小时候洗澡太少，长大了后看见我们在准备洗澡工具时就偷偷跑掉了，甚至有两次，我准备用链子套住它，它也拼命挣扎跑开。</p>
+<ol>
+  <li><strong>正则匹配</strong> ：自动识别视频和字幕中的 <code class="language-plaintext highlighter-rouge">SxxExx</code>（季数+集数）编号进行匹配，而不是傻傻地按顺序改名。</li>
+  <li><strong>一键操作</strong> ：在 TC 里点击一个按钮瞬间完成。</li>
+  <li><strong>支持 NAS</strong> ：必须能直接在网络共享路径（SMB/UNC路径）下工作，不需要映射盘符。</li>
+</ol>
 
-<p>我总觉得，憨豆虽然天天和我们在一起，但在它的心目中，一直有一种奇怪的戒备，一种对主人不应该有的戒备，它很少像其他的狗一样对主人完全没有戒心，在地上翻滚着肚皮和你玩，它总是观察着你，生怕做错了什么事一样。我猜测，因为它经常跑出去，也许是在外面被人欺负过，所以对于人类，都有着很深的戒备。这一点，从有个小事上可以看出来。有一天，家里的厨房发现了一只老鼠，为了把老鼠就地正法，我们找来找去，后来老鼠跑到了洗衣机和冰箱的背后，我们束手无策之后，想到了把憨豆抱进来，希望它能把老鼠给撵出来，但令人郁闷的事发生了，憨豆它居然因为害怕，不知道我们为什么要把它抱进厨房，而在厨房的地上，吓得流了尿。</p>
+<p>经过反复调试（踩了不少坑），终于用 PowerShell 完美解决了这个问题。</p>
 
-<p><a href="{ site.url }/images/untitled.png"><img src="{ site.url }/images/untitled.png?w=800" alt="" /></a></p>
+<h2 id="解决方案smartrenameps1-脚本">解决方案：SmartRename.ps1 脚本</h2>
 
-<p>憨豆是在一天晚上跑丢的，说是跑丢也很奇怪，它实际上是去追家里跑出去的那只哈士奇的，平常几分钟后，它都会追着哈士奇一起回家，但这一次，哈士奇跑了一圈就先回来了，憨豆还是没有回来，后来，哈士奇又跑出去了一圈，还是没有把它带回来，我们都以为它是调皮，在外面玩一夜第二天就会回家，但憨豆一直就再没有回来过。老婆说憨豆是早准备离家出走了，然后找了个看起来光明正大的机会跑出去了，但我总觉得怪怪的，第二天，第三天，在它平常爱跑的地方找了几遍，都没有发现任何踪迹，只能相信，它是真的离家出走了，但愿它能好好活着，但一只离开了家的狗，无论如何都无法让人放心，也无法相信，它会有一个衣食无忧的生活。</p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-23-e9-9b-95-e8-8a-b1-e9-93-81-e6-a0-8f-e6-9d-86-e7-9a-84-e9-98-b4-e5-bd-b1/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-23-%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-23-e9-9b-95-e8-8a-b1-e9-93-81-e6-a0-8f-e6-9d-86-e7-9a-84-e9-98-b4-e5-bd-b1/"><![CDATA[<p>你站在阳光的中央<br />
-雕花铁栏杆的阴影<br />
-投在你的身上<br />
-你说：<br />
-“你给我带来了忧伤。”</p>
+<p>这个脚本会自动扫描当前目录下的视频和字幕，提取 <code class="language-plaintext highlighter-rouge">SxxExx</code> 进行配对，并将字幕重命名为与视频同名（保留字幕后缀）。</p>
 
-<p>一只蝴蝶<br />
-停在不远的枝上<br />
-这么多年来<br />
-我总是想不起<br />
-我们的生命中<br />
-曾有这样相似的地方</p>
+<h3 id="1-创建脚本">1. 创建脚本</h3>
 
-<p>岁月总是<br />
-像个顽皮的孩子<br />
-用铅笔在透明的日子里<br />
-沙沙地写着<br />
-然后又用橡皮擦去<br />
-那些生命中令我<br />
-疼痛的痕迹</p>
+<p>在你的电脑任意位置（例如 <code class="language-plaintext highlighter-rouge">D:\Tools\Scripts\</code>）新建一个文本文件，重命名为 <code class="language-plaintext highlighter-rouge">SmartRename.ps1</code>，复制以下代码：</p>
 
-<p><a href="https://www.wondera.ai/song/detail/58481f4810d548baa3358fa64d0467a3">雕花铁栏杆的阴影歌曲版</a></p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-25-e4-b8-80-e4-bb-bd-e5-bf-83-e6-83-85/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-25-%E4%B8%80%E4%BB%BD%E5%BF%83%E6%83%85</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-25-e4-b8-80-e4-bb-bd-e5-bf-83-e6-83-85/"><![CDATA[<p>一份心情<br />
-来自手中才沏的茶<br />
-刚好的苦涩<br />
-犹如玻璃<br />
-隔开了面前的生活</p>
+<p>PowerShell</p>
 
-<p>97.3</p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-25-e5-85-b3-e4-ba-8e-e7-83-9f-e7-9a-84-e6-b5-81-e6-b0-b4-e5-b8-90/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-25-%E5%85%B3%E4%BA%8E%E7%83%9F%E7%9A%84%E6%B5%81%E6%B0%B4%E5%B8%90</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-25-e5-85-b3-e4-ba-8e-e7-83-9f-e7-9a-84-e6-b5-81-e6-b0-b4-e5-b8-90/"><![CDATA[<p>一直以为，抽烟是一件很私人的事情，也算是一种比较私人的需要或享受，最厌恶的就是把烟作为一种应酬，如同在饭桌拿着美酒赌酒互灌尝不出滋味一样，在应酬中的抽烟也是一种极大的浪费。 说来说去，抽烟是对身体有害的，但为什么有这样多的人需要，也是不好解释的。 先从自己的流水账说起吧。 第一次对烟有印象大概还没有入学，在家里的桌上找到包老爸的香烟，装模作样叼在嘴里，绕着当时住的平房神气活现的走了一圈，结果回家就被老爸K了一顿。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;#
+脚本功能：自动匹配当前目录下的视频和字幕（基于 SxxExx 编号），并将字幕重命名为视频同名。
+特点：支持 NAS 网络路径 (UNC)，解决 TC 传参末尾反斜杠 BUG。
+#&gt;
 
-<p>小学三四年级的时候，经常晚上在街上闲逛，不知是哪个同学买了一包劣质香烟，估计是和当时的《经济》差不多的牌子，几个同学点燃后，很得意在街上走着，以为点上烟自己就坏得很可爱很成熟了。 真正开始抽烟倒是高中的事了，不知为什么，上到高一的时候就很厌恶上课，也许是一天安排的课程太多，就经常挑自己特厌恶的语文和物理课逃，其实为什么逃这两门课也是有私心的，因为高中时特喜欢这两门课，不少内容早就自学完了，而且那两门课的老师讲的课我也不喜欢。通常逃课的流程是叫上两个好友，先到校门口的小摊凑钱买包烟，记得那时抽的烟多是《花溪》《大重九》之类。当时的中学旁边还没有开发，有不少农田和竹林，我们喜欢在天气好的时候，比方说秋日的暖阳，找个舒适的竹林，躺着抽烟，有一句没一句的闲聊。</p>
+# 接收 TC 传过来的路径参数
+param([string]$TargetDir)
 
-<p>真正养成抽烟的习惯是高三时晚上复习功课，每天10点钟左右就做完了功课，就倒在床上享受一支烟，然后剩下的时间就可以自己想写什么就写什么了。</p>
+# --- 核心修正：解决 TC 路径传参 BUG ---
+# Total Commander 的 %P 变量末尾带反斜杠，导致传参时会转义引号。
+# 我们在 TC 参数里人为加了一个空格，这里需要用 Trim() 去掉。
+if ($TargetDir) { 
+    $TargetDir = $TargetDir.Trim()
+}
 
-<p>就这样就到了大学，抽烟成了例行功课，担心到了月底的烟钱也成了一大烦恼，为了解决这个问题尝试了各种办法，比较搞笑的一次是，和好友趁在月初有钱的时候买上一包好烟放在箱子底，计划到了月底的时候再抽，结果到了月底真的忘了这回事，直到月底在寝室里翻箱倒柜准备找点粮票去换烟抽的时候，发现居然还有一包烟，高兴死了。</p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-25-e5-a4-9c/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-25-%E5%A4%9C</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-25-e5-a4-9c/"><![CDATA[<p>夜是黑的<br />
-风是白的</p>
+# 设置控制台编码为 UTF8，防止中文乱码
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-<p>夜重如铅石<br />
-风空空如我</p>
+# --- 路径跳转：支持本地及网络路径 ---
+if ($TargetDir) {
+    Write-Host "正在跳转至: [$TargetDir]" -ForegroundColor DarkGray
+    
+    # 使用 Push-Location 而非 Set-Location，以完美支持 UNC 网络路径
+    try {
+        Push-Location -LiteralPath $TargetDir -ErrorAction Stop
+    }
+    catch {
+        Write-Host "错误：无法进入目录，请检查网络连接或权限！" -ForegroundColor Red
+        Write-Host "详情: $($_.Exception.Message)" -ForegroundColor Red
+        Read-Host "按回车键退出..."
+        exit
+    }
+}
 
-<p>你的眼睛<br />
-是缝满了线的月亮</p>
+Write-Host "工作目录: $PWD" -ForegroundColor Magenta
 
-<p>99/7</p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-25-e5-ae-a2-e4-ba-ba/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-25-%E5%AE%A2%E4%BA%BA</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-25-e5-ae-a2-e4-ba-ba/"><![CDATA[<p>未来和松果一起到来<br />
-在这场和我们越来越近的雪里<br />
-不要太大声<br />
-它们还沉浸在<br />
-旅途的梦中</p>
+# --- 扫描文件 ---
+# 获取视频 (根据需要添加格式)
+$videos = Get-ChildItem -File | Where-Object { $_.Extension -match "\.(mkv|mp4|avi)" }
+# 获取字幕 (根据需要添加格式)
+$subs = Get-ChildItem -File | Where-Object { $_.Extension -match "\.(ass|srt|ssa|vtt)" }
 
-<p>在我的指尖的河流<br />
-你能看见<br />
-血液正在冻结<br />
-这是一切都该休息的季节</p>
+Write-Host "找到视频: $($videos.Count) 个" -ForegroundColor Cyan
+Write-Host "找到字幕: $($subs.Count) 个" -ForegroundColor Cyan
 
-<p>97.9.14</p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-25-e6-b2-b3-e5-9c-a8-e5-86-b0-e5-9d-97-e4-b8-8b-e6-b5-81-e5-8a-a8/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-25-%E6%B2%B3%E5%9C%A8%E5%86%B0%E5%9D%97%E4%B8%8B%E6%B5%81%E5%8A%A8</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-25-e6-b2-b3-e5-9c-a8-e5-86-b0-e5-9d-97-e4-b8-8b-e6-b5-81-e5-8a-a8/"><![CDATA[<p>河在冰块下流动<br />
-河在地底下流动</p>
+if ($videos.Count -eq 0) {
+    Write-Host "未找到视频文件。" -ForegroundColor Yellow
+} else {
+    Write-Host "正在进行正则匹配 (SxxExx)..." -ForegroundColor Yellow
+}
 
-<p>脆弱的土地像一张指甲<br />
-被轻轻地掀开</p>
+# --- 开始匹配和重命名 ---
+foreach ($video in $videos) {
+    # 正则提取 SxxExx (不区分大小写)
+    if ($video.Name -match "(?i)(S\d+E\d+)") {
+        $episodeCode = $matches[1]
+        
+        # 查找包含相同编号的字幕
+        $targetSub = $subs | Where-Object { $_.Name -match "(?i)$episodeCode" }
 
-<p>河水<br />
-正在从我的血管中流走</p>
+        # 如果找到字幕，且名字还未统一
+        if ($targetSub -and ($targetSub.BaseName -ne $video.BaseName)) {
+            $newSubName = $video.BaseName + $targetSub.Extension
+            
+            Write-Host "匹配成功: [$episodeCode]" -ForegroundColor Green
+            Write-Host "  视频: $($video.Name)"
+            Write-Host "  字幕: $($targetSub.Name)"
+            
+            try {
+                Rename-Item -Path $targetSub.FullName -NewName $newSubName -ErrorAction Stop
+                Write-Host "  [OK] 重命名完成" -ForegroundColor Green
+            }
+            catch {
+                Write-Host "  [ERROR] 失败: $($_.Exception.Message)" -ForegroundColor Red
+            }
+            Write-Host "--------------------------------"
+        }
+    }
+}
 
-<p>99/8</p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-25-e7-94-9f-e6-b4-bb/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-25-%E7%94%9F%E6%B4%BB</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-25-e7-94-9f-e6-b4-bb/"><![CDATA[<p>你把破碎的生活<br />
+Write-Host "处理完成，按回车键退出..." -ForegroundColor Yellow
+Read-Host
+</code></pre></div></div>
+
+<h2 id="total-commander-设置关键步骤">Total Commander 设置（关键步骤）</h2>
+
+<p>这是最容易出错的地方。如果你只填 <code class="language-plaintext highlighter-rouge">%P</code>，脚本在处理带空格的路径或网络路径时会失效。</p>
+
+<ol>
+  <li>在 TC 工具栏 <strong>右键</strong> -&gt; <strong>更改</strong> -&gt; <strong>添加</strong> 。</li>
+  <li>按照下图填写配置：</li>
+</ol>
+
+<ul>
+  <li><strong>命令(C):</strong> <code class="language-plaintext highlighter-rouge">powershell</code></li>
+  <li><strong>参数(P):</strong> Plaintext<code class="language-plaintext highlighter-rouge">-NoExit -ExecutionPolicy Bypass -File "D:\Tools\Scripts\SmartRename.ps1" "%P " </code><strong>⚠️ 注意高能预警：</strong> 请仔细看上面参数的最后部分 <code class="language-plaintext highlighter-rouge">"%P "</code> —— <strong><code class="language-plaintext highlighter-rouge">%P</code> 的后面必须有一个空格！</strong><strong>原理解释：</strong> TC 的 <code class="language-plaintext highlighter-rouge">%P</code> 变量输出的路径末尾自带一个反斜杠 <code class="language-plaintext highlighter-rouge">\</code>（例如 <code class="language-plaintext highlighter-rouge">D:\Movie\</code>）。如果直接写 <code class="language-plaintext highlighter-rouge">"%P"</code>，这在 Windows 命令行里会被解析为 <code class="language-plaintext highlighter-rouge">D:\Movie"</code>（反斜杠转义了引号），导致参数传递失败。加一个空格变成 <code class="language-plaintext highlighter-rouge">"%P "</code>，就变成了 <code class="language-plaintext highlighter-rouge">D:\Movie\ "</code>，引号就能正常闭合了。脚本里使用了 <code class="language-plaintext highlighter-rouge">.Trim()</code> 来处理这个多余的空格。</li>
+  <li><strong>起始路径(S):</strong> 留空 (不需要填)</li>
+  <li><strong>图标文件(E):</strong> 建议选个显眼的图标。</li>
+</ul>
+
+<h2 id="使用效果">使用效果</h2>
+
+<p>设置好后，进入 NAS 里的美剧文件夹，点击按钮：</p>
+
+<ol>
+  <li>脚本会自动弹出黑框。</li>
+  <li>自动跳转到 NAS 路径（显示 <code class="language-plaintext highlighter-rouge">Push-Location</code> 成功）。</li>
+  <li>自动识别 <code class="language-plaintext highlighter-rouge">S01E01</code> 这种编号。</li>
+  <li>瞬间把乱七八糟的字幕改成和视频完全一致的文件名。</li>
+</ol>
+
+<p>哪怕你的字幕列表是倒序的，视频是正序的，它也能精准匹配，绝不出错。</p>
+
+<hr />
+
+<p>希望这个小工具能帮到同样喜欢折腾 NAS 和整理媒体库的朋友！</p>]]></content><author><name>阿元</name></author><category term="IT" /><summary type="html"><![CDATA[背景痛点]]></summary></entry><entry><title type="html">一个早晨从城市路过</title><link href="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e4-b8-80-e4-b8-aa-e6-97-a9-e6-99-a8-e4-bb-8e-e5-9f-8e-e5-b8-82-e8-b7-af-e8-bf-87/" rel="alternate" type="text/html" title="一个早晨从城市路过" /><published>2025-10-29T16:03:53+00:00</published><updated>2025-10-29T16:03:53+00:00</updated><id>https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/%E4%B8%80%E4%B8%AA%E6%97%A9%E6%99%A8%E4%BB%8E%E5%9F%8E%E5%B8%82%E8%B7%AF%E8%BF%87</id><content type="html" xml:base="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e4-b8-80-e4-b8-aa-e6-97-a9-e6-99-a8-e4-bb-8e-e5-9f-8e-e5-b8-82-e8-b7-af-e8-bf-87/"><![CDATA[<p>一个早晨从城市路过<br />
+从郊外走进闹市<br />
+从一个宁静的梦境走近<br />
+挤满了人的火车售票处</p>
+
+<p>我呼吸着充满了汽车尾气的城市味<br />
+看着年轻姑娘一群群从车厢中上上下下<br />
+年轻就是她们眸子里的光<br />
+她们像田野里的嫩草，清晨还带着露珠</p>
+
+<p>城市的变化快呀，她们<br />
+过两年就会成为对面街上<br />
+两个正破口大骂的妇人</p>
+
+<p>拥挤的人拥挤的城市拥挤的电梯<br />
+荷枪实弹的土兵只为拥挤的钞票<br />
+保驾护航<br />
+出租车又在罢工<br />
+街上走满<br />
+饥肠辘辘的匆忙上班人</p>]]></content><author><name>阿元</name></author><category term="星夜逃亡" /><summary type="html"><![CDATA[一个早晨从城市路过 从郊外走进闹市 从一个宁静的梦境走近 挤满了人的火车售票处]]></summary></entry><entry><title type="html">金子般的阳光</title><link href="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e9-87-91-e5-ad-90-e8-88-ac-e7-9a-84-e9-98-b3-e5-85-89/" rel="alternate" type="text/html" title="金子般的阳光" /><published>2025-10-29T16:03:20+00:00</published><updated>2025-10-29T16:03:20+00:00</updated><id>https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/%E9%87%91%E5%AD%90%E8%88%AC%E7%9A%84%E9%98%B3%E5%85%89</id><content type="html" xml:base="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e9-87-91-e5-ad-90-e8-88-ac-e7-9a-84-e9-98-b3-e5-85-89/"><![CDATA[<p>我的指尖<br />
+掠过白云的阴影<br />
+阳光燃烧着两岸山脉</p>
+
+<p>雅鲁藏布<br />
+一个醇厚高亮的女声<br />
+漫过黄沙野地</p>
+
+<p>历史的碎片<br />
+在我的四周飞舞不去<br />
+片片经幡<br />
+在山口上猎猎作声</p>
+
+<p>远山沉寂<br />
+迁移的沙丘终会<br />
+掩盖生者的灵魂</p>
+
+<p>千年的酥油灯<br />
+也点不燃大昭寺外<br />
+金子般的阳光</p>]]></content><author><name>阿元</name></author><category term="星夜逃亡" /><summary type="html"><![CDATA[我的指尖 掠过白云的阴影 阳光燃烧着两岸山脉]]></summary></entry><entry><title type="html">艳遇</title><link href="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e8-89-b3-e9-81-87/" rel="alternate" type="text/html" title="艳遇" /><published>2025-10-29T16:02:54+00:00</published><updated>2025-10-29T16:02:54+00:00</updated><id>https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/%E8%89%B3%E9%81%87</id><content type="html" xml:base="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e8-89-b3-e9-81-87/"><![CDATA[<p>那只是些平常的错误<br />
+就像是咖啡忘了放点糖<br />
+稍微有点苦<br />
+但你仍这般介意<br />
+我只好再尝一下<br />
+只是有点苦<br />
+如此而已<br />
+究竟有什么让你如此<br />
+恨恨看着我<br />
+加上块糖后<br />
+你用舌尖尝着<br />
+从来只会喝三合一的人<br />
+我摇了摇头<br />
+而你却突然站起来<br />
+张惶走开<br />
+拉住你小心地询问时<br />
+你却像小孩子般委屈地说<br />
+我从来不知道咖啡原来这么苦<br />
+而加上糖却如此好喝</p>]]></content><author><name>阿元</name></author><category term="星夜逃亡" /><summary type="html"><![CDATA[那只是些平常的错误 就像是咖啡忘了放点糖 稍微有点苦 但你仍这般介意 我只好再尝一下 只是有点苦 如此而已 究竟有什么让你如此 恨恨看着我 加上块糖后 你用舌尖尝着 从来只会喝三合一的人 我摇了摇头 而你却突然站起来 张惶走开 拉住你小心地询问时 你却像小孩子般委屈地说 我从来不知道咖啡原来这么苦 而加上糖却如此好喝]]></summary></entry><entry><title type="html">爱情杀手</title><link href="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e7-88-b1-e6-83-85-e6-9d-80-e6-89-8b/" rel="alternate" type="text/html" title="爱情杀手" /><published>2025-10-29T16:02:27+00:00</published><updated>2025-10-29T16:02:27+00:00</updated><id>https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/%E7%88%B1%E6%83%85%E6%9D%80%E6%89%8B</id><content type="html" xml:base="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e7-88-b1-e6-83-85-e6-9d-80-e6-89-8b/"><![CDATA[<p>可爱的她花枝招展名叫午夜皇后<br />
+夜夜埋伏猎物就在情人路<br />
+冰凉的狙击步枪便是她惟一的丈夫</p>
+
+<p>本来这些事和我毫无关系<br />
+偏偏这是我管的区域<br />
+我跟踪她三天三夜<br />
+终于在她再次下手前捉住了她<br />
+她放下沉甸甸的狙击步枪<br />
+却换上了如花的笑容<br />
+这一刻我竟然成为她的俘虏<br />
+她笑笑就取走我手上的枪<br />
+再笑笑就扳动了手枪<br />
+惟一的意外是匣中空空无物</p>
+
+<p>我闭上眼左手抽出枪<br />
+她张惶失措地忍住了一串弹头<br />
+洁白的衣衫上开了朵鲜艳的花<br />
+我轻轻把她抱在怀中<br />
+说我这辈子当你的丈夫好不好<br />
+她妩媚地笑着想了很久<br />
+终于点了点头</p>
+
+<p>我辞了职搬到远远的山区<br />
+找了幢偏僻的小房子<br />
+我将她埋在屋后的花园<br />
+旁边放着那把黑黑的狙击步枪<br />
+这些年来<br />
+我惟一后悔的就是不该去当警察</p>
+
+<p>每一个梦里她总是甜甜的笑着<br />
+依旧端起狙击步枪<br />
+把我打得粉身碎骨<br />
+然后娇笑着抱着我说<br />
+“你是我惟一的丈夫”</p>]]></content><author><name>阿元</name></author><category term="星夜逃亡" /><summary type="html"><![CDATA[可爱的她花枝招展名叫午夜皇后 夜夜埋伏猎物就在情人路 冰凉的狙击步枪便是她惟一的丈夫]]></summary></entry><entry><title type="html">概率计算</title><link href="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e6-a6-82-e7-8e-87-e8-ae-a1-e7-ae-97/" rel="alternate" type="text/html" title="概率计算" /><published>2025-10-29T16:01:40+00:00</published><updated>2025-10-29T16:01:40+00:00</updated><id>https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/%E6%A6%82%E7%8E%87%E8%AE%A1%E7%AE%97</id><content type="html" xml:base="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e6-a6-82-e7-8e-87-e8-ae-a1-e7-ae-97/"><![CDATA[<p>在我们所熟悉的城市中<br />
+每隔１２秒半<br />
+就有一个人<br />
+手里提着几颗大白菜<br />
+或者一束鲜花<br />
+也许是当天的报纸<br />
+上面说昨天有十辆车<br />
+压死了九个人<br />
+他正纳闷<br />
+于是他们的脚尖都不太经心地<br />
+走向一个或两个车轮子<br />
+在这种的确属于意外的情况下<br />
+他们的老婆忘了说他们的鲜花<br />
+或者类似的植物买得太贵和抱怨<br />
+今晚的电视过于乏味<br />
+而报贩们已经开始叫喊<br />
+最新消息<br />
+有十一辆车压死了十个人<br />
+当然<br />
+我们仍在纳闷<br />
+继续思索这个奇怪的问题……</p>]]></content><author><name>阿元</name></author><category term="星夜逃亡" /><summary type="html"><![CDATA[在我们所熟悉的城市中 每隔１２秒半 就有一个人 手里提着几颗大白菜 或者一束鲜花 也许是当天的报纸 上面说昨天有十辆车 压死了九个人 他正纳闷 于是他们的脚尖都不太经心地 走向一个或两个车轮子 在这种的确属于意外的情况下 他们的老婆忘了说他们的鲜花 或者类似的植物买得太贵和抱怨 今晚的电视过于乏味 而报贩们已经开始叫喊 最新消息 有十一辆车压死了十个人 当然 我们仍在纳闷 继续思索这个奇怪的问题……]]></summary></entry><entry><title type="html">跳楼的美人</title><link href="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e8-b7-b3-e6-a5-bc-e7-9a-84-e7-be-8e-e4-ba-ba/" rel="alternate" type="text/html" title="跳楼的美人" /><published>2025-10-29T16:01:12+00:00</published><updated>2025-10-29T16:01:12+00:00</updated><id>https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/%E8%B7%B3%E6%A5%BC%E7%9A%84%E7%BE%8E%E4%BA%BA</id><content type="html" xml:base="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e8-b7-b3-e6-a5-bc-e7-9a-84-e7-be-8e-e4-ba-ba/"><![CDATA[<p>太阳光很好<br />
+晒着浓浓的茶水<br />
+我伸出手<br />
+在太阳下端详着<br />
+细细的掌纹<br />
+朋友们在谈论天气以及掌故<br />
+掌故是一个两百年前跳楼的美人<br />
+当然很多美人都喜欢跳楼古时候<br />
+就像现在的美人喜欢香水和矮个子男人<br />
+朋友们就从这里开始了故事<br />
+用了一些已不太流行的缠绵绯恻的词句<br />
+谈论那个美人的爱情故事<br />
+我一边看着掌纹的密密疏疏<br />
+一边揣测美人跳楼的凄美镜头<br />
+或许可以拍成一部伤感的爱情电影<br />
+让幸福的情侣在观众席上拥抱加哭泣<br />
+用四角五分钱享受一下<br />
+同时用可口可乐或酸奶润润喉咙<br />
+这时候朋友们已经讲完故事<br />
+开始回到跳楼的优美情节<br />
+我们用一种惋惜的目光<br />
+跟着他的手指<br />
+然后他停下来对着<br />
+那边摇摇欲坠的两层木板房<br />
+就在那块破的栏杆边<br />
+掉了下来<br />
+摔断了尾椎骨<br />
+据说是儿媳对她不好<br />
+当然她还是嫁了个人生了个儿子女儿什么的<br />
+难道有哪里不对<br />
+她年轻的时候可的确是个美人</p>]]></content><author><name>阿元</name></author><category term="星夜逃亡" /><summary type="html"><![CDATA[太阳光很好 晒着浓浓的茶水 我伸出手 在太阳下端详着 细细的掌纹 朋友们在谈论天气以及掌故 掌故是一个两百年前跳楼的美人 当然很多美人都喜欢跳楼古时候 就像现在的美人喜欢香水和矮个子男人 朋友们就从这里开始了故事 用了一些已不太流行的缠绵绯恻的词句 谈论那个美人的爱情故事 我一边看着掌纹的密密疏疏 一边揣测美人跳楼的凄美镜头 或许可以拍成一部伤感的爱情电影 让幸福的情侣在观众席上拥抱加哭泣 用四角五分钱享受一下 同时用可口可乐或酸奶润润喉咙 这时候朋友们已经讲完故事 开始回到跳楼的优美情节 我们用一种惋惜的目光 跟着他的手指 然后他停下来对着 那边摇摇欲坠的两层木板房 就在那块破的栏杆边 掉了下来 摔断了尾椎骨 据说是儿媳对她不好 当然她还是嫁了个人生了个儿子女儿什么的 难道有哪里不对 她年轻的时候可的确是个美人]]></summary></entry><entry><title type="html">星夜逃亡</title><link href="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e6-98-9f-e5-a4-9c-e9-80-83-e4-ba-a1/" rel="alternate" type="text/html" title="星夜逃亡" /><published>2025-10-29T16:00:47+00:00</published><updated>2025-10-29T16:00:47+00:00</updated><id>https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1</id><content type="html" xml:base="https://ayuan2025.github.io/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e6-98-9f-e5-a4-9c-e9-80-83-e4-ba-a1/"><![CDATA[<p>据说有三架直升飞机在追我们<br />
+哒哒的螺旋浆声一直没停<br />
+简直是一部惊险片的开头<br />
+我们看不到敌人<br />
+却不断逃亡<br />
+（观众们这是VBC广播网为你现场直播二名越狱暴徒正在我们脚下的密林中潜逃……）<br />
+然后正在吃晚餐的人们抬起头<br />
+看一看关于逃亡的有趣镜头<br />
+顺便欣赏一下美丽多姿的热带雨林<br />
+士兵们已经追踪在我们身后<br />
+在我们跑累想停的时候<br />
+他们鸣枪要求我们继续逃跑<br />
+逃亡于热带丛林<br />
+我们登上早已准备好的独木舟<br />
+顺流而下<br />
+逃亡于密密疏疏亚特兰河网<br />
+而电视台已开始报道<br />
+五艘快艇在追踪<br />
+三架直升飞机继续在空中巡逻<br />
+一艘驱逐舰已守住了入渡口<br />
+他妈的<br />
+我们继续划着浆<br />
+手上那只电视表里的广播微笑着说<br />
+观众们下面我们来看看那只临产的大熊猫<br />
+今天的进食情况如何</p>]]></content><author><name>阿元</name></author><category term="星夜逃亡" /><summary type="html"><![CDATA[据说有三架直升飞机在追我们 哒哒的螺旋浆声一直没停 简直是一部惊险片的开头 我们看不到敌人 却不断逃亡 （观众们这是VBC广播网为你现场直播二名越狱暴徒正在我们脚下的密林中潜逃……） 然后正在吃晚餐的人们抬起头 看一看关于逃亡的有趣镜头 顺便欣赏一下美丽多姿的热带雨林 士兵们已经追踪在我们身后 在我们跑累想停的时候 他们鸣枪要求我们继续逃跑 逃亡于热带丛林 我们登上早已准备好的独木舟 顺流而下 逃亡于密密疏疏亚特兰河网 而电视台已开始报道 五艘快艇在追踪 三架直升飞机继续在空中巡逻 一艘驱逐舰已守住了入渡口 他妈的 我们继续划着浆 手上那只电视表里的广播微笑着说 观众们下面我们来看看那只临产的大熊猫 今天的进食情况如何]]></summary></entry><entry><title type="html">生活</title><link href="https://ayuan2025.github.io/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/e7-94-9f-e6-b4-bb-2/" rel="alternate" type="text/html" title="生活" /><published>2025-10-29T15:59:55+00:00</published><updated>2025-10-29T15:59:55+00:00</updated><id>https://ayuan2025.github.io/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/%E7%94%9F%E6%B4%BB-2</id><content type="html" xml:base="https://ayuan2025.github.io/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/e7-94-9f-e6-b4-bb-2/"><![CDATA[<p>你把破碎的生活<br />
 照成了一张照片<br />
 你说<br />
 那就是生活</p>
@@ -87,64 +316,11 @@
 <p>你让我知道<br />
 生活——<br />
 那鲜艳的正面<br />
-和苍白的背面</p>
+和苍白的背面</p>]]></content><author><name>阿元</name></author><category term="雕花铁栏杆的阴影" /><summary type="html"><![CDATA[你把破碎的生活 照成了一张照片 你说 那就是生活]]></summary></entry><entry><title type="html">一个冬天正在来临</title><link href="https://ayuan2025.github.io/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/e4-b8-80-e4-b8-aa-e5-86-ac-e5-a4-a9-e6-ad-a3-e5-9c-a8-e6-9d-a5-e4-b8-b4/" rel="alternate" type="text/html" title="一个冬天正在来临" /><published>2025-10-29T15:59:29+00:00</published><updated>2025-10-29T15:59:29+00:00</updated><id>https://ayuan2025.github.io/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/%E4%B8%80%E4%B8%AA%E5%86%AC%E5%A4%A9%E6%AD%A3%E5%9C%A8%E6%9D%A5%E4%B8%B4</id><content type="html" xml:base="https://ayuan2025.github.io/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/e4-b8-80-e4-b8-aa-e5-86-ac-e5-a4-a9-e6-ad-a3-e5-9c-a8-e6-9d-a5-e4-b8-b4/"><![CDATA[<p>一个冬天正在来临<br />
+另一个冬天正在死去<br />
+雨夜行人积水的街道</p>
 
-<p>99年12月</p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-25-e7-9f-ad-e5-8f-a5/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-25-%E7%9F%AD%E5%8F%A5</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-25-e7-9f-ad-e5-8f-a5/"><![CDATA[<p>我身后的土地里</p>
-
-<p>灵车的歌声玫瑰般开放又凋落</p>
-
-<p>如此孤寂的时候</p>
-
-<p>世界与我</p>
-
-<p>在一根细细的钢丝两端</p>
-
-<p>96.11.13</p>]]></content><author><name>阿元</name></author></entry><entry><title type="html"></title><link href="https://ayuan2025.github.io/2025-10-25-e7-aa-97-e5-b8-98/" rel="alternate" type="text/html" title="" /><published>2025-11-16T13:01:10+00:00</published><updated>2025-11-16T13:01:10+00:00</updated><id>https://ayuan2025.github.io/2025-10-25-%E7%AA%97%E5%B8%98</id><content type="html" xml:base="https://ayuan2025.github.io/2025-10-25-e7-aa-97-e5-b8-98/"><![CDATA[<p>风掀动我那厚实的窗帘</p>
-
-<p>无意中揭开了体内的一层纱布</p>
-
-<p>我感觉到了那种轻轻撕裂的疼痛</p>
-
-<p>那是纱布和已经成形的血痂分离的过程</p>
-
-<p>气温很高</p>
-
-<p>窗帘的背后阴冷潮湿不宜久居</p>
-
-<p>摊开的那页书</p>
-
-<p>是我整个冰山的一个小尖</p>
-
-<p>每日的奔波劳作都挤在那个小小的尖角</p>
-
-<p>它们和我挤在一起</p>
-
-<p>那是阳光和我的眼睛</p>
-
-<p>可以监视的地方</p>
-
-<p>在窗帘后面</p>
-
-<p>那儿四壁都是我的兄弟</p>
-
-<p>我们有着相同的血缘</p>
-
-<p>和相似的苍白面孔</p>
-
-<p>每一寸开始驳落的裂纹</p>
-
-<p>都是我身上长久以来的伤口</p>
-
-<p>它平时习惯于沉默</p>
-
-<p>这一点和我一样</p>
-
-<p>但在风雨来临的前夕</p>
-
-<p>就会疼痛不已</p>
-
-<p>任何药物对它来说都会失去作用</p>
-
-<p>这种疼痛代表着一种生存的方式</p>
-
-<p>而不是一种结果</p>]]></content><author><name>阿元</name></author></entry></feed>
+<p>突然来临的刺眼车灯<br />
+照亮了我的双眼<br />
+在刹那而永久的漆黑中<br />
+我们终于找到了自己</p>]]></content><author><name>阿元</name></author><category term="雕花铁栏杆的阴影" /><summary type="html"><![CDATA[一个冬天正在来临 另一个冬天正在死去 雨夜行人积水的街道]]></summary></entry></feed>
