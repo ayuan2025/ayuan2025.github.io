@@ -25,6 +25,6 @@
       {% endif %}
     </h2>
     {% include page__meta.html type=include.type %}
-    {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | strip_html | strip_newlines | replace: "   ", " / " | replace: "  ", " / " | truncate: 160 }}</p>{% endif %}
+    {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | strip_html | newline_to_br | replace: '<br />', ' / ' | strip | truncate: 160 }}</p>{% endif %}
   </article>
 </div>
