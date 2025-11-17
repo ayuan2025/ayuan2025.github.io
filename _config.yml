@@ -34,15 +34,11 @@ enable_copy_code_button  : # true, false (default)
 copyright                : # "copyright" name, defaults to site.title
 copyright_url            : # "copyright" URL, defaults to site.url
 comments:
-  provider               : "staticman_v2"
-  staticman:
-    branch               : "master"
-    repository           : "ayuan2025/ayuan2025.github.io"
-    endpoint             : "YOUR_STATICMAN_ENDPOINT" # e.g. "https://your-staticman-instance.herokuapp.com/v3/entry/github/"
-
-reCaptcha:
-  siteKey                : "YOUR_RECAPTCHA_SITE_KEY"
-  secret                 : "YOUR_RECAPTCHA_SECRET"
+  provider               : "utterances"
+  utterances:
+    theme                : "github-light" # "github-light" (default), "github-dark"
+    issue_term           : "pathname" # "pathname" (default), "url", "title", "og:title"
+    repo                 : "ayuan2025/ayuan2025.github.io" # GitHub username/repo-name
 atom_feed:
   path                   : # blank (default) uses feed.xml
   hide                   : # true, false (default)
