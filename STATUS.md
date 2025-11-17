@@ -2,42 +2,21 @@
 
 这是一个用于追踪网站修改进度和未来计划的文档。
 
-## 今日已完成 (2025年11月16日)
+## 今日已完成 (2025年11月17日)
 
-1.  **SEO 优化**:
-    *   在 `_config.yml` 中填写了网站的 `url` 和 `repository` 字段。
-    *   创建了 `SEO_GUIDE.md` 文件，提供了向 Google 和百度提交站点地图的详细指南。
-    *   更新了作者信息和社交链接，在 `_config.yml` 中添加了 GitHub 个人资料链接。
+1.  **网站访问统计**:
+    *   在 `_config.yml` 中配置了 Google Analytics (gtag.js)。
+    *   请将 `_config.yml` 中的 `analytics.google.tracking_id` 替换为您的 Google Analytics 跟踪 ID (例如：`G-XXXXXXXXXX`)。
 
-2.  **首页布局定制**:
-    *   修改了 `_layouts/home.html` 布局文件，现在首页只显示最新一篇文章的全文。
+2.  **文章评论系统**:
+    *   在 `_config.yml` 中启用了 Staticman v2 作为评论提供者。
+    *   在 `staticman.yml` 中调整了评论数据存储路径。
+    *   在 `_config.yml` 中为文章默认开启了评论。
+    *   **重要提示**: 您需要部署自己的 Staticman API 实例，并将 `_config.yml` 中的 `staticman.endpoint` 替换为您的 Staticman API 地址。同时，您还需要在 Google reCAPTCHA 注册您的网站，并将 `_config.yml` 中的 `reCaptcha.siteKey` 和 `reCaptcha.secret` 替换为您的 reCAPTCHA 密钥。
 
-3.  **侧边栏定制**:
-    *   修改了 `_includes/sidebar.html`，在侧边栏增加了“最近文章”列表模块。
-
-4.  **标签功能增强**:
-    *   在侧边栏的“最近文章”下方，增加了“标签”列表，展示所有标签及其文章数量。
-
-## 历史完成记录
-
-### 2025年11月15日
-
-1.  **项目简化**:
-    *   彻底移除了原有的 Notion 同步功能，解决了由此导致的各种部署和内容覆盖问题。
-    *   删除了相关的 Python 脚本 (`_scripts/notion_sync.py`)。
-
-2.  **部署流程修复与优化**:
-    *   重写了 GitHub Actions 工作流程 (`.github/workflows/sync-and-deploy.yml`)，简化为标准的 Jekyll 构建与部署流程，显著提高了部署速度和稳定性。
-    *   修正了工作流程中的分支名称错误 (`main` -> `master`)，解决了部署不触发的问题。
-
-3.  **基础配置与样式修复**:
-    *   成功将网站语言设置为中文 (`locale: "zh-CN"`)。
-    *   成功将网站皮肤更换为暗色模式 (`minimal_mistakes_skin: "dark"`)。
-    *   通过启用 `remote_theme` 配置，解决了皮肤不生效的问题。
-
-4.  **内容清理**:
-    *   删除了项目中残留的测试文章和示例文章。
+3.  **文章分类修正**:
+    *   修正了文章 "与书有关的诗" 的分类，将其从 'IT' 更改为 '雕花铁栏杆的阴影'。
 
 ## 后续任务 (待办)
 
-*   暂无。
+1.  图片如何使用，本地图片或者使用图床，哪种更简单，在VS里如何使用图床功能，有没有更简单的方案。
