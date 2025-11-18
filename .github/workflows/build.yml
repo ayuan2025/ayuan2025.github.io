@@ -20,6 +20,8 @@ jobs:
       - name: Clean Jekyll site
         run: bundle exec jekyll clean
       - name: Build Jekyll site
+        env:
+          JEKYLL_ENV: production
         run: jekyll build --trace
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
