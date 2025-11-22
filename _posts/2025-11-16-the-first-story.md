@@ -3,7 +3,7 @@ layout: single
 title: "第一个故事"
 slug: the-first-story
 date: 2025-11-16 10:00:00 +0800
-categories: ['fiction']
+categories: ['小说']
 tags: []
 ---
 
