@@ -18,7 +18,7 @@ author_profile: true
       </header>
 
       <section class="page__content" itemprop="text">
-        {{ latest_post.excerpt }}
+        {{ latest_post.content | split: '<!--more-->' | first }}
         <p><a href="{{ latest_post.url | relative_url }}">阅读全文 &rarr;</a></p>
       </section>
   </div>
