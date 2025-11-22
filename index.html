@@ -1,6 +1,29 @@
 ---
-layout: home
+layout: single
 author_profile: true
-pagination:
-  enabled: true
 ---
+
+{% assign latest_post = site.posts.first %}
+
+<article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+  <meta itemprop="headline" content="{{ latest_post.title | markdownify | strip_html | strip_newlines | escape_once }}">
+  
+  <div class="page__inner-wrap">
+    <header>
+      <h1 id="page-title" class="page__title" itemprop="headline">{{ latest_post.title }}</h1>
+      {%- if latest_post.read_time or latest_post.date -%}
+        <p class="page__meta">
+          {%- if latest_post.date -%}
+            <i class="far fa-calendar-alt" aria-hidden="true"></i> 
+            <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: "%Y年%m月%d日" }}</time>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    </header>
+    
+    <section class="page__content" itemprop="text">
+      {{ latest_post.excerpt }}
+      <p><a href="{{ latest_post.url | relative_url }}">阅读全文 &rarr;</a></p>
+    </section>
+  </div>
+</article>
