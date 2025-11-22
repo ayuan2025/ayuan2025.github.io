@@ -1,8 +1,9 @@
 ---
 layout: single
 title: "日历壁纸 (Calendar Wallpaper)"
+slug: calendar-wallpaper
 date: 2025-10-29T15:56:37
-categories: ['IT']
+categories: ['it']
 tags: []
 ---
 自己写的日历壁纸 (Calendar Wallpaper)软件
