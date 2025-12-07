@@ -4,6 +4,7 @@ from datetime import datetime
 from markdown_it import MarkdownIt
 import shutil
 import yaml
+from pypinyin import pinyin, Style
 
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
@@ -109,7 +110,11 @@ def block_to_md(block, md_instance):
     return ""
 
 def sanitize_filename(s):
-    s = s.strip().replace(" ", "-")
+    # Convert to pinyin, flatten the list of lists, and join with hyphens
+    s_pinyin = pinyin(s, style=Style.NORMAL)
+    s = "-".join([item[0] for item in s_pinyin])
+    # Standard sanitization for URL safety
+    s = s.strip().lower().replace(" ", "-")
     return "".join(c for c in s if c.isalnum() or c == "-")
 
 def process_and_save_page(page):
