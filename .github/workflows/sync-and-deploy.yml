@@ -16,7 +16,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
-          bundler-cache: false # Caches gems for faster builds
+          bundler-cache: true # Caches gems for faster builds
 
       - name: Build Jekyll site
         run: bundle exec jekyll build
