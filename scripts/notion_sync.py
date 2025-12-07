@@ -87,7 +87,8 @@ def block_to_md(block, md_instance):
     content = "".join([t.get("plain_text", "") for t in content_list])
 
     if btype == "paragraph":
-        return content + "\n\n"
+        # Replace single newlines (soft breaks) with double newlines (paragraph breaks)
+        return content.replace("\n", "\n\n") + "\n\n"
     if btype in ["heading_1", "heading_2", "heading_3"]:
         level = btype.split("_")[-1]
         return f"{'#' * int(level)} {content}\n\n"
