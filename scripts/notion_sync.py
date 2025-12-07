@@ -58,10 +58,10 @@ def find_post_by_notion_id(notion_id):
     return None
 
 def get_page_metadata(page):
-    """Extracts title, tags, and publication date from a Notion page."""
+    """Extracts title, categories, and publication date from a Notion page."""
     properties = page.get("properties", {})
     title = "Untitled"
-    tags = []
+    categories = []
     date_str = datetime.strptime(page["created_time"], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
 
     for prop_name, prop_value in properties.items():
@@ -72,14 +72,14 @@ def get_page_metadata(page):
         
         if prop_value.get("type") == "multi_select":
             select_options = prop_value.get("multi_select", [])
-            tags = [option.get("name") for option in select_options]
+            categories = [option.get("name") for option in select_options]
 
         # Look for a date property, e.g., named "发布日期" or "Date"
         if prop_value.get("type") == "date" and prop_value.get("date"):
             # Use the start date of the date range
             date_str = prop_value["date"].get("start", date_str)
 
-    return title, tags, date_str
+    return title, categories, date_str
 
 def block_to_md(block, md_instance):
     btype = block.get("type")
@@ -127,7 +127,7 @@ def process_and_save_page(page):
         return
 
     print(f"✨  Processing new page: {page_id}")
-    title, tags, date_str = get_page_metadata(page)
+    title, categories, date_str = get_page_metadata(page)
     
     blocks = get_blocks(page_id)
     md_instance = MarkdownIt()
@@ -138,9 +138,9 @@ def process_and_save_page(page):
         f"date: {date_str}",
         f"notion_id: {page_id}",
     ]
-    if tags:
-        front_matter.append("tags:")
-        front_matter.extend([f"  - \"{tag}\"" for tag in tags])
+    if categories:
+        front_matter.append("categories:")
+        front_matter.extend([f"  - \"{category}\"" for category in categories])
     front_matter.append("---")
     
     front_matter_str = "\n".join(front_matter) + "\n\n"
