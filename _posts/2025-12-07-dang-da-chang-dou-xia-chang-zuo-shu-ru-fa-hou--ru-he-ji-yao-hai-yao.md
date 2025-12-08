@@ -34,6 +34,8 @@ https://fcitx-contrib.github.io/
 
 rime 墨奇版 五笔整句输入方案
 
+https://github.com/gaboolic/rime-wubi-sentence
+
 
 
 
