@@ -119,15 +119,15 @@ def sanitize_filename(s):
     return "".join(c for c in s if c.isalnum() or c == "-")
 
 def process_and_save_page(page):
-    """Processes a single Notion page and saves it as a markdown file if it doesn't already exist."""
+    """Processes a single Notion page and saves it as a markdown file, overwriting any existing version."""
     page_id = page["id"]
     
-    existing_post = find_post_by_notion_id(page_id)
-    if existing_post:
-        print(f"🔄  Skipping existing post: {os.path.basename(existing_post)}")
-        return
+    existing_post_path = find_post_by_notion_id(page_id)
+    if existing_post_path:
+        print(f"🔄  Found existing post, removing to overwrite: {os.path.basename(existing_post_path)}")
+        os.remove(existing_post_path)
 
-    print(f"✨  Processing new page: {page_id}")
+    print(f"✨  Processing page: {page_id}")
     title, categories, date_str = get_page_metadata(page)
     
     blocks = get_blocks(page_id)
