@@ -19,7 +19,7 @@ def download_and_replace_images(post_file, images_dir="images"):
 
     # Regex to find markdown image syntax with Notion URLs
     # ![alt_text](notion_url)
-    image_regex = re.compile(r'!\[(.*?)\]\((https?:\/\/s3\.us-west-2\.amazonaws\.com\/secure\.notion-static\.com\/[^\)]+)\)')
+    image_regex = re.compile(r'!\[(.*?)\]\((https?:\/\/(?:s3\.us-west-2\.amazonaws\.com\/secure\.notion-static\.com|file\.notion\.so)\/[^\)]+)\)')
     
     matches = image_regex.findall(content)
     if not matches:
