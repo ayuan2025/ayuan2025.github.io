@@ -7,9 +7,17 @@ from pathlib import Path
 
 def download_and_replace_images(post_file, images_dir="images"):
     """
-    Scans a markdown file, downloads images from Notion URLs, 
+    Scans a markdown file, downloads images from external URLs, 
     saves them to a local directory, and replaces the URLs in the file.
     """
+    # Get Notion API token from environment variable
+    NOTION_TOKEN = os.getenv("NOTION_TOKEN")
+    
+    headers = {
+        "Authorization": f"Bearer {NOTION_TOKEN}",
+        "Notion-Version": "2022-06-28",
+    }
+
     try:
         with open(post_file, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -17,16 +25,16 @@ def download_and_replace_images(post_file, images_dir="images"):
         print(f"❌ Error reading file {post_file}: {e}")
         return
 
-    # Regex to find markdown image syntax with Notion URLs
-    # ![alt_text](notion_url)
-    image_regex = re.compile(r'!\[(.*?)\]\((https?:\/\/(?:s3\.us-west-2\.amazonaws\.com\/secure\.notion-static\.com|file\.notion\.so)\/[^\)]+)\)')
+    # Regex to find markdown image syntax with any external URL
+    # ![alt_text](http_url)
+    image_regex = re.compile(r'!\[(.*?)\]\((https?:\/\/[^\)]+)\)')
     
     matches = image_regex.findall(content)
     if not matches:
-        # print(f"No Notion images found in {post_file}.")
+        # print(f"No external images found in {post_file}.")
         return
 
-    print(f"🖼️ Found {len(matches)} Notion image(s) in {post_file}.")
+    print(f"🖼️ Found {len(matches)} external image(s) in {post_file}.")
 
     # Ensure the target directory exists
     Path(images_dir).mkdir(exist_ok=True)
@@ -44,8 +52,15 @@ def download_and_replace_images(post_file, images_dir="images"):
             new_filename = f"{post_basename}-{i+1}{file_ext}"
             image_path = Path(images_dir) / new_filename
 
-            # Download the image
-            response = requests.get(url, stream=True)
+            # Use headers for the download request if it's a Notion URL
+            if "notion.so" in url or "notion-static.com" in url:
+                if not NOTION_TOKEN:
+                    print(f"  ⚠️ Skipping Notion URL (NOTION_TOKEN not set): {url}")
+                    continue
+                response = requests.get(url, headers=headers, stream=True)
+            else:
+                response = requests.get(url, stream=True)
+
             response.raise_for_status()
 
             with open(image_path, 'wb') as f:
