@@ -28,6 +28,9 @@ jobs:
           OUTPUT_DIR: '_posts'
         run: python scripts/notion_sync.py
 
+      - name: Process and Download Images
+        run: python scripts/image_helper.py _posts
+
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
