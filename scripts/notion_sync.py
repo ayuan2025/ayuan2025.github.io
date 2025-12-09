@@ -6,9 +6,6 @@ import shutil
 import yaml
 from pypinyin import pinyin, Style
 
-# Import the image helper function
-from image_helper import download_and_replace_images
-
 NOTION_TOKEN = os.getenv("NOTION_TOKEN")
 DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 OUTPUT_DIR = os.getenv("OUTPUT_DIR", "_posts")
@@ -158,9 +155,6 @@ def process_and_save_page(page):
         f.write(front_matter_str + md_content)
         
     print(f"✅  Exported page: {title} -> {file_path}")
-
-    # Immediately process images for the newly created file
-    download_and_replace_images(file_path)
 
 def main():
     if not os.path.exists(OUTPUT_DIR):
