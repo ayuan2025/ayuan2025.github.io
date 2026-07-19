@@ -1,5 +1,7 @@
 # main links
 main:
+  - title: "🎲 灵感盲盒"
+    url: /random.html
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"

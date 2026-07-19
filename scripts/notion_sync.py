@@ -109,6 +109,9 @@ def block_to_md(block, md_instance):
         if image_type == "external":
             url = block["image"]["external"]["url"]
             return f"![Image]({url})\n\n"
+        if image_type == "file":
+            url = block["image"]["file"]["url"]
+            return f"![Image]({url})\n\n"
         # Note: Internal/hosted images require more complex handling (downloading the image)
         # which is not implemented here.
     return ""
