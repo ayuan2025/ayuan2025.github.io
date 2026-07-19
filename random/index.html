@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>随机读诗 - 灵感盲盒</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f9f9f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #333;
+    }
+    .loader {
+      text-align: center;
+    }
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: #223e36;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <script>
+    const posts = [
+      
+        "/%E5%B0%8F%E8%AF%B4/zi-zi-hua-zhi-zi-hua/",
+      
+        "/%E6%95%A3%E6%96%87/ping-jing/",
+      
+        "/%E5%B0%8F%E8%AF%B4/ji-qi-lie-shou/",
+      
+        "/it/dang-da-chang-dou-xia-chang-zuo-shu-ru-fa-hou-ru-he-ji-yao-hai-yao/",
+      
+        "/%E5%B0%8F%E8%AF%B4/sheng-huo-de-shi-san-zhong-jie-shi/",
+      
+        "/%E5%B0%8F%E8%AF%B4/hu-die-meng/",
+      
+        "/%E5%B0%8F%E8%AF%B4/the-first-story/",
+      
+        "/it/e3-80-90-e7-94-9f-e4-ba-a7-e5-8a-9b-e3-80-91total-commander-powershell-ef-bc-9a-e4-b8-80-e9-94-ae-e6-99-ba-e8-83-bd-e6-89-b9-e9-87-8f-e9-87-8d-e5-91-bd-e5-90-8d-e7-be-8e-e5-89-a7-e5-ad-97-e5-b9-95/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/e4-b8-80-e4-b8-aa-e6-97-a9-e6-99-a8-e4-bb-8e-e5-9f-8e-e5-b8-82-e8-b7-af-e8-bf-87/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/golden-sunlight/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/romantic-encounter/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/love-killer/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/probability-calculation/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/beauty-jumping-off-a-building/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E6%98%9F%E5%A4%9C%E9%80%83%E4%BA%A1/starry-night-escape/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/life-2/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/a-winter-is-coming/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/for-the-children-who-died-in-africa/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/summer-calmer-than-a-drowning-woman/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/an-afternoon-of-idleness/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/i-see/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/singing/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/who-is-it/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/dolma/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/poetry/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/restraint/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/curtain-2/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/night-walk/",
+      
+        "/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/a-poem-about-books/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/journey-under-the-lights/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/an-opened-page-of-a-book/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9B%95%E8%8A%B1%E9%93%81%E6%A0%8F%E6%9D%86%E7%9A%84%E9%98%B4%E5%BD%B1/shadow-of-the-carved-iron-railing-2/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/butterfly/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/the-back-of-the-leaf/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/consideration/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/thoughts-on-poetry/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/ant/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/stranger/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/sitting-around-the-stove-2/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/greens-house/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/wild-chrysanthemum-field/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/night-dyed-with-the-sound-of-rain/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/leaf/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/every-day/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/a-strange-little-girl/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/about-love-and-death-poetry-series/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/growth/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E5%AD%98%E5%9C%A8/existence/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/night-is-a-noun/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/woman-standing-in-spring/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/sitting-around-the-stove/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/intimate-and-necessary-like-algae/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/dance-floor/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/swordsman/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/feelings-poetry-series/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/writing-poetry/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E9%9D%99%E7%89%A9/still-life/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/talking-to-stones/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/january-8th/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/symmetry/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/death/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/plum-blossom/",
+      
+        "/%E5%B0%8F%E8%AF%B4/butterfly-dream/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/homeland-of-wild-grass/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/guest/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/life/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/a-mood/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/the-river-flows-under-the-ice/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/night/",
+      
+        "/%E8%AF%97%E6%AD%8C/%E7%9F%AD%E5%8F%A5/short-phrase/",
+      
+        "/it/love-of-keyboard/",
+      
+        "/%E6%95%A3%E6%96%87/about-smoking-accounts/",
+      
+        "/%E8%AF%97%E6%AD%8C/curtain/",
+      
+        "/%E8%AF%97%E6%AD%8C/shadow-of-the-carved-iron-railing/",
+      
+        "/%E6%95%A3%E6%96%87/silly-dog-bean/",
+      
+        "/%E6%95%A3%E6%96%87/ping-jing-de-sheng-zhang/",
+      
+        "/it/jian-pan-zhi-ai/",
+      
+        "/%E6%95%A3%E6%96%87/zhang-yu-xian-sheng/",
+      
+        "/%E6%95%A3%E6%96%87/hu-die-xiao-jie/",
+      
+        "/%E6%95%A3%E6%96%87/guan-yu-yan-de-liu-shui-zhang/",
+      
+        "/%E8%AF%97%E6%AD%8C/chuang-lian/",
+      
+        "/%E8%AF%97%E6%AD%8C/ye-cao-de-gu-xiang/",
+      
+        "/%E6%95%A3%E6%96%87/duo-nian-qian-sui-shou-de-duan-wen/",
+      
+        "/%E6%95%A3%E6%96%87/xiao-gou-han-dou/",
+      
+        "/%E8%AF%97%E6%AD%8C/diao-hua-tie-lan-gan-de-yin-ying/",
+      
+        "/zao-chen-de-han-yi/",
+      
+        "/jing-zi/",
+      
+        "/ye-dong-ru-bing/",
+      
+        "/ying-zi/",
+      
+        "/zuo-pin/",
+      
+        "/cheng-bao/",
+      
+        "/ye-ji/"
+      
+    ];
+    window.onload = function() {
+      if (posts.length > 0) {
+        const randomPost = posts[Math.floor(Math.random() * posts.length)];
+        // 延迟一小会儿增加“拆盲盒”的仪式感
+        setTimeout(() => {
+          window.location.href = randomPost;
+        }, 600);
+      } else {
+        document.body.innerHTML = "尚未发现诗歌作品...";
+      }
+    };
+  </script>
+</head>
+<body>
+  <div class="loader">
+    <div class="spinner"></div>
+    <div>正在为您开启灵感盲盒...</div>
+  </div>
+</body>
+</html>
