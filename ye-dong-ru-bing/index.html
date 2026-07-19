@@ -457,10 +457,34 @@
 
     
       
-        <p>
-          Comments are configured with provider: <strong>custom</strong>,
-          but are disabled in non-production environments.
-        </p>
+        <div class="page__comments">
+  
+  
+      <!-- start custom comments snippet -->
+<div id="waline" style="margin-top: 20px;"></div>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+<script type="module">
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+  // 动态读取 Jekyll 配置文件中的 serverURL，并去除空白字符
+  const serverURL = 'https://your-waline-url.vercel.app'.trim();
+  if (serverURL && serverURL !== 'https://your-waline-url.vercel.app') {
+    init({
+      el: '#waline',
+      serverURL: serverURL,
+      placeholder: '留下您的感悟或指教吧...（支持匿名、填邮箱可收回复提醒）',
+      lang: 'zh-CN',
+      dark: 'auto',
+      pageview: true, // 开启 Waline 自带的文章阅读量统计（比传统更精确）
+    });
+  } else {
+    document.getElementById('waline').innerHTML = '<p style="text-align:center;color:#999;font-size:0.9em;padding:25px 0;border-top:1px dashed #eee;">💬 留言功能正在建设中（等待配置后端服务链接）...</p>';
+  }
+</script>
+<!-- end custom comments snippet -->
+  
+</div>
+
       
     
   </article>
@@ -694,6 +718,21 @@
     
   <script src="/assets/js/main.min.js"></script>
 
+
+
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2QW36PEEMX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2QW36PEEMX', { 'anonymize_ip': true});
+</script>
 
 
 
