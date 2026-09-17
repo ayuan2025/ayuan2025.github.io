@@ -2,7 +2,7 @@
 layout: single
 title: "一车木头"
 slug: a-cart-of-wood
-date: 1999-12
+date: 1999-12-01
 categories: ['诗歌']
 tags: []
 ---

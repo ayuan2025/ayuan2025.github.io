@@ -2,7 +2,7 @@
 layout: single
 title: "写字的手"
 slug: the-writing-hand
-date: 1999-06
+date: 1999-06-01
 categories: ['诗歌']
 tags: []
 ---

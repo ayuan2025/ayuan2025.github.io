@@ -2,7 +2,7 @@
 layout: single
 title: "瓷瓶"
 slug: porcelain-vase
-date: 1992
+date: 1992-01-01
 categories: ['诗歌']
 tags: []
 ---
