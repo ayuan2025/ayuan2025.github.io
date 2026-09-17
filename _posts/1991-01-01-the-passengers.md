@@ -2,7 +2,7 @@
 layout: single
 title: "乘客"
 slug: the-passengers
-date: 1991
+date: 1991-01-01
 categories: ['诗歌']
 tags: []
 ---

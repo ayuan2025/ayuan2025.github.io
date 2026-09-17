@@ -2,7 +2,7 @@
 layout: single
 title: "怀念少女黄阿蒙"
 slug: remembering-girl-huang-ameng
-date: 1990-10
+date: 1990-10-01
 categories: ['诗歌']
 tags: []
 ---

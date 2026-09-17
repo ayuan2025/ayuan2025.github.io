@@ -2,7 +2,7 @@
 layout: single
 title: "没有下雪的那个冬天"
 slug: the-winter-without-snow
-date: 1990
+date: 1990-01-01
 categories: ['诗歌']
 tags: []
 ---
