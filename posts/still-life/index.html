@@ -5,9 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>静物 · 阿元的自留地</title>
 <link rel="stylesheet" href="/assets/css/style.css">
+<style>
+/* 入场前的底色：与本页纸色一致，从书架跳过来时不闪白
+ * 写在这里是为了在 style.css 之前就生效；--paper 由 style.css 定义，
+ * 而 <link> 是渲染阻塞的，body 渲染时变量一定已就位。 */
+.boot-veil { position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  background: var(--paper); opacity: 0; transition: opacity .38s ease-out; }
+html.book-boot .boot-veil { opacity: 1; }
+</style>
 
 </head>
 <body class="page-post">
+<div class="boot-veil" id="bootVeil"></div>
 
 <nav class="masthead">
   <a class="brand" href="/">阿元的自留地</a>
