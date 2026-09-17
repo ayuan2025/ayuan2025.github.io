@@ -287,57 +287,98 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
 }
 
 /* ---------- 开书过场动画 ----------
- * 动作链：从书堆里抽出 → 移到眼前转正 → 封面真的掀开（3D）→ 整本书推近铺满 → 跳转
+ * 动作链：从书堆里抽出 → 转到眼前 → 掀开封面 → 溶进纸里 → 落地
+ *
+ * 上一版最后会把米白纸推近到铺满屏幕并停住，紧接着整页跳转 —— 那一瞬间正好是
+ * 「一整屏白」。这一版的硬约束：任何一帧都不能出现整屏白。
+ *   1. 底色从书桌色起步，结束时过渡到纸色，落地页用同一底色接住
+ *   2. 只在飞行途中临时压暗，落地前压暗归零
+ *   3. 最后不再「推近铺满」，只轻轻凑近一下并整体淡出
  */
 .flip-overlay {
-  position: fixed; inset: 0; z-index: 9999;
+  position: fixed; inset: 0; z-index: 9999; overflow: hidden;
   pointer-events: none; opacity: 0;
-  background: radial-gradient(ellipse at center, rgba(28, 18, 8, .78), rgba(10, 7, 4, .93));
-  transition: opacity .28s ease-out;
+  background: var(--desk-outer);           /* 接着书桌的底色，不要突然换世界 */
+  transition: opacity .2s ease-out;
 }
 .flip-overlay.active { opacity: 1; pointer-events: auto; }
 
-/* 书本体：负责「抽出 → 移到中央」与最后的「推近铺满」 */
+/* 飞行途中的压暗：让书从桌面上浮起来 */
+.flip-overlay::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(ellipse at 50% 44%,
+              rgba(24, 16, 6, .22) 0%, rgba(14, 9, 4, .58) 66%, rgba(10, 7, 3, .74) 100%);
+  transition: opacity .3s ease-out;
+}
+.flip-overlay.active::before { opacity: 1; }
+
+/* 收尾：压暗退场、纸色进场 —— 最后一帧就是落地页的底色
+ * 两者的时长必须短于 T_GO - T_SETTLE，跳转时已经是 100% 纯纸色，
+ * 否则跳过去的瞬间会硬切一下（书还挂着 80% 不透明度、底色只到 70%）。 */
+.flip-overlay.settling::before { opacity: 0; transition: opacity .3s ease-out; }
+.flip-overlay::after {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  background: var(--paper);
+  transition: opacity .3s ease-out;
+}
+.flip-overlay.settling::after { opacity: 1; }
+
+/* 书本体：抽出 → 转正 → 溶进纸里 */
 .fly-book {
   position: fixed;
-  perspective: 1500px;
+  perspective: 1400px;
   transform-style: preserve-3d;
   transform-origin: center center;
-  will-change: left, top, width, height, transform;
+  will-change: left, top, width, height, transform, opacity;
 }
 .fly-book.moving {
-  transition: left .46s cubic-bezier(.22, .68, .3, 1),
-              top .46s cubic-bezier(.22, .68, .3, 1),
-              width .46s cubic-bezier(.22, .68, .3, 1),
-              height .46s cubic-bezier(.22, .68, .3, 1),
-              transform .46s cubic-bezier(.22, .68, .3, 1);
+  transition: left .5s cubic-bezier(.16, .84, .3, 1),
+              top .5s cubic-bezier(.16, .84, .3, 1),
+              width .5s cubic-bezier(.16, .84, .3, 1),
+              height .5s cubic-bezier(.16, .84, .3, 1),
+              transform .5s cubic-bezier(.16, .84, .3, 1);
 }
-.fly-book.zooming {
-  transition: transform .46s cubic-bezier(.5, .02, .74, .42);
+/* 最后一步：轻轻凑近，同时整本书溶掉 —— 不再有铺满屏幕的米白块
+ * 淡出 .26s + 底色归一 .3s，都必须在跳转前跑完（T_SETTLE=820 → T_GO=1140） */
+.fly-book.settling {
+  transform-origin: 50% 48%;
+  opacity: 0;
+  transition: transform .3s cubic-bezier(.4, 0, .62, .3),
+              opacity .26s cubic-bezier(.5, 0, .75, .28);
 }
 
-/* 内页（封面掀开后露出来的那一页纸） */
+/* 内页（封面掀开后露出的那一页纸） */
 .fly-book .fly-page {
   position: absolute; inset: 0;
-  border-radius: 2px 4px 4px 2px;
-  background: linear-gradient(180deg, #fbf6ea, #f0e7d3);
-  box-shadow: inset 26px 0 36px rgba(120, 92, 54, .22), 0 22px 56px rgba(0, 0, 0, .5);
+  border-radius: 2px 5px 5px 2px;
+  background: linear-gradient(180deg, #fbf6ea, #efe6d1 62%, #e7dcc3);
+  box-shadow: inset 26px 0 34px rgba(120, 92, 54, .20),
+              inset -14px 0 22px rgba(120, 92, 54, .09),
+              0 26px 60px rgba(0, 0, 0, .46);
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
-/* 靠书脊那侧的中缝阴影 */
+/* 靠书脊那一侧的中缝 */
 .fly-book .fly-page::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 30px;
-  background: linear-gradient(90deg, rgba(88, 64, 36, .32), transparent);
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 34px;
+  background: linear-gradient(90deg, rgba(88, 64, 36, .32), rgba(88, 64, 36, .06) 62%, transparent);
+}
+/* 书口：一层层的页边 */
+.fly-book .fly-page::after {
+  content: ''; position: absolute; right: 0; top: 7px; bottom: 7px; width: 9px;
+  border-radius: 0 5px 5px 0;
+  background: repeating-linear-gradient(180deg,
+              rgba(146, 120, 84, .32) 0 1px, rgba(146, 120, 84, 0) 1px 3px);
+  box-shadow: inset -1px 0 0 rgba(120, 96, 60, .14);
 }
 .fly-book .fly-page-title {
   position: relative; font-size: clamp(1.05rem, 2.4vw, 1.5rem);
   letter-spacing: .42em; text-indent: .42em; color: #4a3a26;
   opacity: 0; transform: translateY(8px);
-  transition: opacity .42s ease-out, transform .42s ease-out;
+  transition: opacity .4s ease-out, transform .4s ease-out;
 }
-.fly-book.opening .fly-page-title { opacity: 1; transform: none; transition-delay: .3s; }
-.fly-book.zooming .fly-page-title { opacity: 0; transition: opacity .2s ease-out; }
+.fly-book.opening .fly-page-title { opacity: 1; transform: none; transition-delay: .2s; }
+.fly-book.settling .fly-page-title { opacity: 0; transition: opacity .2s ease-out .04s; }
 
 /* 封面：绕左侧书脊向内掀开；正反两面各一层，转过 90° 后自然看到衬纸背面 */
 .fly-book .fly-cover {
@@ -345,18 +386,18 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   transform-origin: left center;
   transform-style: preserve-3d;
   transform: rotateY(0deg);
-  border-radius: 2px 4px 4px 2px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, .46);
+  border-radius: 2px 5px 5px 2px;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .44);
 }
 .fly-book.opening .fly-cover {
-  transform: rotateY(-164deg);
-  transition: transform .66s cubic-bezier(.42, .05, .2, 1);
+  transform: rotateY(-158deg);
+  transition: transform .44s cubic-bezier(.42, .05, .2, 1);
 }
 /* 封面正面：底色由 JS 从书脊复制 */
 .fly-book .fly-cover-face {
   position: absolute; inset: 0; border-radius: inherit;
   backface-visibility: hidden;
-  box-shadow: inset -8px 0 16px rgba(0, 0, 0, .20);
+  box-shadow: inset -8px 0 16px rgba(0, 0, 0, .20), inset 0 0 0 1px rgba(0, 0, 0, .05);
 }
 /* 封面背面：旧书的衬纸，泛黄、透一点封面色 */
 .fly-book .fly-cover-back {
@@ -364,8 +405,30 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   backface-visibility: hidden;
   transform: rotateY(180deg);
   background:
-    linear-gradient(90deg, rgba(88, 64, 36, .16), transparent 26%),
-    linear-gradient(180deg, #f6efdd, #eadfc4);
+    linear-gradient(90deg, rgba(88, 64, 36, .18), transparent 26%),
+    linear-gradient(180deg, #f6efdd, #e9ddc0);
+}
+
+/* ---------- 落地页入场 ----------
+ * 从书架过来时才启用（desk.js 打 sessionStorage 标记）。
+ * 遮罩底色 = 本页纸色，掀开后书和工具栏一起浮出，中间不会出现任何白块。
+ */
+.boot-veil {
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  background: var(--paper); opacity: 0;
+  transition: opacity .38s ease-out;
+}
+html.book-boot .boot-veil { opacity: 1; }
+body.book-ready #book { animation: bookEnter .55s cubic-bezier(.2, .72, .3, 1) both; }
+body.book-ready .book-toolbar,
+body.book-ready .book-hint { animation: toolEnter .55s ease-out both; }
+@keyframes bookEnter {
+  from { opacity: 0; transform: scale(.985); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes toolEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
 }
 
 /* 书桌上的物件：台灯光晕与茶渍 */
