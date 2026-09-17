@@ -201,7 +201,12 @@
   }
 
   /* ---------- 卷曲层 ---------- */
-  var curlCv = null, curlCtx = null, curlDpr = 1;
+  /* 手机翻页卡顿的根因：旧版每帧都 curlCv.width = ...（每帧重建整块位图，
+   * dpr=3 时约 1170×2100，每秒 60 次）并按全分辨率画渐变。现改为：
+   *   1. 尺寸缓存 —— 只有真变了才重建画布
+   *   2. 卷曲层 DPR 封顶 —— 它只画软渐变，1.5x/2x 肉眼无差，像素量降 4 倍
+   */
+  var curlCv = null, curlCtx = null, curlDpr = 1, curlW = 0, curlH = 0;
   function ensureCurlCanvas() {
     if (!curlCv) {
       curlCv = document.createElement('canvas');
@@ -210,11 +215,16 @@
       curlCtx = curlCv.getContext('2d');
     }
     var r = book.getBoundingClientRect();
-    curlDpr = window.devicePixelRatio || 1;
-    curlCv.width = Math.round(r.width * curlDpr);
-    curlCv.height = Math.round(r.height * curlDpr);
-    curlCv.style.width = r.width + 'px';
-    curlCv.style.height = r.height + 'px';
+    var dpr = Math.min(window.devicePixelRatio || 1, isMobile() ? 1.5 : 2);
+    var w = Math.round(r.width), h = Math.round(r.height);
+    if (w !== curlW || h !== curlH || dpr !== curlDpr) {
+      curlDpr = dpr;
+      curlW = w; curlH = h;
+      curlCv.width = Math.round(curlW * curlDpr);
+      curlCv.height = Math.round(curlH * curlDpr);
+      curlCv.style.width = curlW + 'px';
+      curlCv.style.height = curlH + 'px';
+    }
     return r;
   }
 
