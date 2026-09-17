@@ -66,8 +66,13 @@
     // 系统里关掉了动画偏好：直接过去，不做过场
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { go(href); return; }
 
-    // 封面沿用这本书的纸质底色与斑驳
-    flyCover.style.backgroundImage = getComputedStyle(spine).backgroundImage;
+    // 封面沿用这本书的纸质底色与斑驳；CD 盒是半透明塑料，直接抄会太淡，给实底色
+    if (spine.classList.contains('cd')) {
+      flyCover.style.backgroundImage =
+        'linear-gradient(135deg, #cdd6da, #b6c2c8 55%, #9daeb6)';
+    } else {
+      flyCover.style.backgroundImage = getComputedStyle(spine).backgroundImage;
+    }
     flyTitle.textContent = label;
 
     // 1) 起点：严丝合缝压在书脊上（连当前的倾斜角都抄过来），
