@@ -53,7 +53,8 @@
     var s = SONGS[idx];
     document.title = s.title + ' · 音乐 · 阿元的自留地';
     titleEl.textContent = s.title;
-    subEl.textContent = s.sub ? s.sub + ' · 阿元壹号' : '阿元壹号';
+    if (s.sub) { subEl.textContent = s.sub; subEl.style.display = ''; }
+    else { subEl.textContent = ''; subEl.style.display = 'none'; }
     audio.src = s.audio;
     lrc = s.lrc && s.lrc.length ? s.lrc.slice() : null;
     sel = 0; lastCur = -2;

@@ -3,7 +3,6 @@ window.SONGS = [
  {
   "slug": "pan-huang-de-xie-pian",
   "title": "泛黄的叶片",
-  "sub": "Wondera",
   "audio": "audio/pan-huang-de-xie-pian.m4a",
   "dur": "03:58",
   "lrc": [
