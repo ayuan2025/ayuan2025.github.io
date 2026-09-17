@@ -26,11 +26,13 @@
   function makeProbe() {
     if (!probe) {
       probe = document.createElement('div');
-      // 借用 leaf-front：拿到与真实纸面一致的 padding；桌面端宽度对齐半页，
+      // 借用真实页面的类：拿到与真实渲染一致的 padding；桌面端宽度对齐半页，
       // 否则探针行宽是真实纸面的两倍，实测高度只有真实的一半 → 每面塞双倍内容 → 末行被页脚裁切
-      probe.className = 'page-face leaf-front probe';
+      // 移动极简模式借用 .simple-page（与真实页面同 padding 同高度）
+      probe.className = isMobile() ? 'simple-page probe' : 'page-face leaf-front probe';
       probe.setAttribute('aria-hidden', 'true');
       if (!isMobile()) probe.style.width = '50%';
+      else probe.style.height = inner.getBoundingClientRect().height + 'px'; // 与真实 .simple-page（height:100%）严格同高
       inner.appendChild(probe);
     }
     return probe;
@@ -307,26 +309,38 @@
   function atEnd() { return isMobile() ? view >= faces.length - 1 : flipped >= nSheets; }
 
   function render() {
+    prevBtn.disabled = atStart();
+    nextBtn.disabled = atEnd();
+    if (isMobile()) {
+      // 移动极简模式：单页直出，无书本视觉、无动画（见 go()），页码 = 面号/总面数
+      var page = document.getElementById('simplePage');
+      if (page) page.innerHTML = faceHTML(faces[view]);
+      indicator.textContent = (view + 1) + ' / ' + faces.length;
+      return;
+    }
     var leaves = inner.querySelectorAll('.leaf');
     var fl = flippedCount();
     for (var i = 0; i < leaves.length; i++) {
       leaves[i].classList.toggle('flipped', i < fl);
       leaves[i].style.zIndex = i < fl ? 10 + i : 10 + (nSheets - i);
     }
-    var idxs = isMobile() ? [view]
-      : [2 * flipped - 1, 2 * flipped].filter(function (i) { return i >= 0 && i < faces.length; });
+    var idxs = [2 * flipped - 1, 2 * flipped].filter(function (i) { return i >= 0 && i < faces.length; });
     indicator.textContent = idxs.map(function (i) {
       var f = faces[i];
       return (f.itemIdx + 1) + (f.part > 0 ? '·续' : '');
     }).join('–') + ' / ' + DATA.items.length;
-    prevBtn.disabled = atStart();
-    nextBtn.disabled = atEnd();
     if (curlCv) curlCv.style.opacity = 0;
   }
 
   /* ---------- 翻页 ---------- */
   function go(dir) {
     if (animating || (dir > 0 ? atEnd() : atStart())) return;
+    if (isMobile()) {
+      // 移动极简模式：不翻书、不出声、不逐帧——内容直接切到下一页，零动画开销
+      view = Math.max(0, Math.min(faces.length - 1, view + dir));
+      render();
+      return;
+    }
     flipSound();
     animating = true;
 
@@ -447,15 +461,22 @@
     var cur = faces[curFaceIdx()], keep = cur ? cur.itemIdx : 0;
     layout();
     nSheets = Math.ceil(faces.length / 2);
-    var html = '';
-    for (var k = 0; k < nSheets; k++) {
-      var fr = faces[2 * k], bk = faces[2 * k + 1];
-      html += '<section class="leaf" data-idx="' + k + '">'
-        + '<div class="leaf-front page-face">' + faceHTML(fr) + '</div>'
-        + '<div class="leaf-back page-face">' + (bk ? faceHTML(bk) : '<div class="face-empty">—</div>') + '</div>'
-        + '</section>';
+    if (isMobile()) {
+      // 移动极简模式：抛弃 3D 书页结构，只保留一个单页容器（翻页 = 重填内容）
+      book.classList.add('simple');
+      inner.innerHTML = '<div class="simple-page" id="simplePage"></div>';
+    } else {
+      book.classList.remove('simple');
+      var html = '';
+      for (var k = 0; k < nSheets; k++) {
+        var fr = faces[2 * k], bk = faces[2 * k + 1];
+        html += '<section class="leaf" data-idx="' + k + '">'
+          + '<div class="leaf-front page-face">' + faceHTML(fr) + '</div>'
+          + '<div class="leaf-back page-face">' + (bk ? faceHTML(bk) : '<div class="face-empty">—</div>') + '</div>'
+          + '</section>';
+      }
+      inner.innerHTML = html;
     }
-    inner.innerHTML = html;
     probe = null;
     var target = 0;
     for (var i = 0; i < faces.length; i++) if (faces[i].itemIdx === keep) { target = i; break; }

@@ -114,14 +114,14 @@
 @keyframes underShadow { 0% { opacity: 0; } 22% { opacity: 1; } 100% { opacity: 0; } }
 
 /* 页面内容 */
-/* 诗题/篇名：每篇首面左对齐标题 */
-.page-face .p-head { text-align: left; flex-shrink: 0; }
-.page-face .p-head h2 {
+/* 诗题/篇名：每篇首面左对齐标题（.simple-page 为移动极简模式，样式与书页一致） */
+.page-face .p-head, .simple-page .p-head { text-align: left; flex-shrink: 0; }
+.page-face .p-head h2, .simple-page .p-head h2 {
   margin: 0 0 6px; font-size: 1.3rem; letter-spacing: 2px;
   text-align: left; padding-bottom: 8px; border-bottom: 1px solid var(--line);
 }
-.page-face .p-head .p-sub { margin: 0 0 4px; color: var(--muted); font-size: .78rem; letter-spacing: 1px; }
-.page-face header { text-align: center; flex-shrink: 0; }
+.page-face .p-head .p-sub, .simple-page .p-head .p-sub { margin: 0 0 4px; color: var(--muted); font-size: .78rem; letter-spacing: 1px; }
+.page-face header, .simple-page header { text-align: center; flex-shrink: 0; }
 
 /* 散文/小说正文：左对齐，首段起首缩进两格 */
 .prose-body { text-align: left; }
@@ -138,10 +138,10 @@
   pointer-events: none; opacity: 0;
   transition: opacity .12s linear;
 }
-.page-face header h2 { margin: 6px 0 0; font-size: 1.35rem; letter-spacing: 3px; }
-.page-face header.cont h2 { font-size: 1.05rem; letter-spacing: 1px; }
+.page-face header h2, .simple-page header h2 { margin: 6px 0 0; font-size: 1.35rem; letter-spacing: 3px; }
+.page-face header.cont h2, .simple-page header.cont h2 { font-size: 1.05rem; letter-spacing: 1px; }
 .cont-mark { color: var(--accent); font-size: .8em; vertical-align: 2px; }
-.page-face .post-meta { margin: 0; }
+.page-face .post-meta, .simple-page .post-meta { margin: 0; }
 /* min-height:0 必须显式声明：column flex 项默认 min-height:auto，
    内容超出时它不肯收缩，会把页脚顶出纸面（页脚/末行被裁切） */
 .poem-body { flex: 1 1 0; min-height: 0; overflow: hidden; text-align: left; padding: 14px 6px 12px 4px; }
@@ -213,3 +213,20 @@
   .book-inner::after { width: 100%; }
   .book-hint { display: none; }
 }
+
+/* ---------- 移动极简模式：不做翻页效果，单页直出、直切，无任何动画 ----------
+ * 与 3D 书本唯一的共同点是内容排版（p-head/stanza/para/leaf-foot）。
+ * 视觉上只有：一张素纸卡片 + 底部页脚，配色沿用 --card/--line 等，亮暗主题自动跟随。 */
+.book.simple { perspective: none; height: max(480px, calc(100vh - 150px)); }
+.book.simple::before { display: none; }
+.simple-page {
+  height: 100%;
+  display: flex; flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 24px 22px 16px;
+  overflow: hidden;
+}
+/* 探针：与真实页面同高（JS 会再以 inner 实高精确覆写），隐藏不参与布局 */
+.simple-page.probe { visibility: hidden; position: absolute; width: 100%; left: 0; top: 0; z-index: -1; }
