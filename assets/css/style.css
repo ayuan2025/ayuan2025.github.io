@@ -1,0 +1,480 @@
+/* 阿元的自留地 — 视觉系统
+   宣纸 × 墨 × 朱砂；深浅双主题 */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css');
+
+:root {
+  --serif: 'LXGW WenKai Screen', 'Noto Serif SC', 'Source Han Serif SC', 'STSong', serif;
+  --paper: #f5f0e6;
+  --paper-2: #ede6d6;
+  --card: #fbf7ee;
+  --ink: #2b2620;
+  --ink-soft: #5a5245;
+  --muted: #8a7f6d;
+  --accent: #a63f2e;      /* 朱砂 */
+  --accent-soft: #c4715f;
+  --line: #d9cfba;
+  --shadow: 0 2px 16px rgba(60, 45, 20, .08);
+  --radius: 10px;
+}
+[data-theme="dark"] {
+  --paper: #191713;
+  --paper-2: #211e19;
+  --card: #242019;
+  --ink: #e6ddca;
+  --ink-soft: #c2b7a0;
+  --muted: #8d8471;
+  --accent: #d07a5f;
+  --accent-soft: #a8563f;
+  --line: #3a342a;
+  --shadow: 0 2px 16px rgba(0, 0, 0, .4);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--serif);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.9;
+  font-size: 17px;
+  transition: background .3s, color .3s;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; }
+
+/* ---------- 导航 ---------- */
+.masthead {
+  display: flex; align-items: center; gap: 16px;
+  max-width: 960px; margin: 0 auto; padding: 18px 20px;
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-size: 1.15rem; font-weight: 700; color: var(--ink); letter-spacing: 2px; }
+.brand:hover { text-decoration: none; color: var(--accent); }
+.nav-links { display: flex; gap: 18px; margin-left: auto; font-size: .95rem; }
+.nav-links a { color: var(--ink-soft); }
+.nav-links a:hover { color: var(--accent); text-decoration: none; }
+.blindbox { font-size: 1.1rem; }
+#themeToggle {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink-soft);
+  border-radius: 50%; width: 34px; height: 34px; font-size: 1rem; cursor: pointer;
+}
+@media (max-width: 640px) {
+  .nav-links { gap: 12px; font-size: .88rem; }
+  .brand { font-size: 1rem; letter-spacing: 1px; }
+}
+
+/* ---------- 首页（旧卡片样式保留，供 /random 等复用） ---------- */
+.hero { text-align: center; padding: 64px 0 40px; }
+.site-title { font-size: clamp(2.2rem, 6vw, 3.4rem); margin: 0 0 12px; letter-spacing: 6px; font-weight: 700; }
+.site-title .accent { color: var(--accent); }
+.site-sub { color: var(--muted); margin: 0 0 28px; font-size: 1.02rem; }
+.blindbox-btn {
+  display: inline-block; padding: 10px 22px; border-radius: 999px;
+  border: 1px solid var(--accent); color: var(--accent);
+  transition: all .2s;
+}
+.blindbox-btn:hover { background: var(--accent); color: var(--paper); text-decoration: none; }
+
+.shelf {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 24px 0 48px;
+}
+.book-cover {
+  position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 180px; padding: 18px;
+  background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--accent);
+  border-radius: var(--radius); box-shadow: var(--shadow); color: var(--ink);
+  transition: transform .25s, box-shadow .25s;
+}
+.book-cover:hover { transform: translateY(-4px); text-decoration: none; box-shadow: 0 8px 24px rgba(60,45,20,.15); }
+.book-cover:nth-child(2) { border-left-color: #4a6b5d; }
+.book-cover:nth-child(3) { border-left-color: #7a6a9e; }
+.book-cover:nth-child(4) { border-left-color: #9c7c3c; }
+.book-cover:nth-child(5) { border-left-color: #5e7a8e; }
+.cover-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 3px; }
+.cover-desc { color: var(--muted); font-size: .88rem; margin-top: 4px; }
+.cover-count { color: var(--muted); font-size: .8rem; margin-top: 12px; }
+.cover-hint { color: var(--accent); font-size: .82rem; margin-top: 2px; }
+
+.latest h2 { font-size: 1.1rem; letter-spacing: 2px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+
+/* ---------- 首页：老式书桌 ---------- */
+.page-home { background: var(--desk-outer); }
+.page-home .wrap { max-width: 1100px; padding: 0; }
+/* 首页书桌自带标题与四本书（就是导航），顶栏不再重复站名和分类链接，
+   只留右上角的深浅模式切换，且整条顶栏隐入桌面背景 */
+.page-home .masthead .brand,
+.page-home .masthead .nav-links { display: none; }
+.page-home .masthead {
+  justify-content: flex-end;
+  background: transparent; backdrop-filter: none; border-bottom: none;
+}
+
+.desk-stage {
+  position: relative;
+  min-height: calc(100vh - 71px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 24px 64px;
+  overflow: hidden;
+}
+
+/* 桌面：木纹 + 台灯暖光 + 四角渐暗 */
+.desk {
+  position: relative;
+  width: min(980px, 100%);
+  min-height: min(620px, calc(100vh - 190px));
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse 78% 62% at 50% 26%, rgba(255, 226, 168, .30), transparent 62%),
+    repeating-linear-gradient(93deg,
+      rgba(78, 50, 28, .085) 0 2px, transparent 2px 5px,
+      rgba(46, 28, 14, .06) 5px 6px, transparent 6px 13px),
+    repeating-linear-gradient(88deg,
+      rgba(120, 82, 48, .05) 0 1px, transparent 1px 9px),
+    linear-gradient(168deg, #7b5334 0%, #6b462b 34%, #5c3b23 68%, #4c301c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 232, 190, .22),
+    inset 0 -3px 14px rgba(0, 0, 0, .34),
+    0 22px 60px rgba(0, 0, 0, .46);
+  padding: 54px 48px 62px;
+  display: flex; flex-direction: column;
+  animation: deskIn .8s cubic-bezier(.22, .61, .36, 1) both;
+}
+@keyframes deskIn {
+  from { opacity: 0; transform: translateY(26px) scale(.975); }
+  to   { opacity: 1; transform: none; }
+}
+/* 桌面四角暗角（老木头做旧） */
+.desk::after {
+  content: ''; position: absolute; inset: 0; border-radius: 14px; pointer-events: none;
+  background: radial-gradient(ellipse 92% 82% at 50% 42%, transparent 48%, rgba(0, 0, 0, .30) 100%);
+}
+
+/* 桌面上的题词 · 手写感 */
+.desk-title {
+  position: relative; z-index: 3;
+  margin: 0 0 6px; font-size: clamp(1.5rem, 3.4vw, 2rem);
+  letter-spacing: 8px; color: #f3e2c2;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .5), 0 0 22px rgba(255, 200, 120, .28);
+}
+.desk-title .accent { color: #e8a97f; }
+.desk-sub {
+  position: relative; z-index: 3;
+  margin: 0 0 34px; color: rgba(240, 222, 190, .62); font-size: .92rem; letter-spacing: 2px;
+}
+
+/* 书堆：几本书随意斜靠 */
+.book-stack {
+  position: relative; z-index: 3;
+  flex: 1; display: flex; align-items: flex-end; justify-content: center;
+  gap: 2px; padding-bottom: 26px;
+}
+
+/* ---------- 书脊：旧平装书（质朴、泛旧，无烫金、无硬壳光泽） ---------- */
+.spine {
+  position: relative;
+  width: clamp(46px, 6.4vw, 66px);
+  height: clamp(272px, 41vh, 386px);
+  border-radius: 2px 3px 3px 2px;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform .38s cubic-bezier(.2, .7, .3, 1), box-shadow .38s, filter .38s;
+  /* 平装书：边缘柔、投影轻，没有硬壳的高光和厚边 */
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, .10),
+    inset -7px 0 12px rgba(0, 0, 0, .17),
+    2px 5px 12px rgba(0, 0, 0, .34);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  /* 泛旧：整体降饱和，像放了多年的纸封面 */
+  filter: saturate(.78) contrast(.95) sepia(.14);
+  /* 纸质底色 + 褪色斑块（晒旧、指痕、潮气） */
+  background:
+    radial-gradient(ellipse 46% 16% at 32% 20%, rgba(255, 250, 235, .13), transparent 72%),
+    radial-gradient(ellipse 34% 11% at 74% 64%, rgba(60, 40, 20, .13), transparent 72%),
+    radial-gradient(ellipse 70% 26% at 46% 104%, rgba(40, 26, 12, .17), transparent 74%),
+    linear-gradient(96deg, var(--paper), var(--paper2) 56%, var(--paper3));
+}
+/* 纸纤维 + 书脊两侧的压痕（横向纸纹很淡，别做成布纹） */
+.spine::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 252, 244, .035) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(0deg, rgba(46, 30, 14, .028) 2px 3px, transparent 3px 8px),
+    linear-gradient(90deg,
+      rgba(0, 0, 0, .16) 0 2px, transparent 2px 7px,
+      transparent calc(100% - 7px), rgba(0, 0, 0, .13) calc(100% - 2px)),
+    /* 上下书口磨白（翻旧了） */
+    linear-gradient(180deg, rgba(255, 250, 238, .15) 0 3px, transparent 3px,
+                            transparent calc(100% - 4px), rgba(255, 250, 238, .11) calc(100% - 4px));
+}
+/* 右侧露出的书页侧：一层层的纸 */
+.spine::after {
+  content: ''; position: absolute; top: 3px; bottom: 3px; right: 0; width: 3px;
+  pointer-events: none; border-radius: 0 2px 2px 0;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(118, 98, 72, .38) 0 1px,
+      rgba(238, 229, 210, .62) 1px 3px);
+}
+
+.spine-title {
+  position: relative; z-index: 2;
+  writing-mode: vertical-rl; text-orientation: upright;
+  font-size: clamp(.88rem, 1.35vw, 1.04rem);
+  letter-spacing: .26em; font-weight: 500;
+  color: var(--ink);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .32);
+  padding: 22px 0;
+  white-space: nowrap;
+}
+
+/* 册数：像手写上去的小字 */
+.spine-tag {
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  z-index: 2; font-size: .58rem; letter-spacing: .12em;
+  color: rgba(250, 242, 226, .52);
+  writing-mode: vertical-rl;
+}
+
+/* 四本书：褪色的旧纸封面（低饱和，越旧越好看） */
+.spine[data-cat="poetry"]  { --paper: #a07a61; --paper2: #8a6250; --paper3: #7a5442; --ink: #f4e6ce; }
+.spine[data-cat="prose"]   { --paper: #7f8a70; --paper2: #6a7560; --paper3: #5a6451; --ink: #f2eeda; }
+.spine[data-cat="fiction"] { --paper: #71808c; --paper2: #5d6b78; --paper3: #4e5c68; --ink: #f0ece0; }
+.spine[data-cat="tech"]    { --paper: #a8925f; --paper2: #907c4c; --paper3: #7d6a3e; --ink: #f6efd9; }
+.spine[data-cat="misc"]    { --paper: #7d7a70; --paper2: #69665d; --paper3: #585549; --ink: #f1eee6; }
+
+/* 随意斜靠着（角度比精装小，更像随手一放） */
+.spine:nth-child(1) { transform: rotate(-1.6deg) translateY(4px); }
+.spine:nth-child(2) { transform: rotate(1.1deg) translateY(-3px); }
+.spine:nth-child(3) { transform: rotate(-.8deg) translateY(7px); }
+.spine:nth-child(4) { transform: rotate(1.8deg) translateY(-5px); }
+.spine:nth-child(5) { transform: rotate(-1.2deg) translateY(2px); }
+
+/* 悬停：像把书从堆里抽出来一点 */
+.spine:hover, .spine:focus-visible {
+  transform: translateY(-18px) rotate(0deg);
+  filter: saturate(.92) contrast(1) brightness(1.05);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, .10),
+    inset -7px 0 12px rgba(0, 0, 0, .15),
+    0 16px 30px rgba(0, 0, 0, .40);
+  outline: none;
+}
+.spine:hover .spine-title { color: #fffaea; }
+
+/* 桌面右下角：随手翻开一篇 */
+.desk-actions {
+  position: absolute; right: 34px; bottom: 26px; z-index: 4;
+}
+.desk-actions .blindbox-btn {
+  border-color: rgba(240, 210, 160, .48); color: rgba(246, 228, 198, .9);
+  background: rgba(0, 0, 0, .16); font-size: .86rem;
+}
+.desk-actions .blindbox-btn:hover { background: rgba(240, 210, 160, .9); color: #3a2414; }
+
+/* 桌面提示文字 */
+.desk-hint {
+  position: absolute; left: 34px; bottom: 30px; z-index: 3;
+  margin: 0; font-size: .78rem; letter-spacing: 1.5px;
+  color: rgba(238, 218, 186, .48);
+}
+
+/* ---------- 开书过场动画 ----------
+ * 动作链：从书堆里抽出 → 移到眼前转正 → 封面真的掀开（3D）→ 整本书推近铺满 → 跳转
+ */
+.flip-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none; opacity: 0;
+  background: radial-gradient(ellipse at center, rgba(28, 18, 8, .78), rgba(10, 7, 4, .93));
+  transition: opacity .28s ease-out;
+}
+.flip-overlay.active { opacity: 1; pointer-events: auto; }
+
+/* 书本体：负责「抽出 → 移到中央」与最后的「推近铺满」 */
+.fly-book {
+  position: fixed;
+  perspective: 1500px;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  will-change: left, top, width, height, transform;
+}
+.fly-book.moving {
+  transition: left .46s cubic-bezier(.22, .68, .3, 1),
+              top .46s cubic-bezier(.22, .68, .3, 1),
+              width .46s cubic-bezier(.22, .68, .3, 1),
+              height .46s cubic-bezier(.22, .68, .3, 1),
+              transform .46s cubic-bezier(.22, .68, .3, 1);
+}
+.fly-book.zooming {
+  transition: transform .46s cubic-bezier(.5, .02, .74, .42);
+}
+
+/* 内页（封面掀开后露出来的那一页纸） */
+.fly-book .fly-page {
+  position: absolute; inset: 0;
+  border-radius: 2px 4px 4px 2px;
+  background: linear-gradient(180deg, #fbf6ea, #f0e7d3);
+  box-shadow: inset 26px 0 36px rgba(120, 92, 54, .22), 0 22px 56px rgba(0, 0, 0, .5);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+/* 靠书脊那侧的中缝阴影 */
+.fly-book .fly-page::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 30px;
+  background: linear-gradient(90deg, rgba(88, 64, 36, .32), transparent);
+}
+.fly-book .fly-page-title {
+  position: relative; font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+  letter-spacing: .42em; text-indent: .42em; color: #4a3a26;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .42s ease-out, transform .42s ease-out;
+}
+.fly-book.opening .fly-page-title { opacity: 1; transform: none; transition-delay: .3s; }
+.fly-book.zooming .fly-page-title { opacity: 0; transition: opacity .2s ease-out; }
+
+/* 封面：绕左侧书脊向内掀开；正反两面各一层，转过 90° 后自然看到衬纸背面 */
+.fly-book .fly-cover {
+  position: absolute; inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  border-radius: 2px 4px 4px 2px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .46);
+}
+.fly-book.opening .fly-cover {
+  transform: rotateY(-164deg);
+  transition: transform .66s cubic-bezier(.42, .05, .2, 1);
+}
+/* 封面正面：底色由 JS 从书脊复制 */
+.fly-book .fly-cover-face {
+  position: absolute; inset: 0; border-radius: inherit;
+  backface-visibility: hidden;
+  box-shadow: inset -8px 0 16px rgba(0, 0, 0, .20);
+}
+/* 封面背面：旧书的衬纸，泛黄、透一点封面色 */
+.fly-book .fly-cover-back {
+  position: absolute; inset: 0; border-radius: inherit;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  background:
+    linear-gradient(90deg, rgba(88, 64, 36, .16), transparent 26%),
+    linear-gradient(180deg, #f6efdd, #eadfc4);
+}
+
+/* 书桌上的物件：台灯光晕与茶渍 */
+.desk-lamp {
+  position: absolute; left: 8%; top: 4%; width: 320px; height: 320px;
+  border-radius: 50%; pointer-events: none; z-index: 1;
+  background: radial-gradient(circle, rgba(255, 220, 150, .26), rgba(255, 200, 110, .07) 42%, transparent 70%);
+  animation: lampFlicker 7s ease-in-out infinite;
+}
+@keyframes lampFlicker {
+  0%, 100% { opacity: .92; }
+  46% { opacity: 1; }
+  52% { opacity: .82; }
+  58% { opacity: .97; }
+}
+/* 桌面上的墨迹/茶渍圈 */
+.desk-ring {
+  position: absolute; right: 13%; bottom: 15%; width: 92px; height: 92px;
+  border-radius: 50%; pointer-events: none; z-index: 1;
+  border: 1.5px solid rgba(56, 34, 16, .30);
+  box-shadow: inset 0 0 18px rgba(56, 34, 16, .14);
+}
+
+/* 书桌页外背景（跟随主题；暗色更深） */
+:root { --desk-outer: #e8dfcc; }
+[data-theme="dark"] { --desk-outer: #0d0b08; }
+
+/* 首页移动端：书脊变矮、允许横向排布 */
+@media (max-width: 760px) {
+  .desk { padding: 40px 22px 74px; min-height: auto; }
+  .book-stack { gap: 0; padding-bottom: 14px; overflow-x: auto; justify-content: flex-start; }
+  .spine { width: 46px; height: clamp(230px, 34vh, 300px); flex: 0 0 auto; }
+  .desk-hint { display: none; }
+  .desk-actions { right: 18px; bottom: 18px; }
+}
+
+/* ---------- 文章列表 ---------- */
+.list-head { text-align: center; padding: 32px 0 8px; }
+.list-head h1 { letter-spacing: 6px; font-size: 1.9rem; margin: 0; }
+.count { color: var(--muted); font-size: .9rem; }
+.sub-nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0 24px; }
+.sub-chip {
+  font-size: .82rem; color: var(--ink-soft); padding: 4px 12px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--card);
+}
+.sub-chip b { color: var(--accent); font-weight: 600; }
+.year-group { margin-top: 28px; }
+.year { color: var(--muted); font-size: 1rem; letter-spacing: 2px; border-bottom: 1px dashed var(--line); padding-bottom: 6px; }
+.post-list { list-style: none; margin: 0; padding: 0; }
+.post-list li a {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding: 12px 4px; border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  color: var(--ink);
+}
+.post-list li a:hover { text-decoration: none; color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, transparent); }
+.pl-title { flex: 1; }
+.post-list time { color: var(--muted); font-size: .82rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ---------- 文章页 ---------- */
+.post-head { text-align: center; padding: 40px 0 8px; }
+.post-meta { color: var(--muted); font-size: .85rem; margin: 0; letter-spacing: 1px; }
+.post-head h1 { font-size: 1.8rem; margin: 10px 0 8px; letter-spacing: 2px; }
+.tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.tag { font-size: .78rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
+.post-body { padding: 24px 0 8px; font-size: 1.05rem; }
+/* 中文正文：段落左起空两格（诗歌页除外） */
+.post-body > p { text-indent: 2em; }
+.post-body > p:has(> img, > code, > a:only-child) { text-indent: 0; }
+.post-body h1, .post-body h2, .post-body h3 { letter-spacing: 2px; margin-top: 1.8em; }
+.post-body blockquote {
+  margin: 1em 0; padding: 4px 18px; color: var(--ink-soft);
+  border-left: 3px solid var(--accent); background: var(--paper-2); border-radius: 0 6px 6px 0;
+}
+.post-body code { background: var(--paper-2); padding: 2px 6px; border-radius: 4px; font-size: .9em; }
+/* 歌曲版播放器（front matter 的 music 字段驱动） */
+.post-music { margin: 18px 0 4px; padding-top: 14px; border-top: 1px dashed var(--line); }
+.poem-music { line-height: 0; }
+.poem-music iframe { display: block; border: 0; max-width: 100%; }
+.post-body hr { border: none; border-top: 1px dashed var(--line); margin: 2em auto; width: 60%; }
+.post-foot { text-align: center; margin-top: 40px; }
+.btn {
+  display: inline-block; padding: 8px 18px; border: 1px solid var(--line);
+  border-radius: 999px; color: var(--ink-soft); background: var(--card); font-size: .9rem;
+}
+.btn:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+/* 诗歌文章页：保持居中，无缩进 */
+.poem-post .post-body { text-align: center; }
+.poem-post .post-body > p { text-indent: 0; }
+.poem-post .stanza { margin: 1.6em 0; }
+.poem-post .stanza span { display: block; line-height: 2.1; }
+
+/* ---------- 页脚 ---------- */
+.site-footer {
+  text-align: center; color: var(--muted); font-size: .82rem;
+  padding: 32px 0 40px; border-top: 1px solid var(--line); margin-top: 48px;
+}
+
+/* ---------- 盲盒页 ---------- */
+.blindbox-page { text-align: center; padding: 96px 0; }
+.blindbox-page h1 { font-size: 2rem; letter-spacing: 4px; }
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .hero { padding: 40px 0 28px; }
+  .shelf { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .book-cover { min-height: 140px; padding: 14px; }
+  .post-list li a { flex-direction: column; gap: 2px; padding: 12px 2px; }
+  .wrap { padding: 16px 16px 56px; }
+}
+@media (max-width: 380px) { .shelf { grid-template-columns: 1fr; } }
