@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>早上雨中 · 阿元的自留地</title>
+<link rel="icon" href="/assets/img/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
+<link rel="stylesheet" href="/assets/css/style.css">
+<style>
+/* 入场前的底色：与本页纸色一致，从书架跳过来时不闪白
+ * 写在这里是为了在 style.css 之前就生效；--paper 由 style.css 定义，
+ * 而 <link> 是渲染阻塞的，body 渲染时变量一定已就位。 */
+.boot-veil { position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  background: var(--paper); opacity: 0; transition: opacity .38s ease-out; }
+html.book-boot .boot-veil { opacity: 1; }
+</style>
+
+</head>
+<body class="page-post">
+<div class="boot-veil" id="bootVeil"></div>
+
+<nav class="masthead">
+  <a class="brand" href="/">阿元的自留地</a>
+  <div class="nav-links">
+    <a href="/poetry/">诗集</a>
+    <a href="/prose/">散文</a>
+    <a href="/fiction/">小说</a>
+    <a href="/tech/">技术</a>
+  </div>
+  <button id="themeToggle" aria-label="切换深浅模式">◐</button>
+</nav>
+<main class="wrap">
+<article class="post poem-post">
+  <header class="post-head">
+    <p class="post-meta">—— 二〇〇一年十月十八日</p>
+    <h1>早上雨中</h1>
+    
+  </header>
+  <div class="post-body"><p class="stanza"><span>用两张塑料布</span><span>在风雨之中搭个窝</span><span>卖报的老头缩在角落</span><span>把报纸尽量铺开</span><span>各报的头版用着重重的大标题</span><span>……美国染瘟疫</span><span>……有人生了三胞胎</span><span>卖报的老头漠然地看着报纸</span><span>显然新闻和他没有多少关系</span></p></div>
+  
+  <footer class="post-foot">
+    <a class="btn" href="/poetry/">← 回到诗集翻页书</a>
+  </footer>
+</article></main>
+
+<footer class="site-footer">
+  <p>© 1996 – 2026 阿元的自留地 · 纯手写，无框架</p>
+</footer>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
