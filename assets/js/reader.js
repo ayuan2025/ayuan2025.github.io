@@ -306,16 +306,22 @@
   function flippedCount() { return isMobile() ? Math.ceil(view / 2) : flipped; }
   function curFaceIdx() { return isMobile() ? view : 2 * flipped; }
   function atStart() { return isMobile() ? view <= 0 : flipped <= 0; }
-  function atEnd() { return isMobile() ? view >= faces.length - 1 : flipped >= nSheets; }
+  function atEnd() { return isMobile() ? view >= DATA.items.length - 1 : flipped >= nSheets; }
 
   function render() {
     prevBtn.disabled = atStart();
     nextBtn.disabled = atEnd();
     if (isMobile()) {
-      // 移动极简模式：单页直出，无书本视觉、无动画（见 go()），页码 = 面号/总面数
+      // 移动极简模式：整首诗一页直出（view = 诗号），超出部分容器内竖向滚动
       var page = document.getElementById('simplePage');
-      if (page) page.innerHTML = faceHTML(faces[view]);
-      indicator.textContent = (view + 1) + ' / ' + faces.length;
+      if (page) {
+        if (!(view >= 0 && view < DATA.items.length)) view = 0;
+        var item = DATA.items[view];
+        var body = blocksOf(item).map(function (b) { return b.html; }).join('');
+        page.innerHTML = headHTML(item) + '<div class="' + bodyCls() + '">' + body + '</div>' + footHTML(view + 1, item, true);
+        page.scrollTop = 0; // 换诗回顶部
+      }
+      indicator.textContent = (view + 1) + ' / ' + DATA.items.length;
       return;
     }
     var leaves = inner.querySelectorAll('.leaf');
@@ -336,8 +342,8 @@
   function go(dir) {
     if (animating || (dir > 0 ? atEnd() : atStart())) return;
     if (isMobile()) {
-      // 移动极简模式：不翻书、不出声、不逐帧——内容直接切到下一页，零动画开销
-      view = Math.max(0, Math.min(faces.length - 1, view + dir));
+      // 移动极简模式：翻页 = 换一首诗，零动画开销
+      view = Math.max(0, Math.min(DATA.items.length - 1, view + dir));
       render();
       return;
     }
@@ -409,7 +415,7 @@
   function faceOfItem(pi) { for (var i = 0; i < faces.length; i++) if (faces[i].itemIdx === pi) return i; return 0; }
   function openToc() {
     buildToc();
-    var cur = faces[curFaceIdx()], curItem = cur ? cur.itemIdx : 0;
+    var curItem = isMobile() ? view : (faces[curFaceIdx()] ? faces[curFaceIdx()].itemIdx : 0);
     var btns = tocList.querySelectorAll('button');
     for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('current', Number(btns[i].getAttribute('data-item')) === curItem);
     var cb = tocList.querySelector('button.current');
@@ -424,9 +430,9 @@
       if (e.target === tocOverlay) { closeToc(); return; }
       var btn = e.target.closest('button[data-item]');
       if (btn) {
-        var t = faceOfItem(Number(btn.getAttribute('data-item')));
+        var pi = Number(btn.getAttribute('data-item'));
         // 桌面：目标面为奇数下标（某张纸的背面）时 floor 会让它落在下一张纸，可见右页变成上一首的末面 → 必须 ceil
-        if (isMobile()) view = t; else flipped = Math.ceil(t / 2);
+        if (isMobile()) view = pi; else flipped = Math.ceil(faceOfItem(pi) / 2);
         closeToc(); render();
       }
     });
@@ -459,6 +465,15 @@
   /* ---------- 重建 ---------- */
   var rebuildTimer = null;
   function rebuild() {
+    if (isMobile()) {
+      // 移动极简模式：一首诗 = 一整页，超长上下滚动。
+      // 不跑分面排版（探针测量偶发 0 高度曾导致整页空白），也不建 3D 书页。
+      if (!(view >= 0 && view < DATA.items.length)) view = 0;
+      book.classList.add('simple');
+      inner.innerHTML = '<div class="simple-page" id="simplePage"></div>';
+      render();
+      return;
+    }
     var cur = faces[curFaceIdx()], keep = cur ? cur.itemIdx : 0;
     layout();
     nSheets = Math.ceil(faces.length / 2);
