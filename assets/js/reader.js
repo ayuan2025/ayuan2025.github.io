@@ -73,9 +73,9 @@
   /* 真实结构下测量可用高度：head + body(flex:1) + foot 一起放进探针，
    * body 分到的高度就是精确可用高度（自动含纸面 padding、页眉页脚、页脚边距），
    * 不再用 faceH - head - foot - 常数 这种会算漏的估算。 */
-  function mount(p, item, withHead) {
+  function mount(p, item, withHead, tight) {
     p.innerHTML = (withHead ? headHTML(item) : '')
-      + '<div class="' + bodyCls() + '"></div>'
+      + '<div class="' + bodyCls() + (tight ? ' tight' : '') + '"></div>'
       + footHTML(1, item, withHead);
     return p.querySelector('.poem-body');
   }
@@ -85,21 +85,19 @@
     return Math.max(60, pb.clientHeight - padY - 5);
   }
 
-  function layout() {
-    var p = makeProbe();
-    var item0 = DATA.items[0] || { t: '占位标题', g: '占位', u: '#' };
-    var availFirst = availOf(mount(p, item0, true));
-    var availCont = availOf(mount(p, item0, false));
-    var list = [];
+  /* 最后一面内容高度 ≤ 这个值（约两行半，含节间距）视为孤行面，触发救孤行重排 */
+  var ORPHAN_H = 88;
 
-    DATA.items.forEach(function (item, ii) {
-      var avail = availFirst, part = 0, cur = [], curH = 0;
-      function flush() {
-        if (!cur.length) return;
-        list.push({ itemIdx: ii, part: part, bodyHtml: cur.join(''), isFirst: part === 0 });
-        part++; cur = []; curH = 0; avail = availCont;
-      }
-      var pb = mount(p, item, true);
+  /* 单篇分面。tight=true 时按紧凑行距（.poem-body.tight）测量与渲染，用于救孤行。 */
+  function layoutOne(p, item, ii, availFirst, availCont, tight) {
+    var out = [];
+    var avail = availFirst, part = 0, cur = [], curH = 0, curHasFixed = false;
+    function flush() {
+      if (!cur.length) return;
+      out.push({ itemIdx: ii, part: part, bodyHtml: cur.join(''), isFirst: part === 0, h: curH, hasFixed: curHasFixed, tight: tight });
+      part++; cur = []; curH = 0; curHasFixed = false; avail = availCont;
+    }
+    var pb = mount(p, item, true, tight);
       var blocks = blocksOf(item);
       /* 小节序号（（一）/（二）/Ⅰ/Ⅱ 这类单行块）不允许孤悬页尾：
        * 装入后必须前瞻——内文块整块放不下时拆它的前几行（至少两行）跟在序号后面，
@@ -109,7 +107,7 @@
         var b = blocks[bi];
         if (b.fixed) {   // 播放器等固定高度块：不实测、不拆行
           if (curH + b.fixed > avail && cur.length) flush();
-          cur.push(b.html); curH += b.fixed;
+          cur.push(b.html); curH += b.fixed; curHasFixed = true;
           continue;
         }
         var e = el(b.html);
@@ -237,16 +235,36 @@
         }
       }
       flush();
-    });
-    list.forEach(function (f, i) { f.pageNo = i + 1; });
-    faces = list;
-    try { window.__faces = faces; } catch (e2) {}   // 调试/验收钩子：暴露分面结果
-  }
+      return out;
+    }
+
+    function layout() {
+      var p = makeProbe();
+      var item0 = DATA.items[0] || { t: '占位标题', g: '占位', u: '#' };
+      var availFirst = availOf(mount(p, item0, true));
+      var availCont = availOf(mount(p, item0, false));
+      var list = [];
+
+      DATA.items.forEach(function (item, ii) {
+        /* 救孤行：末面只剩一两行时，整篇均匀收一档行距重排；
+         * 能省出一面才采用（整篇行距统一收，各面之间保持一致），否则保持原样。 */
+        var base = layoutOne(p, item, ii, availFirst, availCont, false);
+        var lastF = base[base.length - 1];
+        if (base.length > 1 && lastF && !lastF.hasFixed && lastF.h <= ORPHAN_H) {
+          var tightFaces = layoutOne(p, item, ii, availFirst, availCont, true);
+          if (tightFaces.length < base.length) { list.push.apply(list, tightFaces); return; }
+        }
+        list.push.apply(list, base);
+      });
+      list.forEach(function (f, i) { f.pageNo = i + 1; });
+      faces = list;
+      try { window.__faces = faces; } catch (e2) {}   // 调试/验收钩子：暴露分面结果
+    }
 
   function faceHTML(f) {
     var item = DATA.items[f.itemIdx];
     var head = f.isFirst ? headHTML(item) : '';
-    return head + '<div class="' + bodyCls() + '">' + f.bodyHtml + '</div>' + footHTML(f.pageNo, item, f.isFirst);
+    return head + '<div class="' + bodyCls() + (f.tight ? ' tight' : '') + '">' + f.bodyHtml + '</div>' + footHTML(f.pageNo, item, f.isFirst);
   }
 
   /* ---------- 卷曲层 ---------- */
