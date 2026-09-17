@@ -1,25 +1,78 @@
----
-layout: single
-author_profile: true
----
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首页 · 阿元的自留地</title>
+<link rel="stylesheet" href="/assets/css/style.css">
 
-{% assign latest_post = site.posts.first %}
+</head>
+<body class="page-home">
 
-{% if latest_post %}
-  <div class="page__inner-wrap">
-      <header>
-        <h1 id="page-title" class="page__title" itemprop="headline">
-          <a href="{{ latest_post.url | absolute_url }}">{{ latest_post.title }}</a>
-        </h1>
-        <p class="page__meta">
-          <i class="far fa-calendar-alt" aria-hidden="true"></i> 
-          <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: "%Y年%m月%d日" }}</time>
-        </p>
-      </header>
-
-      <section class="page__content" itemprop="text">
-        {{ latest_post.content | split: '<!--more-->' | first }}
-        <p><a href="{{ latest_post.url | relative_url }}">阅读全文 &rarr;</a></p>
-      </section>
+<nav class="masthead">
+  <a class="brand" href="/">阿元的自留地</a>
+  <div class="nav-links">
+    <a href="/poetry/">诗集</a>
+    <a href="/prose/">散文</a>
+    <a href="/fiction/">小说</a>
+    <a href="/tech/">技术</a>
   </div>
-{% endif %}
+  <button id="themeToggle" aria-label="切换深浅模式">◐</button>
+</nav>
+<main class="wrap">
+<section class="desk-stage">
+  <div class="desk">
+    <div class="desk-lamp"></div>
+    <div class="desk-ring"></div>
+    <h1 class="desk-title">阿元的<span class="accent">自留地</span></h1>
+    <p class="desk-sub">写诗、散文、小说，偶尔也折腾技术 · 桌上共 89 篇</p>
+    <div class="book-stack">
+    <div class="spine" data-cat="poetry" data-href="/poetry/" data-label="诗集"
+         role="link" tabindex="0" aria-label="打开诗集，共 72 篇"
+         title="诗集 · 72 篇 — 每一首，都是一页">
+      <span class="spine-title">诗集</span>
+      <span class="spine-tag">72</span>
+    </div>
+    <div class="spine" data-cat="prose" data-href="/prose/" data-label="散文集"
+         role="link" tabindex="0" aria-label="打开散文集，共 8 篇"
+         title="散文集 · 8 篇 — 生活的十三种解释">
+      <span class="spine-title">散文集</span>
+      <span class="spine-tag">8</span>
+    </div>
+    <div class="spine" data-cat="fiction" data-href="/fiction/" data-label="小说集"
+         role="link" tabindex="0" aria-label="打开小说集，共 5 篇"
+         title="小说集 · 5 篇 — 虚构的隧道">
+      <span class="spine-title">小说集</span>
+      <span class="spine-tag">5</span>
+    </div>
+    <div class="spine" data-cat="tech" data-href="/tech/" data-label="技术笔记"
+         role="link" tabindex="0" aria-label="打开技术笔记，共 4 篇"
+         title="技术笔记 · 4 篇 — 工具与折腾">
+      <span class="spine-title">技术笔记</span>
+      <span class="spine-tag">4</span>
+    </div>
+    </div>
+    <p class="desk-hint">点一本书脊，翻开看看</p>
+    <div class="desk-actions">
+      <a class="blindbox-btn" href="/random.html">随手翻开一篇</a>
+    </div>
+  </div>
+</section>
+
+<div class="flip-overlay" id="flipOverlay" aria-hidden="true">
+  <div class="fly-book" id="flyBook">
+    <div class="fly-page" id="flyPage"><span class="fly-page-title" id="flyPageTitle"></span></div>
+    <div class="fly-cover" id="flyCover">
+      <div class="fly-cover-face" id="flyCoverFace"></div>
+      <div class="fly-cover-back"></div>
+    </div>
+  </div>
+</div>
+<script src="/assets/js/desk.js" defer></script></main>
+
+<footer class="site-footer">
+  <p>© 1996 – 2026 阿元的自留地 · 纯手写，无框架</p>
+</footer>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

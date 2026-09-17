@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一键智能批量重命名美剧字幕  · 阿元的自留地</title>
+<link rel="stylesheet" href="/assets/css/style.css">
+
+</head>
+<body class="page-post">
+
+<nav class="masthead">
+  <a class="brand" href="/">阿元的自留地</a>
+  <div class="nav-links">
+    <a href="/poetry/">诗集</a>
+    <a href="/prose/">散文</a>
+    <a href="/fiction/">小说</a>
+    <a href="/tech/">技术</a>
+  </div>
+  <button id="themeToggle" aria-label="切换深浅模式">◐</button>
+</nav>
+<main class="wrap">
+<article class="post ">
+  <header class="post-head">
+    <p class="post-meta">—— 二〇二五年十一月十三日</p>
+    <h1>一键智能批量重命名美剧字幕 </h1>
+    
+  </header>
+  <div class="post-body"><h2>背景痛点</h2>
+<p>作为美剧爱好者和 Total Commander (TC) 的重度用户，我经常遇到这样的情况： 下载了一整季的美剧（比如《猎魔人》），视频文件名是规范的 <code>S04E01</code> 格式，但下载的字幕文件通常名字乱七八糟，或者带有各种后缀。</p>
+<p>如果直接按列表顺序批量重命名，一旦视频和字幕的排序不一致（比如一个按时间排，一个按名字排），就会导致<strong>字幕张冠李戴</strong> 。</p>
+<p>我需要的是一个<strong>智能方案</strong> ：</p>
+<ol>
+<li><strong>正则匹配</strong> ：自动识别视频和字幕中的 <code>SxxExx</code>（季数+集数）编号进行匹配，而不是傻傻地按顺序改名。</li>
+<li><strong>一键操作</strong> ：在 TC 里点击一个按钮瞬间完成。</li>
+<li><strong>支持 NAS</strong> ：必须能直接在网络共享路径（SMB/UNC路径）下工作，不需要映射盘符。</li>
+</ol>
+<p>经过反复调试（踩了不少坑），终于用 PowerShell 完美解决了这个问题。</p>
+<h2>解决方案：SmartRename.ps1 脚本</h2>
+<p>这个脚本会自动扫描当前目录下的视频和字幕，提取 <code>SxxExx</code> 进行配对，并将字幕重命名为与视频同名（保留字幕后缀）。</p>
+<h3>1\. 创建脚本</h3>
+<p>在你的电脑任意位置（例如 <code>D:\Tools\Scripts\</code>）新建一个文本文件，重命名为 <code>SmartRename.ps1</code>，复制以下代码：</p>
+<p>```powershell param([string]$TargetDir)</p>
+<h1>--- 1. 修复路径问题 ---</h1>
+<p>if ($TargetDir) { $TargetDir = $TargetDir.Trim().TrimEnd('\') }</p>
+<h1>--- 2. 设置编码和跳转 ---</h1>
+<p>[Console]::OutputEncoding = [System.Text.Encoding]::UTF8</p>
+<p>if ($TargetDir) { Write-Host &quot;Path: [$TargetDir]&quot; -ForegroundColor DarkGray try { Push-Location -LiteralPath $TargetDir -ErrorAction Stop } catch { Write-Host &quot;Error: Can't access directory.&quot; -ForegroundColor Red exit } }</p>
+<p>Write-Host &quot;Work Dir: $PWD&quot; -ForegroundColor Magenta</p>
+<h1>--- 3. 扫描文件 ---</h1>
+<p>$videos = Get-ChildItem -File | Where-Object { $_.Extension -match &quot;\.(mkv|mp4|avi)&quot; } $subs = Get-ChildItem -File | Where-Object { $_.Extension -match &quot;\.(ass|srt|ssa|vtt)&quot; }</p>
+<p>if ($subs.Count -eq 0) { Write-Host &quot;No subtitles found.&quot; -ForegroundColor Yellow Read-Host &quot;Press Enter...&quot; exit }</p>
+<h1>--- 4. 自动判断模式 ---</h1>
+<p>$isTvShow = $false foreach ($v in $videos) { if ($v.Name -match &quot;(?i)(S\d+E\d+)&quot;) { $isTvShow = $true; break } } if (-not $isTvShow) { foreach ($s in $subs) { if ($s.Name -match &quot;(?i)(S\d+E\d+)&quot;) { $isTvShow = $true; break } } }</p>
+<h1>--- 5. 执行重命名 ---</h1>
+<p>if ($isTvShow) {</p>
+<h1>[美剧模式]</h1>
+<p>Write-Host &quot;Mode: TV Show (SxxExx)&quot; -ForegroundColor Cyan foreach ($video in $videos) { if ($video.Name -match &quot;(?i)(S\d+E\d+)&quot;) { $code = $matches[1] $targetSub = $subs | Where-Object { $_.Name -match &quot;(?i)$code&quot; } if ($targetSub -and ($targetSub.BaseName -ne $video.BaseName)) { $newName = $video.BaseName + $targetSub.Extension Rename-Item -Path $targetSub.FullName -NewName $newName -ErrorAction Stop Write-Host &quot;OK: $code -&gt; $newName&quot; -ForegroundColor Green } } } } elseif ($videos.Count -eq 1) {</p>
+<h1>[电影模式]</h1>
+<p>Write-Host &quot;Mode: Movie (Single Video)&quot; -ForegroundColor Cyan $baseName = $videos[0].BaseName foreach ($sub in $subs) { if ($sub.BaseName -ne $baseName) { $newName = $baseName + $sub.Extension Rename-Item -Path $sub.FullName -NewName $newName -ErrorAction Stop Write-Host &quot;OK: Movie -&gt; $newName&quot; -ForegroundColor Green } } } else { Write-Host &quot;Unknown Mode: No SxxExx found and not a single video file.&quot; -ForegroundColor Red }</p>
+<p>Write-Host &quot;✨ 全部处理完成！窗口将在 5 秒后自动关闭...&quot; -ForegroundColor Yellow Start-Sleep -Seconds 5 ```</p>
+<h2>使用效果</h2>
+<p>设置好后，进入 NAS 里的美剧文件夹，点击按钮：</p>
+<ol>
+<li>脚本会自动弹出黑框。</li>
+<li>自动跳转到 NAS 路径（显示 <code>Push-Location</code> 成功）。</li>
+<li>自动识别 <code>S01E01</code> 这种编号。</li>
+<li>瞬间把乱七八糟的字幕改成和视频完全一致的文件名。</li>
+</ol>
+<p>哪怕你的字幕列表是倒序的，视频是正序的，它也能精准匹配，绝不出错。</p>
+<ul>
+<li><em> </em></li>
+</ul>
+<p>希望这个小工具能帮到同样喜欢折腾 NAS 和整理媒体库的朋友！</p></div>
+  
+  <footer class="post-foot">
+    <a class="btn" href="/tech/">← 技术笔记</a>
+  </footer>
+</article></main>
+
+<footer class="site-footer">
+  <p>© 1996 – 2026 阿元的自留地 · 纯手写，无框架</p>
+</footer>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
