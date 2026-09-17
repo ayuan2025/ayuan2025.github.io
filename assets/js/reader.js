@@ -100,11 +100,17 @@
         part++; cur = []; curH = 0; avail = availCont;
       }
       var pb = mount(p, item, true);
-      blocksOf(item).forEach(function (b) {
+      var blocks = blocksOf(item);
+      /* 小节序号（（一）/（二）/Ⅰ/Ⅱ 这类单行块）不允许孤悬页尾：
+       * 装入后必须前瞻——内文块整块放不下时拆它的前几行（至少两行）跟在序号后面，
+       * 连两行都放不下就把序号块也推到下一面，绝不能只有序号没有内文。 */
+      var MARKER_RE = /^[（(][一二三四五六七八九十百零ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ\d]{1,4}[)）]$/;
+      for (var bi = 0; bi < blocks.length; bi++) {
+        var b = blocks[bi];
         if (b.fixed) {   // 播放器等固定高度块：不实测、不拆行
           if (curH + b.fixed > avail && cur.length) flush();
           cur.push(b.html); curH += b.fixed;
-          return;
+          continue;
         }
         var e = el(b.html);
         pb.appendChild(e);
@@ -118,7 +124,47 @@
         if (h <= avail) {
           if (curH + h > avail && cur.length) flush();
           cur.push(b.html); curH += h;
-          return;
+          /* 序号块前瞻：内文必须跟着进来 */
+          if (b.multi && b.lines.length === 1 && MARKER_RE.test(b.lines[0])) {
+            var nb = blocks[bi + 1];
+            if (nb && !nb.fixed) {
+              var ne = el(nb.html); pb.appendChild(ne);
+              var nh = ne.getBoundingClientRect().height;
+              var ncs = getComputedStyle(ne);
+              var npadY = (parseFloat(ncs.paddingTop) || 0) + (parseFloat(ncs.paddingBottom) || 0);
+              pb.removeChild(ne);
+              if (curH + nh > avail) {
+                var moved = false;
+                if (nb.multi && nb.lines.length > 2) {
+                  var nLineH = Math.max(1, Math.round((nh - npadY) / Math.max(1, nb.lines.length)));
+                  var k = Math.min(nb.lines.length - 1, Math.floor((avail - curH - npadY) / nLineH));
+                  if (k >= 2) {
+                    var chunk = nb.lines.slice(0, k);
+                    var ce = el(stanzaHtml(chunk)); pb.appendChild(ce);
+                    var chh = ce.getBoundingClientRect().height; pb.removeChild(ce);
+                    while (curH + chh > avail && chunk.length > 2) {
+                      chunk.pop();
+                      ce = el(stanzaHtml(chunk)); pb.appendChild(ce);
+                      chh = ce.getBoundingClientRect().height; pb.removeChild(ce);
+                    }
+                    if (curH + chh <= avail) {
+                      cur.push(stanzaHtml(chunk)); curH += chh;
+                      var rest = nb.lines.slice(chunk.length);
+                      blocks[bi + 1] = { lines: rest, html: stanzaHtml(rest), multi: true };
+                      moved = true;
+                    }
+                  }
+                }
+                if (!moved) {
+                  // 剩余空间连两行内文都放不下 → 序号块跟着内容一起挪到下一面
+                  cur.pop(); curH -= h;
+                  flush();
+                  cur.push(b.html); curH += h;
+                }
+              }
+            }
+          }
+          continue;
         }
         // 超高块：按行/按字符拆，每一片都实测高度后再决定放哪一面
         if (b.multi) {
@@ -189,11 +235,12 @@
             pos += t; first = false;
           }
         }
-      });
+      }
       flush();
     });
     list.forEach(function (f, i) { f.pageNo = i + 1; });
     faces = list;
+    try { window.__faces = faces; } catch (e2) {}   // 调试/验收钩子：暴露分面结果
   }
 
   function faceHTML(f) {

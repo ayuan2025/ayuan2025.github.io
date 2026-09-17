@@ -144,7 +144,9 @@
 .page-face .post-meta, .simple-page .post-meta { margin: 0; }
 /* min-height:0 必须显式声明：column flex 项默认 min-height:auto，
    内容超出时它不肯收缩，会把页脚顶出纸面（页脚/末行被裁切） */
-.poem-body { flex: 1 1 0; min-height: 0; overflow: hidden; text-align: left; padding: 14px 6px 12px 4px; }
+.poem-body { flex: 1 1 0; min-height: 0; overflow: hidden; text-align: left; padding: 14px 6px 12px 4px;
+  /* 正文用宋体（出版惯例）：Windows SimSun / macOS 宋体-简，标题与界面字体不变 */
+  font-family: 'SimSun', 'NSimSun', '宋体', 'Songti SC', 'STSong', serif; }
 /* 歌曲版播放器（网易云外链）：挂在篇末，固定高度，不参与按行拆分 */
 .poem-music { margin: 14px 0 0; line-height: 0; }
 .poem-music iframe { display: block; border: 0; max-width: 100%; }
