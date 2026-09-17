@@ -425,7 +425,8 @@
       var btn = e.target.closest('button[data-item]');
       if (btn) {
         var t = faceOfItem(Number(btn.getAttribute('data-item')));
-        if (isMobile()) view = t; else flipped = Math.floor(t / 2);
+        // 桌面：目标面为奇数下标（某张纸的背面）时 floor 会让它落在下一张纸，可见右页变成上一首的末面 → 必须 ceil
+        if (isMobile()) view = t; else flipped = Math.ceil(t / 2);
         closeToc(); render();
       }
     });
@@ -480,7 +481,8 @@
     probe = null;
     var target = 0;
     for (var i = 0; i < faces.length; i++) if (faces[i].itemIdx === keep) { target = i; break; }
-    if (isMobile()) view = target; else flipped = Math.floor(target / 2);
+    // 与目录跳转同理：奇数下标的目标面要 ceil，否则恢复位置后可见的是上一首末面
+    if (isMobile()) view = target; else flipped = Math.ceil(target / 2);
     render();
     if (window.__onRebuilt) window.__onRebuilt(faces);
   }
