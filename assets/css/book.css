@@ -154,6 +154,10 @@
 /* 段距用 padding 而非 margin：运行时测量 offsetHeight 才能算准，避免最后一行被页脚裁切 */
 .poem-body .stanza { margin: 0; padding: .6em 0; }
 .poem-body .stanza span { display: block; line-height: 2.05; }
+/* 救孤行：末面只剩一两行时，整篇均匀收一档行距（约收 9%），把尾巴并入前页；
+ * 整篇所有页面行距一致收紧，只在该篇省出一面时才启用。 */
+.poem-body.tight .stanza span { line-height: 1.86; }
+.poem-body.tight .prose-body .para, .prose-body.tight .para { line-height: 1.8; }
 .leaf-foot {
   display: flex; justify-content: space-between; align-items: center;
   color: var(--muted); font-size: .8rem; flex-shrink: 0;
