@@ -40,8 +40,10 @@
   transform-style: preserve-3d;
   transform-origin: left center;
   transition: transform .9s cubic-bezier(.42, .05, .28, 1);
-  will-change: transform;
+  /* 不给所有页常驻 will-change：诗集 137 页 = 137 个常驻合成层，
+   * 手机上内存与合成开销巨大。只给正在翻的那一页提层（见 .leaf.turning）。 */
 }
+.leaf.turning { will-change: transform; }
 .leaf.flipped { transform: rotateY(-180deg); }
 
 .page-face {
