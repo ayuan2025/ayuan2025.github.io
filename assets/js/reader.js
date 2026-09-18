@@ -394,6 +394,9 @@
     for (var i = 0; i < leaves.length; i++) {
       leaves[i].classList.toggle('flipped', i < fl);
       leaves[i].style.zIndex = i < fl ? 10 + i : 10 + (nSheets - i);
+      /* 影子只给摊开在上的两页（左=fl-1，右=fl）：几十张未翻页若各画各的影子，
+       * 会叠成一圈近黑的边框（右页尤其明显）。 */
+      leaves[i].classList.toggle('top', i === fl || i === fl - 1);
     }
     var idxs = [2 * flipped - 1, 2 * flipped].filter(function (i) { return i >= 0 && i < faces.length; });
     indicator.textContent = idxs.map(function (i) {
