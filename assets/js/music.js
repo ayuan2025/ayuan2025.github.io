@@ -53,6 +53,7 @@
     var s = SONGS[idx];
     document.title = s.title + ' · 音乐 · 阿元的自留地';
     titleEl.textContent = s.title;
+    if (discLabel) discLabel.textContent = s.title;
     if (s.sub) { subEl.textContent = s.sub; subEl.style.display = ''; }
     else { subEl.textContent = ''; subEl.style.display = 'none'; }
     audio.src = s.audio;

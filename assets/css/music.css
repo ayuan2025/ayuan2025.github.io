@@ -17,9 +17,10 @@
 .mini-disc {
   width: 34px; height: 34px; border-radius: 50%; flex: 0 0 auto;
   background:
-    radial-gradient(circle, var(--paper) 0 18%, transparent 18.5%),
-    repeating-radial-gradient(circle, #b9b2a6 0 1px, #d9d3c7 1px 3px);
-  border: 1px solid var(--line);
+    radial-gradient(circle, #c9ae76 0 24%, transparent 24.5%),
+    repeating-radial-gradient(circle, rgba(255,255,255,.05) 0 1px, transparent 1px 3px),
+    radial-gradient(circle, #1b1611 0 40%, #221b15 70%, #14100c 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 1px 3px rgba(0, 0, 0, .2);
 }
 .song-title { flex: 1; font-size: 1.02rem; }
 .song-title small { color: var(--muted); font-size: .8rem; margin-left: 8px; }
@@ -38,35 +39,98 @@
 .song-back:hover { color: var(--accent); }
 
 .song-layout { display: flex; gap: 42px; align-items: stretch; }
-.song-left { flex: 0 0 340px; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-top: 8px; }
+.song-left { flex: 0 0 356px; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-top: 8px; }
 
-.disc-wrap { position: relative; width: 300px; }
+/* 唱机底座：深胡桃木面板，黑胶转盘嵌在左边，唱臂在右上 */
+.disc-wrap {
+  position: relative;
+  width: 356px; max-width: 100%;
+  padding: 24px 22px 30px;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 226, 168, .10), transparent 36%),
+    linear-gradient(168deg, #35291d 0%, #2c2116 52%, #231b11 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 232, 190, .16),
+    inset 0 0 0 1px rgba(0, 0, 0, .38),
+    0 16px 34px rgba(0, 0, 0, .28);
+}
+/* 转盘轴心：盘面正中的小金属点，透过黑胶中孔看得见 */
+.disc-wrap::after {
+  content: ''; position: absolute; left: 22px; top: 24px;
+  width: var(--disc-size); aspect-ratio: 1; border-radius: 50%;
+  pointer-events: none;
+}
+
+/* 黑胶唱片：黑盘 + 细槽纹 + 随盘旋转的纸标签 */
 .disc {
-  width: 100%; aspect-ratio: 1; border-radius: 50%;
+  --disc-size: 300px;
+  width: var(--disc-size); aspect-ratio: 1; border-radius: 50%;
   cursor: pointer; position: relative;
-  box-shadow: var(--shadow), 0 6px 24px rgba(0,0,0,.12);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(255, 255, 255, .07);
   animation: disc-spin 18s linear infinite;
   animation-play-state: paused;
   background:
-    radial-gradient(circle, var(--paper) 0 6.5%, #a89f8e 7%, #7c7466 9%, transparent 9.5%),
-    repeating-radial-gradient(circle, rgba(120,110,95,.16) 0 1px, rgba(255,255,255,.05) 1px 3px),
-    conic-gradient(from 215deg, #c9c2b4, #efe9dc 22%, #aaa294 47%, #e5dfd2 70%, #c9c2b4);
-  border: 1px solid var(--line);
+    linear-gradient(135deg, rgba(255, 255, 255, .09) 0 16%, transparent 36% 60%, rgba(255, 255, 255, .05) 78%, transparent),
+    repeating-radial-gradient(circle, rgba(255, 255, 255, .042) 0 1px, transparent 1px 4px),
+    radial-gradient(circle, #1b1611 0 34%, #221b15 62%, #16110d 86%, #100c09 100%);
 }
-.disc::after {  /* 斜向高光 */
-  content: ''; position: absolute; inset: 0; border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255,255,255,.32) 0 18%, transparent 38% 62%, rgba(255,255,255,.14) 80%, transparent);
-  pointer-events: none;
+/* 纸标签：中心的米色圆贴，印着歌名（跟着唱片转，拟物） */
+.disc .disc-label {
+  position: absolute; left: 50%; top: 50%;
+  width: 35%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 18%;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, .2), transparent 58%),
+    linear-gradient(160deg, #e3cf9f, #c6ab74);
+  box-shadow: inset 0 0 0 1px rgba(84, 66, 34, .42), 0 0 0 1px rgba(0, 0, 0, .3);
+  color: #3c3223; font-size: .68rem; line-height: 1.5; letter-spacing: 1px;
+  overflow: hidden;
 }
-.disc .disc-hole {
-  position: absolute; left: 50%; top: 50%; width: 13%; height: 13%;
-  transform: translate(-50%, -50%); border-radius: 50%;
-  background: var(--paper); border: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--muted); font-size: .8rem;
+/* 中孔：真唱片是通的，露一点底座色 */
+.disc .disc-label::after {
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: 15%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #17120d;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .6);
 }
 .playing .disc { animation-play-state: running; }
 @keyframes disc-spin { to { transform: rotate(360deg); } }
+
+/* 唱臂：支点在右上，暂停时抬起悬着，播放时缓缓搭向盘面 */
+.tone-arm {
+  position: absolute; right: 16px; top: 18px;
+  width: 46%; height: 7px;
+  border-radius: 4px;
+  transform-origin: 92% 50%;
+  transform: rotate(2deg);
+  transition: transform .8s cubic-bezier(.3, .8, .3, 1);
+  background: linear-gradient(90deg, #93887a, #cbc2af 55%, #a99e88);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .3);
+  z-index: 2;
+}
+/* 针头 */
+.tone-arm::before {
+  content: ''; position: absolute; left: -8px; top: -2px;
+  width: 14px; height: 11px; border-radius: 2px;
+  background: linear-gradient(180deg, #d8d0bd, #9a8f78);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .4);
+}
+/* 支点轴座 */
+.tone-arm::after {
+  content: ''; position: absolute; right: -6px; top: 50%;
+  width: 16px; height: 16px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #b7ac93, #6d6250 62%, #453c2c);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4), 0 2px 4px rgba(0, 0, 0, .4);
+}
+.playing .tone-arm { transform: rotate(24deg); }
 
 .song-meta { text-align: center; }
 .song-meta h1 { font-size: 1.5rem; margin: 0; letter-spacing: 2px; color: var(--ink); }
@@ -151,7 +215,9 @@ body.tune .tune-bar { display: flex; }
   .song-page { padding: 12px 14px 30px; }
   .song-layout { flex-direction: column; gap: 18px; }
   .song-left { flex: none; width: 100%; }
-  .disc-wrap { width: min(230px, 60vw); }
+  .disc-wrap { width: min(292px, 76vw); padding: 18px 16px 24px; }
+  .disc { --disc-size: calc(min(292px, 76vw) - 32px); }
+  .tone-arm { right: 10px; top: 12px; width: 44%; }
   .lyrics-box { min-height: 52vh; }
   .lyrics { padding: 26% 18px 45%; }
   .lrc-line { font-size: .98rem; padding: 8px 4px; }
