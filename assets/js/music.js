@@ -68,6 +68,7 @@
     function pick(i) {
       loadSong(i);
       stage.classList.add('show-lyrics');
+      body.classList.add('showing-lyrics'); /* 「← 曲目列表」在左栏，靠 body 类跟歌词态同步显隐 */
       play();
     }
 
@@ -76,7 +77,10 @@
       if (!audio.src) { pick(0); return; }
       audio.paused ? play() : audio.pause();
     });
-    $('lyrBack').addEventListener('click', function () { stage.classList.remove('show-lyrics'); });
+    $('lyrBack').addEventListener('click', function () {
+      stage.classList.remove('show-lyrics');
+      body.classList.remove('showing-lyrics');
+    });
 
     audio.addEventListener('play', function () { body.classList.add('playing'); });
     audio.addEventListener('pause', function () { body.classList.remove('playing'); });
