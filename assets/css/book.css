@@ -275,5 +275,27 @@
 .book.simple .prose-body { flex: 0 0 auto; min-height: auto; overflow: visible; }
 /* 短诗时页脚仍贴在卡片底部，长诗时跟在正文末尾 */
 .book.simple .leaf-foot { margin-top: auto; }
+/* 「↓ 继续阅读」：卡片内的长文可以竖着滚，但手机上没有滚动条，
+   不给个提示就不知道下面还有内容。浮在卡片底部居中，滚到底自动消失（JS 切 .show）。 */
+.read-more-hint {
+  position: absolute; left: 50%; bottom: 12px; z-index: 6;
+  display: none;
+  padding: 5px 13px; border-radius: 999px;
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  border: 1px solid var(--line);
+  color: var(--muted); font-size: .78rem; letter-spacing: 1px;
+  pointer-events: none;                  /* 纯提示，不吃点击 */
+  backdrop-filter: blur(4px);
+  animation: hintBob 1.8s ease-in-out infinite;
+}
+.read-more-hint.show { display: block; }
+/* 关键帧里必须带 translate(-50%)，否则动画会覆盖掉居中位移 */
+@keyframes hintBob {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .read-more-hint { animation: none; transform: translate(-50%, 0); }
+}
 /* 探针：与真实页面同高（JS 会再以 inner 实高精确覆写），隐藏不参与布局 */
 .simple-page.probe { visibility: hidden; position: absolute; width: 100%; left: 0; top: 0; z-index: -1; }
