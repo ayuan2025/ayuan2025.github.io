@@ -64,8 +64,11 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   border-radius: 50%; width: 34px; height: 34px; font-size: 1rem; cursor: pointer;
 }
 @media (max-width: 640px) {
-  .nav-links { gap: 12px; font-size: .88rem; }
-  .brand { font-size: 1rem; letter-spacing: 1px; }
+  .masthead { gap: 10px; padding: 14px 14px; }
+  .nav-links { gap: 11px; font-size: .85rem; }
+  .brand { font-size: .95rem; letter-spacing: 0; white-space: nowrap; }
+  /* 390px 视口下刚好一行放下；不锁 nowrap 的话「诗集」会折成竖排两行 */
+  .nav-links a { white-space: nowrap; }
 }
 
 /* ---------- 首页（旧卡片样式保留，供 /random 等复用） ---------- */
@@ -672,6 +675,8 @@ body.book-ready .book-hint { animation: toolEnter .55s ease-out both; }
 /* 中文正文：段落左起空两格（诗歌页除外） */
 .post-body > p { text-indent: 2em; }
 .post-body > p:has(> img, > code, > a:only-child) { text-indent: 0; }
+/* 正文图片约束原始宽度：技术文章里有 546px 的截图，手机上会把整页撑到 562 宽 */
+.post-body img { max-width: 100%; height: auto; }
 .post-body h1, .post-body h2, .post-body h3 { letter-spacing: 2px; margin-top: 1.8em; }
 .post-body blockquote {
   margin: 1em 0; padding: 4px 18px; color: var(--ink-soft);
