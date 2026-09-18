@@ -29,6 +29,18 @@
 /* ---------- 唱片架页的唱机 + 列表/歌词切换 ----------
  * 唱机与播放页（.disc-wrap）完全同款；点歌本页播放，
  * 播放列表原地淡出换成歌词区，可随时切回（音乐不停）。 */
+/* ---------- 唱片架：唱机在左，曲目列表/歌词在右 ----------
+   与播放页 song.html 同一套分栏语言。关键前提：.wrap 默认只有 720px，
+   两栏前必须先把容器放宽——否则右侧会被 356px 的唱机挤到只剩两百多像素。 */
+body.page-music-index .wrap { max-width: 1120px; }
+body.page-music-song .wrap { max-width: 1000px; }
+.shelf-layout {
+  display: flex; gap: 42px; align-items: flex-start;
+  margin: 0 auto;
+}
+.shelf-layout .deck { flex: 0 0 356px; max-width: 356px; margin: 0; }
+.shelf-layout .deck-stage { flex: 1 1 auto; min-width: 0; max-width: none; margin: 0; padding: 0; }
+
 .deck { max-width: 356px; margin: 6px auto 0; }
 .deck-meta { text-align: center; margin-top: 14px; min-height: 3.2em; }
 .deck-title { font-size: 1.08rem; letter-spacing: 1px; color: var(--ink); margin: 0; }
@@ -243,6 +255,13 @@ body.tune .tune-bar { display: flex; }
 .tune-hint { font-size: .8rem; color: var(--muted); width: 100%; }
 
 /* ---------- 移动端 ---------- */
+/* 中间宽度：两栏挤不下，退回上下堆叠（唱机在上、列表在下） */
+@media (max-width: 1000px) {
+  .shelf-layout { flex-direction: column; align-items: center; }
+  .shelf-layout .deck { flex: 0 0 auto; margin: 0 auto; }
+  .shelf-layout .deck-stage { width: 100%; max-width: 680px; }
+}
+
 @media (max-width: 760px) {
   .song-page { padding: 12px 14px 30px; }
   .song-layout { flex-direction: column; gap: 18px; }
@@ -256,5 +275,7 @@ body.tune .tune-bar { display: flex; }
   .song-list { padding: 0 12px; }
   .deck { width: min(292px, 76vw); }
   .deck-stage { margin-top: 14px; padding: 0 12px; }
+  .shelf-layout { gap: 14px; }
+  .shelf-layout .deck-stage { padding: 0 12px; max-width: 100%; }
   .deck-lyrics .lyrics-box { height: 52vh; }
 }
