@@ -1,0 +1,36 @@
+name: Deploy static site
+
+# 站点已是零依赖纯静态站：本地用 site-rebuild/build.js 生成 dist/，
+# 再拷贝进本仓库根目录提交。此工作流只负责把仓库根目录发布到 gh-pages，
+# 不再跑 Jekyll（enable_jekyll: false 会写 .nojekyll）。
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
+          enable_jekyll: false
+          # 仓库根同时存着构建源（_posts 给 build.js 用），发布时排除掉，
+          # 免得源文件污染 gh-pages；.nojekyll 由 enable_jekyll:false 自动写入。
+          exclude_assets: |
+            _posts/**
+            .github/**
+            README.md
+            LICENSE
+            CHANGELOG.md
+            .editorconfig
+            .gitignore
+            .gitattributes

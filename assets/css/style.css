@@ -715,6 +715,18 @@ body.book-ready .book-hint { animation: toolEnter .55s ease-out both; }
 .blindbox-page { text-align: center; padding: 96px 0; }
 .blindbox-page h1 { font-size: 2rem; letter-spacing: 4px; }
 
+/* ---------- 404 页 ---------- */
+.notfound { text-align: center; padding: 80px 0; }
+.notfound h1 { font-size: 1.9rem; letter-spacing: 3px; margin-bottom: 14px; }
+.notfound p { color: var(--muted); }
+.nf-actions { margin-top: 26px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+/* 翻页书页内的静态索引：仅无 JS 时由 <noscript> 渲染，供爬虫/读者兜底 */
+.book-static-index { margin-top: 28px; }
+.book-static-index h2 { font-size: 1.1rem; color: var(--muted); margin-bottom: 10px; }
+.book-static-index ul { list-style: none; padding: 0; columns: 2; }
+.book-static-index li { padding: 4px 0; break-inside: avoid; }
+.book-static-index .si-date { color: var(--muted); font-size: .8rem; margin-left: 6px; }
+
 /* ---------- 移动端 ---------- */
 @media (max-width: 640px) {
   body { font-size: 16px; }
