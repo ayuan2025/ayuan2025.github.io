@@ -267,5 +267,13 @@
   overflow-y: auto;                 /* 一首诗一整页，超长竖向滚动 */
   -webkit-overflow-scrolling: touch;
 }
+/* 极简模式是「一首诗一整页、超长竖向滚动」，正文必须按内容自然撑开。
+   上面 .poem-body 的 flex:1 1 0 + min-height:0 + overflow:hidden 是给 3D 书本分面用的
+   （正文占满剩余空间、超出隐藏），在这里会把长诗直接裁掉——
+   而且因为正文盒高被锁成容器高，scrollHeight 也不涨，想滚都滚不到。 */
+.book.simple .poem-body,
+.book.simple .prose-body { flex: 0 0 auto; min-height: auto; overflow: visible; }
+/* 短诗时页脚仍贴在卡片底部，长诗时跟在正文末尾 */
+.book.simple .leaf-foot { margin-top: auto; }
 /* 探针：与真实页面同高（JS 会再以 inner 实高精确覆写），隐藏不参与布局 */
 .simple-page.probe { visibility: hidden; position: absolute; width: 100%; left: 0; top: 0; z-index: -1; }
