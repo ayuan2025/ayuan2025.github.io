@@ -20,7 +20,6 @@
           + '<span class="mini-disc"></span>'
           + '<span class="song-title">' + esc(s.title)
           + (s.sub ? '<small>' + esc(s.sub) + '</small>' : '')
-          + (s.lrc && s.lrc.length ? '<span class="song-tag">词</span>' : '')
           + '</span>'
           + '<span class="song-dur">' + esc(s.dur || '') + '</span>'
           + '</a>';
