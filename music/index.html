@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>音乐 · 阿元的自留地</title>
 <link rel="icon" href="/assets/img/favicon.ico" sizes="32x32">
-<link rel="stylesheet" href="/assets/css/style.css?v=mu6lc9cr">
-<link rel="stylesheet" href="/assets/css/music.css?v=mu6lc9cr">
+<link rel="stylesheet" href="/assets/css/style.css?v=mu6lrmo0">
+<link rel="stylesheet" href="/assets/css/music.css?v=mu6lrmo0">
 </head>
 <body class="page-music-index">
 <nav class="masthead">
@@ -25,26 +25,28 @@
     <h1>音乐</h1>
     <p class="music-sub">唱出来的诗 · 点击唱片开始</p>
   </div>
-  <div class="deck">
-    <div class="disc-wrap">
-      <div class="disc" id="disc"><span class="disc-label" id="discLabel"></span></div>
-      <span class="tone-arm" aria-hidden="true"></span>
+  <div class="shelf-layout">
+    <div class="deck">
+      <div class="disc-wrap">
+        <div class="disc" id="disc"><span class="disc-label" id="discLabel"></span></div>
+        <span class="tone-arm" aria-hidden="true"></span>
+      </div>
+      <div class="deck-meta">
+        <p class="deck-title" id="deckTitle">选一首，唱给你听</p>
+        <p class="deck-dur" id="deckDur"></p>
+      </div>
     </div>
-    <div class="deck-meta">
-      <p class="deck-title" id="deckTitle">选一首，唱给你听</p>
-      <p class="deck-dur" id="deckDur"></p>
-    </div>
-  </div>
-  <div class="deck-stage" id="deckStage">
-    <div class="song-list" id="songList"></div>
-    <div class="deck-lyrics">
-      <button class="lyr-back" id="lyrBack" type="button">← 曲目列表</button>
-      <div class="lyrics-box"><div class="lyrics" id="lyrics"></div></div>
+    <div class="deck-stage" id="deckStage">
+      <div class="song-list" id="songList"></div>
+      <div class="deck-lyrics">
+        <button class="lyr-back" id="lyrBack" type="button">← 曲目列表</button>
+        <div class="lyrics-box"><div class="lyrics" id="lyrics"></div></div>
+      </div>
     </div>
   </div>
 </main>
-<script src="/assets/js/main.js?v=mu6lc9cr"></script>
+<script src="/assets/js/main.js?v=mu6lrmo0"></script>
 <script src="/music/songs.js"></script>
-<script src="/assets/js/music.js?v=mu6lc9cr"></script>
+<script src="/assets/js/music.js?v=mu6lrmo0"></script>
 </body>
 </html>
