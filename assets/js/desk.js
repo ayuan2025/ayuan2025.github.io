@@ -136,26 +136,12 @@
     runTimeline(flyCd, r, side, side, getComputedStyle(spine).transform, null, href);
   }
 
-  /* ---- 黑胶唱机：唱片升起、旋转放大，溶进纸色 ---- */
-  function openTurntable(tt) {
-    if (!flyCd) { go(tt.getAttribute('data-href')); return; }
-    var href = tt.getAttribute('data-href');
-    var r = tt.getBoundingClientRect();
-    flyBook.style.display = 'none';
-    flyCd.style.display = 'block';
-    flyCd.setAttribute('aria-hidden', 'false');
-    flyCd.classList.add('vinyl'); // 变体：只露一张黑胶
-    var side = Math.min(480, window.innerWidth * 0.62, window.innerHeight * 0.7);
-    runTimeline(flyCd, r, side, side, 'none', null, href);
-  }
-
   function dispatch(sp) {
     if (busy) return;
     busy = true;
     // 系统关掉了动画偏好：直接过去，不做过场
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { go(sp.getAttribute('data-href')); return; }
-    if (sp.classList.contains('turntable')) openTurntable(sp);
-    else if (sp.classList.contains('cd')) openCd(sp);
+    if (sp.classList.contains('cd')) openCd(sp);
     else openBook(sp);
   }
 
@@ -164,14 +150,6 @@
     sp.addEventListener('click', function () { dispatch(sp); });
     sp.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dispatch(sp); }
-    });
-  });
-
-  // 黑胶唱机
-  document.querySelectorAll('.turntable').forEach(function (tt) {
-    tt.addEventListener('click', function () { dispatch(tt); });
-    tt.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dispatch(tt); }
     });
   });
 
