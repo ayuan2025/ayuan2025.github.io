@@ -64,8 +64,10 @@ body.page-music-song .wrap { max-width: 920px; }
 /* 「← 曲目列表」放在左栏唱机下方：右栏歌词框顶边才能和唱机顶边齐平。
    显隐跟右栏歌词态同步（body.showing-lyrics 由 music.js 切换）。 */
 .lyr-back {
-  display: none; margin: 10px auto 0; border: none; background: none; padding: 0;
+  display: none; margin: 10px auto 0; border: none; background: none;
   color: var(--muted); font-size: .9rem; cursor: pointer; text-align: center;
+  /* 「← 曲目列表」文字本身只有 21 高，手机上点不中：padding 撑出可点区，负 margin 抵消 */
+  padding: 10px 14px; margin: 0 auto 0;
 }
 .lyr-back:hover { color: var(--accent); }
 body.showing-lyrics .lyr-back { display: block; }
@@ -82,6 +84,8 @@ body.showing-lyrics .lyr-back { display: block; }
 .song-back {
   display: inline-block; color: var(--muted); text-decoration: none;
   font-size: .9rem; margin-bottom: 10px;
+  /* 盒高只有 27，手机上偏小：padding 撑到 43 的可点区，负 margin 抵消版式变化 */
+  padding: 8px 10px; margin: -8px -10px 2px;
 }
 .song-back:hover { color: var(--accent); }
 
@@ -129,13 +133,15 @@ body.showing-lyrics .lyr-back { display: block; }
   transform: translate(-50%, -50%);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center; text-align: center;
-  padding: 18%;
+  padding: 11%;
   background:
     radial-gradient(circle at 36% 30%, rgba(255, 255, 255, .2), transparent 58%),
     linear-gradient(160deg, #e3cf9f, #c6ab74);
   box-shadow: inset 0 0 0 1px rgba(84, 66, 34, .42), 0 0 0 1px rgba(0, 0, 0, .3);
-  color: #3c3223; font-size: .68rem; line-height: 1.5; letter-spacing: 1px;
-  overflow: hidden;
+  /* 字距收紧、padding 收窄、允许在字之间折行：
+     手机上唱片变小，六个字的歌名（如「与书有关的诗」）过去会被 overflow 切掉尾巴 */
+  color: #3c3223; font-size: .68rem; line-height: 1.35; letter-spacing: .3px;
+  overflow-wrap: anywhere; overflow: hidden;
 }
 /* 中孔：真唱片是通的，露一点底座色 */
 .disc .disc-label::after {
