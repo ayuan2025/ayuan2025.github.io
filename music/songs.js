@@ -523,7 +523,7 @@ window.SONGS = [
  {
   "slug": "diao-hua-nv",
   "title": "雕花铁栏杆的阴影",
-  "sub": "女版",
+  "sub": "",
   "audio": "audio/diao-hua-nv.m4a",
   "dur": "01:43",
   "lrc": [
