@@ -10,12 +10,20 @@
   }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 
-  /* ---------- 唱片架 ---------- */
+  /* ---------- 唱片架：唱机 + 播放列表/歌词区切换 ----------
+   * 唱机与播放页同款；点歌本页播放，播放列表原地换成歌词区（可切回，音乐不停）。
+   * 列表行保留 href 指向播放页——JS 失效时退化为跳转，可用性兜底。 */
   if (body.classList.contains('page-music-index')) {
-    var box = document.getElementById('songList');
+    var $ = function (id) { return document.getElementById(id); };
+    var box = $('songList'), stage = $('deckStage'), lyricsEl = $('lyrics');
+    var disc = $('disc'), discLabel = $('discLabel'), deckTitle = $('deckTitle'), deckDur = $('deckDur');
+    var audio = new Audio();
+    audio.preload = 'metadata';
+    var idx = -1, lrc = null, lastCur = -2;
+
     if (box) {
       box.innerHTML = SONGS.map(function (s, i) {
-        return '<a class="song-row" href="song.html?p=' + s.slug + '">'
+        return '<a class="song-row" href="song.html?p=' + s.slug + '" data-i="' + i + '">'
           + '<span class="song-no">' + ('0' + (i + 1)).slice(-2) + '</span>'
           + '<span class="mini-disc"></span>'
           + '<span class="song-title">' + esc(s.title)
@@ -24,7 +32,81 @@
           + '<span class="song-dur">' + esc(s.dur || '') + '</span>'
           + '</a>';
       }).join('');
+      box.addEventListener('click', function (e) {
+        var row = e.target.closest('.song-row');
+        if (!row) return;
+        e.preventDefault();
+        pick(Number(row.getAttribute('data-i')));
+      });
     }
+
+    function markCur() {
+      var rows = box.querySelectorAll('.song-row');
+      for (var i = 0; i < rows.length; i++) rows[i].classList.toggle('cur', i === idx);
+    }
+
+    function loadSong(i) {
+      idx = (i + SONGS.length) % SONGS.length;
+      var s = SONGS[idx];
+      deckTitle.textContent = s.title;
+      deckDur.textContent = s.dur || '';
+      if (discLabel) discLabel.textContent = s.title;
+      audio.src = s.audio;
+      lrc = s.lrc && s.lrc.length ? s.lrc.slice() : null;
+      lastCur = -2;
+      if (lrc) {
+        lyricsEl.innerHTML = lrc.map(function (l, k) {
+          return '<p class="lrc-line" data-k="' + k + '">' + esc(l[1]) + '</p>';
+        }).join('');
+      } else {
+        lyricsEl.innerHTML = '<p class="lrc-empty">歌词待补充<br>先听 CD 吧</p>';
+      }
+      markCur();
+    }
+
+    function play() { audio.play().catch(function () {}); }
+    function pick(i) {
+      loadSong(i);
+      stage.classList.add('show-lyrics');
+      play();
+    }
+
+    /* 空态点唱机 = 从第一首开始放；有歌在盘上 = 播放/暂停 */
+    disc.addEventListener('click', function () {
+      if (!audio.src) { pick(0); return; }
+      audio.paused ? play() : audio.pause();
+    });
+    $('lyrBack').addEventListener('click', function () { stage.classList.remove('show-lyrics'); });
+
+    audio.addEventListener('play', function () { body.classList.add('playing'); });
+    audio.addEventListener('pause', function () { body.classList.remove('playing'); });
+    audio.addEventListener('ended', function () { pick(idx + 1); });
+
+    lyricsEl.addEventListener('click', function (e) {
+      var p = e.target.closest('.lrc-line');
+      if (p && lrc) { audio.currentTime = lrc[Number(p.getAttribute('data-k'))][0]; if (audio.paused) play(); }
+    });
+
+    audio.addEventListener('timeupdate', function () {
+      if (!lrc) return;
+      var c = audio.currentTime || 0;
+      var cur = -1;
+      for (var k = 0; k < lrc.length; k++) if (c >= lrc[k][0] - 0.15) cur = k;
+      if (cur !== lastCur) {
+        lastCur = cur;
+        var lines = lyricsEl.querySelectorAll('.lrc-line');
+        for (var j = 0; j < lines.length; j++) lines[j].classList.toggle('cur', j === cur);
+        var el = lines[cur >= 0 ? cur : 0];
+        if (el) {
+          /* 只滚歌词容器本身，别把整页窗口滚走 */
+          var b = lyricsEl.getBoundingClientRect();
+          var r = el.getBoundingClientRect();
+          lyricsEl.scrollTop += r.top - b.top - b.height / 2 + r.height / 2;
+        }
+      }
+    });
+
+    window.__musicTest = audio; /* 验证钩子：自动化测试用 */
     return;
   }
 
@@ -39,7 +121,7 @@
   for (var i = 0; i < SONGS.length; i++) if (SONGS[i].slug === q.get('p')) idx = i;
 
   var $ = function (id) { return document.getElementById(id); };
-  var disc = $('disc'), playBtn = $('playBtn'), prevBtn = $('prevSong'), nextBtn = $('nextSong');
+  var disc = $('disc'), discLabel = $('discLabel'), playBtn = $('playBtn'), prevBtn = $('prevSong'), nextBtn = $('nextSong');
   var bar = $('seekBar'), tCur = $('tCur'), tAll = $('tAll');
   var lyricsEl = $('lyrics'), titleEl = $('songTitle'), subEl = $('songSub');
   var tBar = $('tuneCur'), tOut = $('tuneOut');

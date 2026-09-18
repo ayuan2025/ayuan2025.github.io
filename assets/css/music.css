@@ -26,6 +26,38 @@
 .song-title small { color: var(--muted); font-size: .8rem; margin-left: 8px; }
 .song-dur { color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
 
+/* ---------- 唱片架页的唱机 + 列表/歌词切换 ----------
+ * 唱机与播放页（.disc-wrap）完全同款；点歌本页播放，
+ * 播放列表原地淡出换成歌词区，可随时切回（音乐不停）。 */
+.deck { max-width: 356px; margin: 6px auto 0; }
+.deck-meta { text-align: center; margin-top: 14px; min-height: 3.2em; }
+.deck-title { font-size: 1.08rem; letter-spacing: 1px; color: var(--ink); margin: 0; }
+.deck-dur { color: var(--muted); font-size: .8rem; margin: 4px 0 0; font-variant-numeric: tabular-nums; }
+
+.deck-stage {
+  max-width: 720px; margin: 20px auto 60px; padding: 0 20px;
+  display: grid;
+}
+.deck-stage > * { grid-area: 1 / 1; min-width: 0; transition: opacity .32s ease, transform .32s ease, visibility .32s; }
+.deck-stage .song-list { margin: 0; padding: 0; align-self: start; }
+.deck-stage .deck-lyrics { align-self: start; }
+.deck-stage.show-lyrics .song-list { opacity: 0; transform: translateY(-12px); visibility: hidden; pointer-events: none; }
+.deck-lyrics { opacity: 0; transform: translateY(12px); visibility: hidden; pointer-events: none; }
+.deck-stage.show-lyrics .deck-lyrics { opacity: 1; transform: none; visibility: visible; pointer-events: auto; }
+
+.lyr-back {
+  display: inline-block; border: none; background: none; padding: 0 0 10px;
+  color: var(--muted); font-size: .9rem; cursor: pointer; text-align: left;
+}
+.lyr-back:hover { color: var(--accent); }
+/* 列表页歌词区：固定高度（播放页的 .lyrics-box 是 flex 拉伸，这里直接限高） */
+.deck-lyrics .lyrics-box { min-height: 0; height: clamp(420px, 56vh, 560px); }
+
+/* 正在播放的那一行：描边点亮 + 小唱片跟着转 */
+.song-row.cur { border-color: var(--accent); box-shadow: 0 2px 10px rgba(0, 0, 0, .10); }
+.song-row.cur .mini-disc { animation: disc-spin 4s linear infinite; }
+.song-row.cur .song-no { color: var(--accent); }
+
 /* ---------- CD 播放页 ---------- */
 .song-page { max-width: 960px; margin: 0 auto; padding: 18px 20px 40px; }
 .song-back {
@@ -175,7 +207,11 @@
   scroll-behavior: smooth;
   -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
   mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+  scrollbar-width: thin; scrollbar-color: var(--line) transparent;
 }
+.lyrics::-webkit-scrollbar { width: 5px; }
+.lyrics::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+.lyrics::-webkit-scrollbar-track { background: transparent; }
 .lrc-line {
   padding: 9px 6px; line-height: 1.7; color: var(--muted);
   font-size: 1.02rem; cursor: pointer; transition: color .3s, transform .3s;
@@ -219,4 +255,7 @@ body.tune .tune-bar { display: flex; }
   .lyrics { padding: 26% 18px 45%; }
   .lrc-line { font-size: .98rem; padding: 8px 4px; }
   .song-list { padding: 0 12px; }
+  .deck { width: min(292px, 76vw); }
+  .deck-stage { margin-top: 14px; padding: 0 12px; }
+  .deck-lyrics .lyrics-box { height: 52vh; }
 }
