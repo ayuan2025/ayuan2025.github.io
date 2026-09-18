@@ -64,11 +64,15 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   border-radius: 50%; width: 34px; height: 34px; font-size: 1rem; cursor: pointer;
 }
 @media (max-width: 640px) {
-  .masthead { gap: 10px; padding: 14px 14px; }
+  .masthead { gap: 10px; padding: 10px 14px; }
   .nav-links { gap: 11px; font-size: .85rem; }
   .brand { font-size: .95rem; letter-spacing: 0; white-space: nowrap; }
   /* 390px 视口下刚好一行放下；不锁 nowrap 的话「诗集」会折成竖排两行 */
   .nav-links a { white-space: nowrap; }
+  /* 链接盒高只有 26，手指点不准：用 padding 把可点区撑到 42，
+     masthead 上下 padding 从 14 收到 10 抵消，顶栏总高基本不变 */
+  .nav-links a { padding: 8px 3px; }
+  .brand { padding: 8px 0; }
 }
 
 /* ---------- 首页（旧卡片样式保留，供 /random 等复用） ---------- */
