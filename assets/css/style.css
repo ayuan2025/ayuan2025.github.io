@@ -163,7 +163,8 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   letter-spacing: 8px; color: #f3e2c2;
   text-shadow: 0 1px 0 rgba(0, 0, 0, .5), 0 0 22px rgba(255, 200, 120, .28);
 }
-.desk-title .accent { color: #e8a97f; }
+/* 「自留地」与「阿元的」同色：整行一个颜色，不拆成两段 */
+.desk-title .accent { color: inherit; }
 .desk-sub {
   position: relative; z-index: 3;
   margin: 0 0 34px; color: rgba(240, 222, 190, .62); font-size: .92rem; letter-spacing: 2px;
