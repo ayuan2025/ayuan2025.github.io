@@ -18,6 +18,21 @@
   var faces = [], nSheets = 0, flipped = 0, view = 0, probe = null;
   var DUR = 900, animating = false;
 
+  /* 「↓ 继续阅读」提示：极简模式里长文靠竖向滚动看，但手机上没有滚动条，
+     不给提示用户会以为文章就到这里。滚到底自动消失。 */
+  var hint = document.createElement('div');
+  hint.className = 'read-more-hint';
+  hint.textContent = '↓ 继续阅读';
+  hint.setAttribute('aria-hidden', 'true');
+  book.appendChild(hint);
+  function updateReadHint() {
+    var page = document.getElementById('simplePage');
+    if (!isMobile() || !page) { hint.classList.remove('show'); return; }
+    hint.classList.toggle('show', page.scrollHeight - page.clientHeight - page.scrollTop > 12);
+  }
+  /* scroll 事件不冒泡，用捕获阶段接住内层 .simple-page 的滚动 */
+  inner.addEventListener('scroll', updateReadHint, true);
+
   function isMobile() { return window.innerWidth <= 720; }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
   function el(h) { var d = document.createElement('div'); d.innerHTML = h; return d.firstElementChild; }
@@ -385,6 +400,7 @@
         var body = blocksOf(item).map(function (b) { return b.html; }).join('');
         page.innerHTML = headHTML(item) + '<div class="' + bodyCls() + '">' + body + '</div>' + footHTML(view + 1, item, true);
         page.scrollTop = 0; // 换诗回顶部
+        updateReadHint();
       }
       indicator.textContent = (view + 1) + ' / ' + DATA.items.length;
       return;
@@ -399,11 +415,12 @@
       leaves[i].classList.toggle('top', i === fl || i === fl - 1);
     }
     var idxs = [2 * flipped - 1, 2 * flipped].filter(function (i) { return i >= 0 && i < faces.length; });
-    indicator.textContent = idxs.map(function (i) {
+    indicator.textContent =     idxs.map(function (i) {
       var f = faces[i];
       return (f.itemIdx + 1) + (f.part > 0 ? '·续' : '');
     }).join('–') + ' / ' + DATA.items.length;
     if (curlCv) curlCv.style.opacity = 0;
+    updateReadHint();   // 桌面模式不该留着提示（比如从窄窗口拉宽回来）
   }
 
   /* ---------- 翻页 ---------- */
