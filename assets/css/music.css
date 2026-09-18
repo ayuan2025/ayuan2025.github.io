@@ -32,7 +32,9 @@
 /* ---------- 唱片架：唱机在左，曲目列表/歌词在右 ----------
    与播放页 song.html 同一套分栏语言。关键前提：.wrap 默认只有 720px，
    两栏前必须先把容器放宽——否则右侧会被 356px 的唱机挤到只剩两百多像素。 */
-body.page-music-index .wrap { max-width: 1120px; }
+/* 唱片架页：右栏（曲目列表/歌词）原本撑到 682，短句歌词空得晃眼。
+   容器收到 880，右栏落在 442，与播放页的 438 基本齐平，两页视觉一致。 */
+body.page-music-index .wrap { max-width: 880px; }
 /* 播放页：歌词多是短句，右栏给到 520 就空得晃眼。
    容器收窄到 920，右栏落在 440 上下，左栏唱机尺寸不动。 */
 body.page-music-song .wrap { max-width: 920px; }
@@ -264,7 +266,8 @@ body.tune .tune-bar { display: flex; }
 @media (max-width: 1000px) {
   .shelf-layout { flex-direction: column; align-items: center; }
   .shelf-layout .deck { flex: 0 0 auto; margin: 0 auto; }
-  .shelf-layout .deck-stage { width: 100%; max-width: 680px; }
+  /* 堆叠时右栏占满整行，限宽跟横排的 442 对齐，别反而比横排还宽 */
+  .shelf-layout .deck-stage { width: 100%; max-width: 480px; }
 }
 
 @media (max-width: 760px) {
