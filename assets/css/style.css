@@ -584,8 +584,8 @@ body.book-ready .book-hint { animation: toolEnter .55s ease-out both; }
 }
 .btn:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
 
-/* 诗歌文章页：保持居中，无缩进 */
-.poem-post .post-body { text-align: center; }
+/* 诗歌文章页：左对齐（与 /poetry/ 阅读器一致），无缩进 */
+.poem-post .post-body { text-align: left; }
 .poem-post .post-body > p { text-indent: 0; }
 .poem-post .stanza { margin: 1.6em 0; }
 .poem-post .stanza span { display: block; line-height: 2.1; }
