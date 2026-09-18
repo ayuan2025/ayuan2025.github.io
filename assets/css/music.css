@@ -206,7 +206,10 @@ body.page-music-song .wrap { max-width: 1000px; }
   background: var(--accent); border: 2px solid var(--card);
   box-shadow: 0 1px 4px rgba(0,0,0,.25);
 }
-.bar-time { display: flex; justify-content: space-between; color: var(--muted); font-size: .78rem; margin-top: 4px; font-variant-numeric: tabular-nums; }
+/* 进度条下的时间字：普通视图去掉——没播放/缓冲时只是两个死数字，看着像坏了；
+   校准模式（?tune=1）保留，拖进度标记行首需要看当前时间。 */
+.bar-time { display: none; }
+body.tune .bar-time { display: flex; justify-content: space-between; color: var(--muted); font-size: .78rem; margin-top: 4px; font-variant-numeric: tabular-nums; }
 
 /* 歌词 */
 .lyrics-box {
