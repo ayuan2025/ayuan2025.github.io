@@ -361,6 +361,60 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   color: rgba(238, 218, 186, .48);
 }
 
+/* ---------- 桌面右上角：一张便签（本站源码 → GitHub）----------
+   刻意不用 GitHub 官方 logo：扁平的现代图形会破坏木质书桌的调子，
+   改用「桌上的纸制品」语言——米黄便签纸 + 手写小字 + 右上角一枚图钉。
+   右下角已被 .desk-actions 按钮占用，所以便签落在右上角（台灯在左上，不打架）。 */
+.desk-note {
+  position: absolute; right: 30px; top: 26px; z-index: 4;
+  width: 176px; padding: 17px 15px 14px;
+  display: flex; flex-direction: column; gap: 7px;
+  text-decoration: none;
+  transform: rotate(-2.2deg);
+  transition: transform .34s cubic-bezier(.2, .7, .3, 1), box-shadow .34s, filter .34s;
+  /* 便签纸：米黄、纸纤维横纹、边缘微微起翘的高光 */
+  background:
+    radial-gradient(ellipse 64% 30% at 28% 10%, rgba(255, 253, 244, .5), transparent 72%),
+    repeating-linear-gradient(0deg, rgba(120, 96, 60, .032) 0 1px, transparent 1px 4px),
+    linear-gradient(168deg, #f3e9d3 0%, #e8dbc0 68%, #dfd0ae 100%);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .55),
+    inset 0 -2px 6px rgba(120, 96, 60, .10),
+    2px 6px 15px rgba(0, 0, 0, .36),
+    0 0 24px rgba(255, 214, 150, .12);
+}
+.desk-note:hover, .desk-note:focus-visible {
+  transform: rotate(-1deg) translateY(-4px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .55),
+    inset 0 -2px 6px rgba(120, 96, 60, .10),
+    4px 13px 24px rgba(0, 0, 0, .44),
+    0 0 30px rgba(255, 214, 150, .22);
+  outline: none;
+}
+/* 图钉：一枚朱砂色的小圆钉 */
+.dn-pin {
+  position: absolute; top: 7px; right: 9px; width: 9px; height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #e88474, #a63f2e 62%, #72291c);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .46), inset 0 -1px 1px rgba(0, 0, 0, .28);
+}
+.dn-line {
+  font-size: .78rem; letter-spacing: 2px; line-height: 1.5;
+  color: #55432c;
+}
+.dn-url {
+  font-size: .58rem; letter-spacing: .4px; color: rgba(85, 67, 44, .70);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  word-break: break-all;
+}
+.desk-note:hover .dn-line, .desk-note:focus-visible .dn-line { color: var(--accent); }
+.desk-note:hover .dn-url, .desk-note:focus-visible .dn-url { color: rgba(166, 63, 46, .85); }
+/* 暗色书桌下：纸也跟着压暗，别在暗处发白 */
+[data-theme="dark"] .desk-note { filter: brightness(.84) saturate(.95); }
+[data-theme="dark"] .desk-note:hover, [data-theme="dark"] .desk-note:focus-visible { filter: brightness(.92) saturate(.98); }
+
 /* ---------- 开书过场动画 ----------
  * 动作链：从书堆里抽出 → 转到眼前 → 掀开封面 → 溶进纸里 → 落地
  *
@@ -634,6 +688,10 @@ body.book-ready .book-hint { animation: toolEnter .55s ease-out both; }
   .spine.cd { width: 18px; height: clamp(138px, 21vh, 186px); }
   .desk-hint { display: none; }
   .desk-actions { right: 18px; bottom: 18px; }
+  /* 窄屏：右上角会挤到副标题，便签改贴左下角（提示语此时已隐藏，左下空着） */
+  .desk-note { right: auto; left: 16px; top: auto; bottom: 20px;
+    width: 152px; padding: 13px 12px 12px; transform: rotate(-1.6deg); }
+  .dn-line { font-size: .72rem; letter-spacing: 1.5px; }
 }
 
 /* ---------- 文章列表 ---------- */
