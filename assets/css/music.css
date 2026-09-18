@@ -61,11 +61,14 @@ body.page-music-song .wrap { max-width: 920px; }
 .deck-lyrics { opacity: 0; transform: translateY(12px); visibility: hidden; pointer-events: none; }
 .deck-stage.show-lyrics .deck-lyrics { opacity: 1; transform: none; visibility: visible; pointer-events: auto; }
 
+/* 「← 曲目列表」放在左栏唱机下方：右栏歌词框顶边才能和唱机顶边齐平。
+   显隐跟右栏歌词态同步（body.showing-lyrics 由 music.js 切换）。 */
 .lyr-back {
-  display: inline-block; border: none; background: none; padding: 0 0 10px;
-  color: var(--muted); font-size: .9rem; cursor: pointer; text-align: left;
+  display: none; margin: 10px auto 0; border: none; background: none; padding: 0;
+  color: var(--muted); font-size: .9rem; cursor: pointer; text-align: center;
 }
 .lyr-back:hover { color: var(--accent); }
+body.showing-lyrics .lyr-back { display: block; }
 /* 列表页歌词区：固定高度（播放页的 .lyrics-box 是 flex 拉伸，这里直接限高） */
 .deck-lyrics .lyrics-box { min-height: 0; height: clamp(420px, 56vh, 560px); }
 
