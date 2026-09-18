@@ -302,7 +302,7 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
     linear-gradient(180deg, transparent 0 44%, rgba(255, 255, 255, .18) 44% 45%, transparent 45%),
     linear-gradient(0deg, transparent 0 44%, rgba(255, 255, 255, .12) 44% 45%, transparent 45%);
 }
-/* 脊标签：泛旧的贴纸，印着竖排字 */
+/* 脊标签：泛旧的贴纸，印着竖排字；下方标曲目数（与书脊的册数小字同款） */
 .spine.cd .cd-label {
   position: absolute; z-index: 2; top: 6px; bottom: 6px; left: 50%;
   transform: translateX(-50%); width: 64%;
@@ -312,127 +312,25 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
     linear-gradient(90deg, #e9dcbd, #dccda8 62%, #cab890);
   border-radius: 1px;
   box-shadow: 0 0 0 1px rgba(84, 70, 46, .34), 0 1px 2px rgba(0, 0, 0, .30);
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px;
 }
 .spine.cd .cd-label span {
   writing-mode: vertical-rl; text-orientation: upright;
   font-size: .58rem; letter-spacing: .3em; font-weight: 500;
   color: #3c3223; white-space: nowrap;
 }
+.spine.cd .cd-count {
+  writing-mode: vertical-rl; text-orientation: upright;
+  font-size: .5rem; font-weight: 400; letter-spacing: 0;
+  color: rgba(60, 50, 35, .62);
+  font-variant-numeric: tabular-nums;
+}
 .spine.cd:hover, .spine.cd:focus-visible { filter: brightness(1.08); }
-.spine.cd:hover .cd-label span { color: #2a2114; }
+.spine.cd:hover .cd-label span, .spine.cd:hover .cd-count { color: #2a2114; }
 /* 暗色书桌下：CD 盒跟着压暗，别在暗处发白 */
 [data-theme="dark"] .spine.cd { filter: brightness(.72) saturate(.92); }
 [data-theme="dark"] .spine.cd:hover, [data-theme="dark"] .spine.cd:focus-visible { filter: brightness(.82) saturate(.95); }
-
-/* ---------- 黑胶唱机：立在书堆右侧的空桌上 ----------
-   拟物入口：木底座 + 转动的黑胶盘 + 一支唱臂。点它直接进播放页，
-   过场是「一张黑胶从唱机上浮起」（见 .fly-cd.vinyl）。 */
-.turntable {
-  position: absolute; right: 46px; bottom: 74px; z-index: 2;
-  width: 172px; height: 120px;
-  border-radius: 10px;
-  cursor: pointer;
-  /* 胡桃木底座：比桌面深一号，带上沿高光和落地影 */
-  background:
-    linear-gradient(180deg, rgba(255, 226, 168, .10), transparent 34%),
-    linear-gradient(168deg, #33261b 0%, #2b2015 52%, #221a10 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 232, 190, .16),
-    inset 0 0 0 1px rgba(0, 0, 0, .34),
-    0 14px 26px rgba(0, 0, 0, .38);
-  transition: transform .3s cubic-bezier(.2, .7, .3, 1), box-shadow .3s, filter .3s;
-}
-.turntable:hover, .turntable:focus-visible {
-  transform: translateY(-5px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 232, 190, .2),
-    inset 0 0 0 1px rgba(0, 0, 0, .34),
-    0 22px 36px rgba(0, 0, 0, .46);
-  outline: none;
-}
-/* 底座右下的转速小旋钮（装饰） */
-.turntable::after {
-  content: ''; position: absolute; right: 12px; bottom: 10px;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: radial-gradient(circle at 34% 30%, #cbb astray, #6b5a3e 60%, #3c3222);
-  background: radial-gradient(circle at 34% 30%, #c9b183, #6b5a3e 60%, #3c3222);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4), 0 1px 2px rgba(0, 0, 0, .4);
-}
-/* 转盘：黑胶唱片，慢速空转 */
-.tt-platter {
-  position: absolute; left: 13px; top: 50%;
-  width: 94px; height: 94px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background:
-    repeating-radial-gradient(circle at 50% 50%,
-      rgba(255, 255, 255, .045) 0 1px, transparent 1px 3px),
-    radial-gradient(circle at 38% 32%, rgba(255, 255, 255, .10), transparent 46%),
-    radial-gradient(circle, #191512 0 58%, #221c17 78%, #171310 100%);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, .06),
-    0 4px 12px rgba(0, 0, 0, .5);
-  animation: ttSpin 14s linear infinite;
-}
-@keyframes ttSpin { to { transform: translateY(-50%) rotate(360deg); } }
-/* 唱片中心的纸标签 + 中孔 */
-.tt-label {
-  position: absolute; left: 50%; top: 50%;
-  width: 36px; height: 36px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, .22), transparent 60%),
-    linear-gradient(160deg, #e3cf9f, #c9ae76);
-  box-shadow: inset 0 0 0 1px rgba(84, 66, 34, .4);
-}
-.tt-label::after {
-  content: ''; position: absolute; left: 50%; top: 50%;
-  width: 7px; height: 7px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: #171310;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .6);
-}
-/* 唱臂：支点在右上，平时微微抬起悬在盘缘上，悬停时负角（逆时针）搭向盘面——
- * 正角会让臂端向上翘离唱片，方向不能反 */
-.tt-arm {
-  position: absolute; right: 22px; top: 20px;
-  width: 62px; height: 6px;
-  border-radius: 3px;
-  transform-origin: right center;
-  transform: rotate(3deg);
-  transition: transform .45s cubic-bezier(.3, .8, .3, 1);
-  background: linear-gradient(90deg, #8f8474, #c9c0ad 55%, #a99e88);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 255, 255, .3);
-}
-/* 臂端唱针头 */
-.tt-arm::before {
-  content: ''; position: absolute; left: -7px; top: -1px;
-  width: 12px; height: 8px; border-radius: 2px;
-  background: linear-gradient(180deg, #d8d0bd, #9a8f78);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .4);
-}
-/* 支点轴座 */
-.tt-arm::after {
-  content: ''; position: absolute; right: -8px; top: 50%;
-  width: 14px; height: 14px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle at 36% 30%, #b7ac93, #6d6250 62%, #453c2c);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4), 0 2px 4px rgba(0, 0, 0, .4);
-}
-.turntable:hover .tt-arm, .turntable:focus-visible .tt-arm { transform: rotate(-20deg); }
-/* 唱臂托架（支点旁的小凸起） */
-.turntable::before {
-  content: ''; position: absolute; right: 16px; top: 16px;
-  width: 10px; height: 12px; border-radius: 2px;
-  background: linear-gradient(180deg, #4a3d2c, #33291b);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
-}
-[data-theme="dark"] .turntable { filter: brightness(.8) saturate(.95); }
-[data-theme="dark"] .turntable:hover, [data-theme="dark"] .turntable:focus-visible { filter: brightness(.9); }
 
 /* 悬停：像把书从堆里抽出来一点 */
 .spine:hover, .spine:focus-visible {
@@ -586,9 +484,8 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
     linear-gradient(180deg, #f6efdd, #e9ddc0);
 }
 
-/* ---------- CD 过场：翻开 jewel case / 浮起一张黑胶 ----------
- * 点 CD 盒：一只透明 jewel case 飞到眼前，盖子绕顶边向后掀开，露出银碟；
- * 点黑胶唱机：.vinyl 变体——底壳和盖子都不出现，只有一张黑胶浮起旋转。
+/* ---------- CD 过场：一只透明 jewel case 飞到眼前 ----------
+ * 点 CD 盒：盖子绕顶边向后掀开，露出银碟。
  * 时间线由 desk.js 的 runTimeline 驱动，节奏与 .fly-book 一致。 */
 .fly-cd {
   position: fixed;
@@ -682,37 +579,6 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   filter: brightness(1.12) saturate(1.15);
 }
 
-/* 黑胶变体：不出现盒壳，只有一张黑胶浮在眼前，慢慢转 */
-.fly-cd.vinyl .fc-base,
-.fly-cd.vinyl .fc-lid { display: none; }
-.fly-cd.vinyl .fc-disc {
-  width: 86%;
-  background:
-    repeating-radial-gradient(circle at 50% 50%,
-      rgba(255, 255, 255, .05) 0 1px, transparent 1px 4px),
-    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, .10), transparent 44%),
-    radial-gradient(circle, #17130f 0 30%, #201a14 62%, #14100c 100%);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, .07),
-    0 26px 60px rgba(0, 0, 0, .5);
-  animation: flyVinylSpin 7s linear infinite;
-}
-/* 黑胶中心的纸标签 */
-.fly-cd.vinyl .fc-disc::before {
-  content: ''; position: absolute; left: 50%; top: 50%;
-  width: 34%; aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, .2), transparent 58%),
-    linear-gradient(160deg, #e3cf9f, #c2a76e);
-  box-shadow: inset 0 0 0 1px rgba(84, 66, 34, .4);
-}
-.fly-cd.vinyl .fc-disc::after {
-  background: radial-gradient(circle, #0e0c09 0 44%, #1c1712 46% 100%);
-}
-@keyframes flyVinylSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-
 /* ---------- 落地页入场 ----------
  * 从书架过来时才启用（desk.js 打 sessionStorage 标记）。
  * 遮罩底色 = 本页纸色，掀开后书和工具栏一起浮出，中间不会出现任何白块。
@@ -768,8 +634,6 @@ body.book-ready .book-hint { animation: toolEnter .55s ease-out both; }
   .spine.cd { width: 18px; height: clamp(138px, 21vh, 186px); }
   .desk-hint { display: none; }
   .desk-actions { right: 18px; bottom: 18px; }
-  /* 手机上书堆横向滚动占满整行，唱机没地方摆——隐藏，仍可点 CD 盒进播放页 */
-  .turntable { display: none; }
 }
 
 /* ---------- 文章列表 ---------- */
