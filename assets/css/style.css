@@ -395,7 +395,8 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   background: #171310;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .6);
 }
-/* 唱臂：支点在右上，平时抬起悬在托架上，悬停时搭向盘面 */
+/* 唱臂：支点在右上，平时微微抬起悬在盘缘上，悬停时负角（逆时针）搭向盘面——
+ * 正角会让臂端向上翘离唱片，方向不能反 */
 .tt-arm {
   position: absolute; right: 22px; top: 20px;
   width: 62px; height: 6px;
@@ -422,7 +423,7 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   background: radial-gradient(circle at 36% 30%, #b7ac93, #6d6250 62%, #453c2c);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4), 0 2px 4px rgba(0, 0, 0, .4);
 }
-.turntable:hover .tt-arm, .turntable:focus-visible .tt-arm { transform: rotate(26deg); }
+.turntable:hover .tt-arm, .turntable:focus-visible .tt-arm { transform: rotate(-20deg); }
 /* 唱臂托架（支点旁的小凸起） */
 .turntable::before {
   content: ''; position: absolute; right: 16px; top: 16px;
