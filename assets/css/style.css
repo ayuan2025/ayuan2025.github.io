@@ -173,7 +173,8 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .book-stack {
   position: relative; z-index: 3;
   flex: 1; display: flex; align-items: flex-end; justify-content: center;
-  gap: 2px; padding-bottom: 26px;
+  /* 间距 ≥ 书高×相邻倾角正弦差，保证互相倚靠时不穿透（倾角见下方级联） */
+  gap: 6px; padding-bottom: 26px;
 }
 
 /* ---------- 书脊：旧平装书（质朴、泛旧，无烫金、无硬壳光泽） ---------- */
@@ -251,11 +252,12 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .spine[data-cat="misc"]    { --paper: #7d7a70; --paper2: #69665d; --paper3: #585549; --ink: #f1eee6; }
 
 /* 随意斜靠着（角度比精装小，更像随手一放） */
-.spine:nth-child(1) { transform: rotate(-1.6deg) translateY(4px); }
-.spine:nth-child(2) { transform: rotate(1.1deg) translateY(-3px); }
-.spine:nth-child(3) { transform: rotate(-.8deg) translateY(7px); }
-.spine:nth-child(4) { transform: rotate(1.8deg) translateY(-5px); }
-.spine:nth-child(5) { transform: rotate(-1.2deg) translateY(2px); }
+/* 倚靠级联：一律向右倾、逐本变直，前一本搭在下一本上——物理上站得住，
+   不会像交替倾斜那样顶角互相插进对方身体。CD 盒刚性直立（见 .spine.cd）。 */
+.spine:nth-child(1) { transform: rotate(1.5deg) translateY(4px); }
+.spine:nth-child(2) { transform: rotate(1deg) translateY(-3px); }
+.spine:nth-child(3) { transform: rotate(.5deg) translateY(7px); }
+.spine:nth-child(4) { transform: rotate(.1deg) translateY(-5px); }
 
 /* ---------- CD 盒：透明 jewel case 立在书堆右侧 ----------
    按 CD 实物比例：盒高 142mm ≈ 书高(260mm)的 55%，盒厚 10mm ≈ 书脊(25mm)的四成；
@@ -266,6 +268,7 @@ a:hover { text-decoration: underline; text-underline-offset: 4px; }
   border-radius: 2px;
   overflow: hidden;
   filter: none;
+  transform: none; /* 塑料盒是刚体：直立站好，不参与倚靠级联（hover 提升由 .spine:hover 接管） */
   /* 透明塑料：本体近乎无色，靠高光、描边和一点冷灰存在 */
   background:
     linear-gradient(90deg,
@@ -524,7 +527,7 @@ body.book-ready .book-hint { animation: toolEnter .55s ease-out both; }
 /* 首页移动端：书脊变矮、允许横向排布 */
 @media (max-width: 760px) {
   .desk { padding: 40px 22px 74px; min-height: auto; }
-  .book-stack { gap: 0; padding-bottom: 14px; overflow-x: auto; justify-content: flex-start; }
+  .book-stack { gap: 3px; padding-bottom: 14px; overflow-x: auto; justify-content: flex-start; }
   .spine { width: 46px; height: clamp(230px, 34vh, 300px); flex: 0 0 auto; }
   .spine.cd { width: 18px; height: clamp(138px, 21vh, 186px); }
   .desk-hint { display: none; }
