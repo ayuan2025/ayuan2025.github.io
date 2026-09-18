@@ -235,6 +235,23 @@
   .book-hint { display: none; }
 }
 
+/* 手机工具栏一行装不下：「← 书架」要 86，导航栏要 242，而 390 视口下内容区只有 318，
+   flex 于是把按钮压到最小宽度 75.6，「书架」两个字就被挤成竖排。
+   收紧内边距与导航间距腾出地方，并禁止按钮再被收缩。 */
+@media (max-width: 640px) {
+  .book-toolbar { padding: 10px 12px 6px; }
+  .book-nav { gap: 10px; }
+  #pageIndicator { min-width: 58px; }
+  .book-toolbar .btn { white-space: nowrap; flex-shrink: 0; }
+}
+/* 320 这类超窄屏再收一档，否则导航栏会顶出屏幕（实测溢出 5px） */
+@media (max-width: 360px) {
+  .book-toolbar { padding: 10px 8px 6px; }
+  .book-nav { gap: 6px; }
+  #pageIndicator { min-width: 48px; }
+  .book-toolbar .btn { padding-left: 12px; padding-right: 12px; }
+}
+
 /* ---------- 移动极简模式：不做翻页效果，单页直出、直切，无任何动画 ----------
  * 与 3D 书本唯一的共同点是内容排版（p-head/stanza/para/leaf-foot）。
  * 视觉上只有：一张素纸卡片 + 底部页脚，配色沿用 --card/--line 等，亮暗主题自动跟随。 */
