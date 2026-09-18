@@ -343,14 +343,6 @@ window.SONGS = [
   ]
  },
  {
-  "slug": "da-fang-zi",
-  "title": "搭房子",
-  "sub": "",
-  "audio": "audio/da-fang-zi.m4a",
-  "dur": "02:35",
-  "lrc": null
- },
- {
   "slug": "zai-mo-sheng-ren-zhong-chang",
   "title": "歌唱",
   "sub": "",
