@@ -24,10 +24,6 @@
 }
 .song-title { flex: 1; font-size: 1.02rem; }
 .song-title small { color: var(--muted); font-size: .8rem; margin-left: 8px; }
-.song-tag {
-  font-size: .72rem; color: var(--accent); border: 1px solid var(--accent);
-  border-radius: 999px; padding: 1px 8px; opacity: .85;
-}
 .song-dur { color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
 
 /* ---------- CD 播放页 ---------- */
