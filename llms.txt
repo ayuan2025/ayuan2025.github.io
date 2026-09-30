@@ -1,12 +1,12 @@
 # 阿元的自留地
 
-> 阿元的自留地：写诗、散文、小说，偶尔也折腾技术。桌上共 98 篇文字。
+> 阿元的自留地：写诗、散文、小说，偶尔也折腾技术。桌上共 99 篇文字。
 
 ## 分类
 - [诗集](https://ayuan2025.github.io/poetry/) — 诗歌 82 首，按写作日期升序
 - [散文](https://ayuan2025.github.io/prose/) — 散文 7 篇
 - [小说](https://ayuan2025.github.io/fiction/) — 小说 5 篇
-- [技术笔记](https://ayuan2025.github.io/tech/) — 技术 4 篇
+- [技术笔记](https://ayuan2025.github.io/tech/) — 技术 5 篇
 - [音乐](https://ayuan2025.github.io/music/) — 唱片架（网易云外链）
 
 ## 文章
@@ -18,6 +18,7 @@
 - [窗帘](https://ayuan2025.github.io/posts/curtain/) — 风掀动我那厚实的窗帘，无意中揭开了体内的一层纱布
 - [雕花铁栏杆的阴影](https://ayuan2025.github.io/posts/shadow-of-the-carved-iron-railing/) — 你站在阳光的中央，雕花铁栏杆的阴影，投在你的身上，你说：，"你给我带来了忧伤。"，一只蝴蝶，停在不远的枝上，这么多年来，我总是想不起，我们的生命中，曾有这样相似的地方
 - [围坐火炉](https://ayuan2025.github.io/posts/sitting-around-the-stove/) — 冬天又来了，我们又坐在火炉的四周，静静地看着火苗，外面下着雪，从中午直到黄昏，我们看到雪地里的玉米仓，独自向我们走近
+- [广告弹够了，自己写了一个：妥帖 (Sorted)](https://ayuan2025.github.io/posts/tuotie-sorted/) — 被扫描王弹广告弹烦了，干脆花三天自己手搓了一个。
 - [生活的十三种解释](https://ayuan2025.github.io/posts/sheng-huo-de-shi-san-zhong-jie-shi/) — Ａ
 - [当大厂都下场做输入法后，如何既要还要](https://ayuan2025.github.io/posts/dang-da-chang-dou-xia-chang-zuo-shu-ru-fa-hou--ru-he-ji-yao-hai-yao/) — 像我们这种少有的五笔用户，一直是被嫌弃的，大部分输入法都是针对拼音用户，在刚开始有windows的时候，还被逼无奈，自己编译码表生成输入法来用。电脑科技发展了这么多年，输入法一直是挣钱的类别，包括著名…
 - [机器猎手](https://ayuan2025.github.io/posts/ji-qi-lie-shou/) — 我警惕地看了看四周，没有任何危险的信号，我觉得稍稍放了点心，突然，我的第六感告诉我，我正处在危险中，我赶快折到一个巷口，小心地向外张望，果然，一辆形状古怪的车从远处缓缓驶来，我赶快向巷内行走，一路上我…

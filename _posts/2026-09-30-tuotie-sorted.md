@@ -2,7 +2,7 @@
 layout: post
 title: "广告弹够了，自己写了一个：妥帖 (Sorted)"
 date: 2026-09-30
-categories: 作品
+categories: ['IT']
 ---
 
 被扫描王弹广告弹烦了，干脆花三天自己手搓了一个。
