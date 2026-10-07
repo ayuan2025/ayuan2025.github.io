@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用了很久 MemoFlow，又忍不住自己动手加功能，成品是个缝合怪 · 阿元的自留地</title>
+<link rel="icon" href="/assets/img/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/img/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
+<link rel="stylesheet" href="/assets/css/style.css?v=munierze">
+<style>
+/* 入场前的底色：与本页纸色一致，从书架跳过来时不闪白
+ * 写在这里是为了在 style.css 之前就生效；--paper 由 style.css 定义，
+ * 而 <link> 是渲染阻塞的，body 渲染时变量一定已就位。 */
+.boot-veil { position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  background: var(--paper); opacity: 0; transition: opacity .38s ease-out; }
+html.book-boot .boot-veil { opacity: 1; }
+</style>
+
+
+  <meta name="description" content="从浮墨换到 MemoFlow，用久了发现「存得进、搜不到」的痛点，于是自己加文档扫描识别和锤子便签卡片模板，缝成一个缝合怪 memo+。">
+  <link rel="canonical" href="https://ayuan2025.github.io/posts/memo-plus/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ayuan2025.github.io/posts/memo-plus/">
+  <meta property="og:title" content="用了很久 MemoFlow，又忍不住自己动手加功能，成品是个缝合怪 · 阿元的自留地">
+  <meta property="og:description" content="从浮墨换到 MemoFlow，用久了发现「存得进、搜不到」的痛点，于是自己加文档扫描识别和锤子便签卡片模板，缝成一个缝合怪 memo+。">
+  <meta property="og:site_name" content="阿元的自留地">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"用了很久 MemoFlow，又忍不住自己动手加功能，成品是个缝合怪","inLanguage":"zh-CN","author":{"@type":"Person","name":"阿元"},"articleSection":"技术笔记","mainEntityOfPage":{"@type":"WebPage","@id":"https://ayuan2025.github.io/posts/memo-plus/"},"description":"从浮墨换到 MemoFlow，用久了发现「存得进、搜不到」的痛点，于是自己加文档扫描识别和锤子便签卡片模板，缝成一个缝合怪 memo+。"}</script>
+</head>
+<body class="page-post">
+<div class="boot-veil" id="bootVeil"></div>
+
+<nav class="masthead">
+  <a class="brand" href="/">阿元的自留地</a>
+  <div class="nav-links">
+    <a href="/poetry/">诗集</a>
+    <a href="/prose/">散文</a>
+    <a href="/fiction/">小说</a>
+    <a href="/tech/">技术</a>
+    <a href="/music/">音乐</a>
+  </div>
+  <button id="themeToggle" aria-label="切换深浅模式">◐</button>
+</nav>
+<main class="wrap">
+<article class="post ">
+  <header class="post-head">
+    <p class="post-meta">—— 二〇二六年十月七日</p>
+    <h1>用了很久 MemoFlow，又忍不住自己动手加功能，成品是个缝合怪</h1>
+    
+  </header>
+  <div class="post-body"><p><a href="https://github.com/hzc073/memoflow">MemoFlow</a> 是我一直在用的一款自托管笔记，用它彻底代替了之前用的浮墨。记录、标签、集合、回顾，该有的都有，稳稳当当用了很多年。</p>
+<p>但用久了，总觉得缺了点什么——<strong>存得进去，却搜不出来。</strong></p>
+<p>我笔记里存了大量纸质资料的照片：证件、合同、发票、说明书。拍完存进 App 就等于存进了黑洞——明明记得存过，却想不起那句内容写在哪儿了。普通笔记 App 检索不了图片里的字，这事儿一直是块心病。</p>
+<p>于是自己动手，往 MemoFlow 里加了点东西，加着加着就成了个缝合怪。取名 <strong>memo+</strong>。</p>
+<h2>痛点一：图片里的文字搜不到</h2>
+<p>这是我最想解决的一个。</p>
+<p>memo+ 内置了 ML Kit <strong>离线文字识别</strong>：扫描件在本地完成 OCR，<strong>识别结果直接进全文索引</strong>。之后搜关键词，就能搜到图片里的文字了。</p>
+<p>顺带说一句，这个功能是<strong>印象笔记的付费功能</strong>。这里免费、而且全程离线——图片不上传任何服务器。</p>
+<p><img src="/images/2026-10-07-memo-plus-card-ocr.jpg" alt="OCR 全文检索" loading="lazy"></p>
+<h2>痛点二：证件档案存进去就乱</h2>
+<p>证件扫描件混在一起，几年后根本分不清哪张是哪张。</p>
+<p>memo+ 加上了文档扫描识别引擎：拍照或导入图片 → 自动检测纸张边界 → 透视校正 → 扫描仪色彩滤镜 → 存为笔记附件，<strong>全程离线</strong>。</p>
+<ul>
+<li>满页智能判定（已经是整页图就跳过裁剪）</li>
+<li>批量重扫、页内旋转</li>
+<li><strong>证件类型分类器自动给证件归类</strong></li>
+</ul>
+<p>这个思路我借鉴了同类作品「妥帖 (Sorted)」——它本身是一款「随手一拍，纸质文件就收好了」的证件收纳工具，核心正是扫完即自动认出这是什么、自动归类、一搜就出来。我把同样的理念带进了笔记场景。</p>
+<p><img src="/images/2026-10-07-memo-plus-card-scan.jpg" alt="证件扫描分类" loading="lazy"></p>
+<h2>痛点三：笔记不好看、分享很丑</h2>
+<p>纯文本笔记截图分享出去很丑。</p>
+<p>memo+ 把一条笔记渲染成<strong>可分享的纸面卡片</strong>，视觉语言取自开源的锤子便签复刻项目 <a href="https://github.com/zhaoolee/notes">zhaoolee/notes</a>（锤子便签）。内置暖白纸感、深夜便签、备忘录深浅色等多套主题，亮暗随你。</p>
+<p>关键的是：<strong>这套模板不是只有导出图片时才有用</strong>——在编辑器和阅读页里就能直接「美化预览」，实时看成稿外观、随手换主题，不用来回导出看效果。</p>
+<p><img src="/images/2026-10-07-memo-plus-card-beautify.jpg" alt="卡片主题美化预览" loading="lazy"></p>
+<h2>除了缝合，还缝了点别的</h2>
+<ul>
+<li><strong>本地优先</strong>：无账号、无遥测，数据完全存在本机，可选同步到自建 Memos 服务器，可选 WebDAV 备份（加密）。</li>
+<li><strong>桌面端</strong>：Windows / macOS 桌面形态，支持快捷输入、系统托盘、多窗口。</li>
+<li><strong>检查更新</strong>：应用内可以直接从仓库 Releases 检查并下载新版本。</li>
+</ul>
+<h2>为什么叫「缝合怪」</h2>
+<p>memo+ 不是一个从零自研的东西，它是几个开源项目缝在一起的：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>许可证</th>
+<th>缝进来做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/hzc073/memoflow">MemoFlow</a></td>
+<td>GPL-3.0</td>
+<td><strong>应用基底</strong>：记录、标签、集合、回顾</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ethereal-developers/OpenScan">OpenScan</a></td>
+<td>BSD-3-Clause</td>
+<td><strong>文档扫描识别</strong>：边界检测 / 透视校正 / 色彩滤镜</td>
+</tr>
+<tr>
+<td><a href="https://github.com/zhaoolee/notes">zhaoolee/notes</a></td>
+<td>Apache-2.0</td>
+<td><strong>锤子便签卡片主题</strong>：排版与视觉模板</td>
+</tr>
+</tbody>
+</table>
+<p>再加上 Google ML Kit 的离线 OCR。因为是在 GPL-3.0 项目上二次开发，memo+ 同样以 GPL-3.0 发布——<strong>保留上游版权、标明修改、并提供完整对应源码</strong>，本仓库就是。</p>
+<p><img src="/images/2026-10-07-memo-plus-splash.png" alt="启动页" loading="lazy"></p>
+<h2>下载</h2>
+<p>安卓自取，不用钱也不用会员：</p>
+<p><strong>下载：</strong> <a href="https://github.com/ayuan2025/memo-plus/releases/latest">https://github.com/ayuan2025/memo-plus/releases/latest</a></p>
+<p>安卓 7.0+ / arm64。也有 Windows / macOS 桌面版。有同样痛点的朋友拿去用，希望帮得上忙。</p></div>
+  
+  <footer class="post-foot">
+    <a class="btn" href="/tech/">← 技术笔记</a>
+  </footer>
+</article></main>
+<script src="/assets/js/main.js?v=munierze"></script>
+</body>
+</html>
