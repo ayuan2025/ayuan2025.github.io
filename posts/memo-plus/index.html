@@ -54,7 +54,7 @@ html.book-boot .boot-veil { opacity: 1; }
   <div class="post-body"><p><a href="https://github.com/hzc073/memoflow">MemoFlow</a> 是我一直在用的一款自托管笔记，用它彻底代替了之前用的浮墨。记录、标签、集合、回顾，该有的都有，稳稳当当用了很多年。</p>
 <p>但用久了，总觉得缺了点什么——<strong>存得进去，却搜不出来。</strong></p>
 <p>我笔记里存了大量纸质资料的照片：证件、合同、发票、说明书。拍完存进 App 就等于存进了黑洞——明明记得存过，却想不起那句内容写在哪儿了。普通笔记 App 检索不了图片里的字，这事儿一直是块心病。</p>
-<p>于是自己动手，往 MemoFlow 里加了点东西，加着加着就成了个缝合怪。取名 <strong>memo+</strong>。</p>
+<p>于是自己往里加了两样东西——文档扫描识别（离线 OCR 全文检索、证件自动分类）和锤子便签卡片模板，加着加着就成了个缝合怪，取名 <strong>memo+</strong>。</p>
 <h2>痛点一：图片里的文字搜不到</h2>
 <p>这是我最想解决的一个。</p>
 <p>memo+ 内置了 ML Kit <strong>离线文字识别</strong>：扫描件在本地完成 OCR，<strong>识别结果直接进全文索引</strong>。之后搜关键词，就能搜到图片里的文字了。</p>
@@ -78,7 +78,6 @@ html.book-boot .boot-veil { opacity: 1; }
 <h2>除了缝合，还缝了点别的</h2>
 <ul>
 <li><strong>本地优先</strong>：无账号、无遥测，数据完全存在本机，可选同步到自建 Memos 服务器，可选 WebDAV 备份（加密）。</li>
-<li><strong>桌面端</strong>：Windows / macOS 桌面形态，支持快捷输入、系统托盘、多窗口。</li>
 <li><strong>检查更新</strong>：应用内可以直接从仓库 Releases 检查并下载新版本。</li>
 </ul>
 <h2>为什么叫「缝合怪」</h2>
@@ -114,7 +113,7 @@ html.book-boot .boot-veil { opacity: 1; }
 <h2>下载</h2>
 <p>安卓自取，不用钱也不用会员：</p>
 <p><strong>下载：</strong> <a href="https://github.com/ayuan2025/memo-plus/releases/latest">https://github.com/ayuan2025/memo-plus/releases/latest</a></p>
-<p>安卓 7.0+ / arm64。也有 Windows / macOS 桌面版。有同样痛点的朋友拿去用，希望帮得上忙。</p></div>
+<p>目前只做了安卓版（Android 7.0+ / arm64），桌面端暂未做。有同样痛点的朋友拿去用，希望帮得上忙。</p></div>
   
   <footer class="post-foot">
     <a class="btn" href="/tech/">← 技术笔记</a>
